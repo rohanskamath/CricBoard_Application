@@ -36,6 +36,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
 
         Teams teamDetails=teamsArrayList.get(position);
         holder.tvTeamName.setText(teamDetails.teamName);
+        holder.tvMatches.setText(String.valueOf(teamDetails.matches));
         holder.tvWins.setText(String.valueOf(teamDetails.won));
         holder.tvLost.setText(String.valueOf(teamDetails.lost));
     }
@@ -58,7 +59,6 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
             tvMatches=itemView.findViewById(R.id.tvMatchesValues);
             tvWins=itemView.findViewById(R.id.tvWonValues);
             tvLost=itemView.findViewById(R.id.tvLostValues);
-
         }
     }
 }
