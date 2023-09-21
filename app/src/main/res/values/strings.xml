@@ -3,11 +3,19 @@
     <string name="host_team">Host Team</string>
     <string name="vistor_team">Vistor Team</string>
     <string name="teams_heading">Teams</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="addteam">addTeam</string>
+
+    <!-- Sample data -->
+    <string name="Team_1">India</string>
+    <string name="Team_2">Sri Lanka</string>
+    <string name="Team_3">Australia</string>
+    <string name="Team_4">New Zealand</string>
+    <string name="Team_5">England</string>
+    <string name="Team_6">West Indies</string>
+    <string name="Team_7">Pakistan</string>
+    <string name="Team_8">Bangladesh</string>
 </resources>
