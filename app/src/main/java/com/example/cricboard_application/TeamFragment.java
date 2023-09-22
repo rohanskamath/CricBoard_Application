@@ -1,7 +1,6 @@
 package com.example.cricboard_application;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-import static androidx.core.app.AppOpsManagerCompat.Api29Impl.getSystemService;
 
 import android.os.Bundle;
 
@@ -104,13 +103,7 @@ public class TeamFragment extends Fragment {
     }
 
     private void createTeamPopUp() {
-        LayoutInflater inflater= (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popUpView=inflater.inflate(R.layout.create_team_layout,null);
 
-        int width=ViewGroup.LayoutParams.MATCH_PARENT;
-        int height=ViewGroup.LayoutParams.MATCH_PARENT;
-        boolean focusable=true;
-        PopupWindow popupWindow=new PopupWindow(popUpView,width,height,focusable);
     }
 
 
