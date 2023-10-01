@@ -11,24 +11,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.cricboard_application.R;
+public class DeleteDialog extends AppCompatDialogFragment {
 
-public class CreateTeamDialog extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder teamBuilder=new AlertDialog.Builder(getContext());
-        LayoutInflater teamInflater=getActivity().getLayoutInflater();
 
-        View teamViewDailog=teamInflater.inflate(R.layout.create_team_layout,null);
-        teamBuilder.setView(teamViewDailog)
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        AlertDialog.Builder deleteTeamBuilder=new AlertDialog.Builder(getContext());
+        LayoutInflater deleteTeamInflater=getActivity().getLayoutInflater();
+
+        View teamViewDailog=deleteTeamInflater.inflate(R.layout.delete_layout,null);
+        deleteTeamBuilder.setView(teamViewDailog)
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
                     }
                 })
-                .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -36,6 +36,6 @@ public class CreateTeamDialog extends AppCompatDialogFragment {
                 });
 
 
-        return teamBuilder.create();
+        return deleteTeamBuilder.create();
     }
 }

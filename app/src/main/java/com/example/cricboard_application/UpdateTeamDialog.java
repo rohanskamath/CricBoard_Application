@@ -11,31 +11,30 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.cricboard_application.R;
+public class UpdateTeamDialog extends AppCompatDialogFragment {
 
-public class CreateTeamDialog extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder teamBuilder=new AlertDialog.Builder(getContext());
-        LayoutInflater teamInflater=getActivity().getLayoutInflater();
 
-        View teamViewDailog=teamInflater.inflate(R.layout.create_team_layout,null);
-        teamBuilder.setView(teamViewDailog)
+        AlertDialog.Builder updateTeamBuilder=new AlertDialog.Builder(getContext());
+        LayoutInflater UpdateTeamInflater=getActivity().getLayoutInflater();
+
+        View teamViewDailog=UpdateTeamInflater.inflate(R.layout.update_team_layout,null);
+        updateTeamBuilder.setView(teamViewDailog)
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
                     }
                 })
-                .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 });
 
-
-        return teamBuilder.create();
+        return updateTeamBuilder.create();
     }
 }

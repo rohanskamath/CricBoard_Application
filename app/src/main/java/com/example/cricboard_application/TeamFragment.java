@@ -100,7 +100,7 @@ public class TeamFragment extends Fragment {
 
         teamRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         teamRecyclerView.setHasFixedSize(true);
-        TeamAdapter teamAdapter=new TeamAdapter(getContext(),teamsArrayList);
+        TeamAdapter teamAdapter=new TeamAdapter(getContext(),teamsArrayList,getFragmentManager());
         teamRecyclerView.setAdapter(teamAdapter);
         teamAdapter.notifyDataSetChanged();
 
@@ -113,17 +113,6 @@ public class TeamFragment extends Fragment {
             }
         });
     }
-
-    /* private void createTeamPopUp() {
-        LayoutInflater teamInflater= (LayoutInflater) requireActivity().getSystemService(LAYOUT_INFLATER_SERVICE);
-        View teamPopUpView=teamInflater.inflate(R.layout.create_team_layout,null);
-
-        int width=900;
-        int height=800;
-        boolean focusable=true;
-        PopupWindow teamPopupWindow=new PopupWindow(teamPopUpView,width,height,focusable);
-        teamPopupWindow.showAtLocation(teamPopUpView, Gravity.CENTER, 0, 0);
-    }*/
 
     private void dataInitialize() {
         teamsArrayList = new ArrayList<>();

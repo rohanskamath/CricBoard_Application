@@ -114,6 +114,7 @@
                 android:src="@drawable/baseline_edit_note_24" />
 
             <ImageView
+                android:id="@+id/imgDelete"
                 android:layout_width="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_height="25dp"

@@ -24,14 +24,14 @@
             android:textColor="@color/black"
             android:layout_marginTop="10dp"
             android:textSize="30sp"
-            android:text="Create Team" />
+            android:text="Update Team" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/oswaldregular"
             android:textColor="@color/grey"
-            android:text="To create team your own teams!" />
+            android:text="To edit/update your team name!" />
 
         <EditText
             android:layout_marginTop="20dp"
@@ -41,7 +41,7 @@
             android:textColor="@color/black"
             android:inputType="text"
             android:layout_marginBottom="10dp"
-            android:hint="Enter your Team Name"/>
+            android:hint="Team Name"/>
 
     </LinearLayout>
     

@@ -24,24 +24,14 @@
             android:textColor="@color/black"
             android:layout_marginTop="10dp"
             android:textSize="30sp"
-            android:text="Create Team" />
+            android:text="@string/confrim" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/oswaldregular"
             android:textColor="@color/grey"
-            android:text="To create team your own teams!" />
-
-        <EditText
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/oswaldregular"
-            android:textColor="@color/black"
-            android:inputType="text"
-            android:layout_marginBottom="10dp"
-            android:hint="Enter your Team Name"/>
+            android:text="Do you want to delete this record ?" />
 
     </LinearLayout>
     
