@@ -19,4 +19,61 @@
     <string name="Team_7">Pakistan</string>
     <string name="Team_8">Bangladesh</string>
     <string name="confrim">Confrim</string>
+
+    <string name="player0">No Players</string>
+    <string name="player1">Virat Kohli</string>
+    <string name="player2">Rohit Sharma</string>
+    <string name="player3">MS Dhoni</string>
+    <string name="player4">Shikhar Dhawan</string>
+    <string name="player5">Jasprit Bumrah</string>
+    <string name="player6">Ravindra Jadeja</string>
+    <string name="player7">Hardik Pandya</string>
+    <string name="player8">Cheteshwar Pujara</string>
+    <string name="player9">Ajinkya Rahane</string>
+    <string name="player10">Ishant Sharma</string>
+    <string name="player11">Mohammed Shami</string>
+
+    <string name="player12">Rishabh Pant</string>
+    <string name="player13">KL Rahul</string>
+    <string name="player14">Ravichandran Ashwin</string>
+    <string name="player15">Sachin Tendulkar</string>
+    <string name="player16">Virender Sehwag</string>
+    <string name="player17">Gautam Gambhir</string>
+    <string name="player18">Anil Kumble</string>
+    <string name="player19">Harbhajan Singh</string>
+    <string name="player20">Yuvraj Singh</string>
+    <string name="player21">Rahul Dravid</string>
+    <string name="player22">Sourav Ganguly</string>
+    <string name="player23">Zaheer Khan</string>
+
+    <string name="player24">Yusuf Pathan</string>
+    <string name="player25">Suresh Raina</string>
+    <string name="player26">Irfan Pathan</string>
+    <string name="player27">Rohit Sharma</string>
+    <string name="player28">Mohammad Kaif</string>
+    <string name="player29">VVS Laxman</string>
+    <string name="player30">Ashish Nehra</string>
+    <string name="player31">Bhuvneshwar Kumar</string>
+    <string name="player32">Shubman Gill</string>
+    <string name="player33">Prithvi Shaw</string>
+    <string name="player34">Mayank Agarwal</string>
+
+    <string name="player35">Hanuma Vihari</string>
+    <string name="player36">Wriddhiman Saha</string>
+    <string name="player37">Umesh Yadav</string>
+    <string name="player38">Navdeep Saini</string>
+    <string name="player39">Washington Sundar</string>
+    <string name="player40">Kuldeep Yadav</string>
+    <string name="player41">Shardul Thakur</string>
+    <string name="player42">Shreyas Iyer</string>
+    <string name="player43">Axar Patel</string>
+    <string name="player44">Sanju Samson</string>
+
+    <string name="player45">Krunal Pandya</string>
+    <string name="player46">Deepak Chahar</string>
+    <string name="player47">Ishan Kishan</string>
+    <string name="player48">Suryakumar Yadav</string>
+    <string name="player49">Ruturaj Gaikwad</string>
+    <string name="player50">Devdutt Padikkal</string>
+
 </resources>

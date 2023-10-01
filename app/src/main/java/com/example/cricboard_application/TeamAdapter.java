@@ -20,10 +20,13 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
     final FragmentManager fragmentManager;
     Context teamContext;
     ArrayList<Teams> teamsArrayList;
-    public TeamAdapter(Context teamContext, ArrayList<Teams> teamsArrayList, FragmentManager fragmentManager) {
+    private final TeamsInterfaceRV teamsInterfaceRV;
+
+    public TeamAdapter(Context teamContext, ArrayList<Teams> teamsArrayList, FragmentManager fragmentManager,TeamsInterfaceRV teamsInterfaceRV) {
         this.teamContext=teamContext;
         this.teamsArrayList=teamsArrayList;
         this.fragmentManager = fragmentManager;
+        this.teamsInterfaceRV=teamsInterfaceRV;
     }
 
     @NonNull
@@ -31,7 +34,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
     public TeamViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View teamView= LayoutInflater.from(teamContext).inflate(R.layout.teams_layout,parent,false);
-        return new TeamViewHolder(teamView,fragmentManager);
+        return new TeamViewHolder(teamView,fragmentManager,teamsInterfaceRV);
     }
 
     @Override
@@ -55,7 +58,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         TextView tvTeamName,tvMatches,tvWins,tvLost;
         ImageView imgDelete,imgEdit;
         FragmentManager fragmentManager;
-        public TeamViewHolder(@NonNull View itemView,FragmentManager fragmentManager) {
+        public TeamViewHolder(@NonNull View itemView,FragmentManager fragmentManager,TeamsInterfaceRV teamsInterfaceRV) {
             super(itemView);
 
             this.fragmentManager=fragmentManager;
@@ -80,6 +83,18 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
                 public void onClick(View view) {
                     DeleteDialog deleteDialog=new DeleteDialog();
                     deleteDialog.show(fragmentManager,"Delete Team Dailog Box");
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(teamsInterfaceRV != null){
+                        int position=getAdapterPosition();
+                        if(position !=RecyclerView.NO_POSITION){
+                            teamsInterfaceRV.onItemClick(position);
+                        }
+                    }
                 }
             });
         }

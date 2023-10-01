@@ -3,6 +3,7 @@ package com.example.cricboard_application;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -30,7 +31,7 @@ import java.util.Objects;
  * Use the {@link TeamFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TeamFragment extends Fragment {
+public class TeamFragment extends Fragment implements TeamsInterfaceRV {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -93,14 +94,16 @@ public class TeamFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dataInitialize();
+
         teamRecyclerView=view.findViewById(R.id.teamRecyclerview);
         teamFloatingBtn=view.findViewById(R.id.floatBtn);
         layout=view.findViewById(R.id.constraintLayout);
 
+        dataInitialize();
+
         teamRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         teamRecyclerView.setHasFixedSize(true);
-        TeamAdapter teamAdapter=new TeamAdapter(getContext(),teamsArrayList,getFragmentManager());
+        TeamAdapter teamAdapter=new TeamAdapter(getContext(),teamsArrayList,getFragmentManager(),this);
         teamRecyclerView.setAdapter(teamAdapter);
         teamAdapter.notifyDataSetChanged();
 
@@ -128,16 +131,23 @@ public class TeamFragment extends Fragment {
                 getString(R.string.Team_8)
         };
         
-        matches=new int[]{10,0,4,5,6,1,10,4};
+        matches=new int[]{9,0,4,5,6,1,8,4};
         
-        won=new int[]{10,0,3,4,2,1,0,1};
+        won=new int[]{9,0,3,4,2,1,0,1};
 
-        lost=new int[]{0,0,1,2,3,0,10,3};
+        lost=new int[]{0,0,1,2,3,0,8,3};
 
         for(int i=0;i<teamNames.length;i++)
         {
             Teams teams=new Teams(teamNames[i],matches[i],won[i],lost[i]);
             teamsArrayList.add(teams);
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent playerIntent=new Intent(getContext(), PlayerActivity.class);
+        playerIntent.putExtra("Team Name",teamNames[position]);
+        startActivity(playerIntent);
     }
 }

@@ -35,7 +35,6 @@ public class CreateTeamDialog extends AppCompatDialogFragment {
                     }
                 });
 
-
         return teamBuilder.create();
     }
 }

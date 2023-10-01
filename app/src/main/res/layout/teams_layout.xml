@@ -13,8 +13,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/title_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="10dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
@@ -26,7 +26,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="95dp"
+        android:layout_marginStart="90dp"
         android:orientation="vertical"
         app:layout_constraintLeft_toRightOf="@+id/title_image"
         tools:ignore="MissingConstraints">
@@ -35,7 +35,6 @@
             android:id="@+id/tvTeamName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:fontFamily="@font/oswaldbold"
             android:text="Team Name"
             android:textColor="@color/black"
@@ -46,14 +45,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp"
             android:layout_below="@+id/tvTeamName">
 
             <TextView
                 android:id="@+id/tvMatchesHead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
                 android:fontFamily="@font/oswaldbold"
                 android:text="Matches : "
                 android:textColor="@color/grey"
@@ -116,7 +113,7 @@
             <ImageView
                 android:id="@+id/imgDelete"
                 android:layout_width="30dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="15dp"
                 android:layout_height="25dp"
                 android:src="@drawable/baseline_delete_24" />
         </LinearLayout>
