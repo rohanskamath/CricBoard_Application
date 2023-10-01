@@ -35,7 +35,6 @@ public class DeleteDialog extends AppCompatDialogFragment {
                     }
                 });
 
-
         return deleteTeamBuilder.create();
     }
 }
