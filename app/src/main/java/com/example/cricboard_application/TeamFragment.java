@@ -107,12 +107,14 @@ public class TeamFragment extends Fragment {
         teamFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createTeamPopUp();
+                //createTeamPopUp();
+                CreateTeamDialog createTeamDialog=new CreateTeamDialog();
+                createTeamDialog.show(getActivity().getSupportFragmentManager(), "Create Team Dailog Box");
             }
         });
     }
 
-    private void createTeamPopUp() {
+    /* private void createTeamPopUp() {
         LayoutInflater teamInflater= (LayoutInflater) requireActivity().getSystemService(LAYOUT_INFLATER_SERVICE);
         View teamPopUpView=teamInflater.inflate(R.layout.create_team_layout,null);
 
@@ -121,7 +123,7 @@ public class TeamFragment extends Fragment {
         boolean focusable=true;
         PopupWindow teamPopupWindow=new PopupWindow(teamPopUpView,width,height,focusable);
         teamPopupWindow.showAtLocation(teamPopUpView, Gravity.CENTER, 0, 0);
-    }
+    }*/
 
     private void dataInitialize() {
         teamsArrayList = new ArrayList<>();
