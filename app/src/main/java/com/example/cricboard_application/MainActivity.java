@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
         if(item.getItemId()==R.id.menuHome) {
             replaceFragment(new HomeFragment());
+
         }else if(item.getItemId()==R.id.menuTeams){
             replaceFragment(new TeamFragment());
         }
@@ -39,4 +40,5 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frameLayout,fragment);
         fragmentTransaction.commit();
     }
+
 }

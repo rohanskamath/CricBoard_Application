@@ -2,22 +2,28 @@ package com.example.cricboard_application;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.constraintlayout.widget.Constraints;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +49,8 @@ public class TeamFragment extends Fragment {
     RecyclerView teamRecyclerView;
 
     FloatingActionButton teamFloatingBtn;
+
+    View layout;
 
     public TeamFragment() {
         // Required empty public constructor
@@ -87,6 +95,9 @@ public class TeamFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         dataInitialize();
         teamRecyclerView=view.findViewById(R.id.teamRecyclerview);
+        teamFloatingBtn=view.findViewById(R.id.floatBtn);
+        layout=view.findViewById(R.id.constraintLayout);
+
         teamRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         teamRecyclerView.setHasFixedSize(true);
         TeamAdapter teamAdapter=new TeamAdapter(getContext(),teamsArrayList);
@@ -99,13 +110,18 @@ public class TeamFragment extends Fragment {
                 createTeamPopUp();
             }
         });
-
     }
 
     private void createTeamPopUp() {
+        LayoutInflater teamInflater= (LayoutInflater) requireActivity().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View teamPopUpView=teamInflater.inflate(R.layout.create_team_layout,null);
 
+        int width=900;
+        int height=800;
+        boolean focusable=true;
+        PopupWindow teamPopupWindow=new PopupWindow(teamPopUpView,width,height,focusable);
+        teamPopupWindow.showAtLocation(teamPopUpView, Gravity.CENTER, 0, 0);
     }
-
 
     private void dataInitialize() {
         teamsArrayList = new ArrayList<>();

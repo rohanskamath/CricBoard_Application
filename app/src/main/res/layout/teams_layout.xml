@@ -8,6 +8,7 @@
     android:layout_marginHorizontal="8dp"
     android:background="@drawable/rounded_layout_design"
     android:elevation="6dp"
+    android:paddingBottom="8dp"
     android:paddingTop="8dp">
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -108,25 +109,17 @@
             <ImageView
                 android:id="@+id/imgEdit"
                 android:layout_marginStart="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_create_24" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/baseline_edit_note_24" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_height="25dp"
                 android:src="@drawable/baseline_delete_24" />
         </LinearLayout>
 
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="8dp"
-        android:background="@color/underline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
