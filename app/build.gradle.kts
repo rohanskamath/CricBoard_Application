@@ -35,8 +35,9 @@ android {
 dependencies {
     implementation ("com.airbnb.android:lottie:6.1.0")
     implementation("androidx.cardview:cardview:1.0.0")
-    implementation("com.google.android.material:material:1.11.0-alpha02")
+    implementation("com.google.android.material:material:1.11.0-alpha03")
     implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.github.dhaval2404:imagepicker:2.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")

@@ -14,11 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
 public class PlayerActivity extends AppCompatActivity {
 
     RecyclerView playerRecyclerView;
+    FloatingActionButton addPlayerFloat;
 
     ArrayList<PlayerNames> playerArrayList;
     String playerNames[];
@@ -42,6 +45,7 @@ public class PlayerActivity extends AppCompatActivity {
         playerDataInitialize();
 
         playerRecyclerView=findViewById(R.id.playerRV);
+        addPlayerFloat=findViewById(R.id.floatPlayerBtn);
 
         //Fitting Adapter to Recycler View
         playerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -49,6 +53,14 @@ public class PlayerActivity extends AppCompatActivity {
         PlayerAdapter playerAdapter=new PlayerAdapter(this,playerArrayList,getSupportFragmentManager());
         playerRecyclerView.setAdapter(playerAdapter);
         playerAdapter.notifyDataSetChanged();
+
+        addPlayerFloat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addPlayerIntent=new Intent(PlayerActivity.this, AddPlayerActivity.class);
+                startActivity(addPlayerIntent);
+            }
+        });
 
     }
 

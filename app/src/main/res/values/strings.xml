@@ -75,5 +75,9 @@
     <string name="player48">Suryakumar Yadav</string>
     <string name="player49">Ruturaj Gaikwad</string>
     <string name="player50">Devdutt Padikkal</string>
+    <string name="addplayer">addPlayer</string>
+    <string name="addplayerdp">addPlayerDP</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

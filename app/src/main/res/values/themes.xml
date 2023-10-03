@@ -18,6 +18,16 @@
         <item name="homeAsUpIndicator">@drawable/baseline_arrow_back_ios_24</item>
     </style>
 
+    <style name="Base.Theme.CricBoard_Application3" parent="Theme.Material3.DayNight">
+        <item name="titleTextColor">@color/white</item>
+    </style>
+    <style name="Theme.CricBoard_Application3" parent="Base.Theme.CricBoard_Application3">
+        <item name="android:statusBarColor">@color/main_color</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="fontFamily">@font/oswaldmedium</item>
+        <item name="homeAsUpIndicator">@drawable/baseline_clear_24</item>
+    </style>
+
     <!-- Rounded corners theme-->
     <style name="RoundCorner" parent="">
         <item name="cornerFamily">rounded</item>

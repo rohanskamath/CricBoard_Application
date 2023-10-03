@@ -6,4 +6,5 @@
     <color name="main_color">#072B5A</color>
     <color name="bgScreenColor">#E1E0E0</color>
     <color name="underline">#D8D6D6</color>
+    <color name="teamLogo">#EC5656</color>
 </resources>

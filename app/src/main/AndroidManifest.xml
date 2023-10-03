@@ -14,10 +14,19 @@
         android:supportsRtl="true"
         tools:targetApi="31">
         <activity
-            android:name=".PlayerActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.CricBoard_Application2"
+            android:name=".UpdatePlayerActivity"
+            android:theme="@style/Theme.CricBoard_Application3"
             android:exported="false" />
+        <activity
+            android:name=".AddPlayerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.CricBoard_Application3" />
+        <activity
+            android:name=".PlayerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.CricBoard_Application2" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation"

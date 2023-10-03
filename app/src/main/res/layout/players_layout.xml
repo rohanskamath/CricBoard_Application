@@ -11,14 +11,16 @@
     android:paddingBottom="8dp"
     android:paddingTop="8dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <TextView
         android:id="@+id/title_image"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="10dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/team_img"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="PN"
+        android:background="@drawable/round_textview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/RoundCorner" />

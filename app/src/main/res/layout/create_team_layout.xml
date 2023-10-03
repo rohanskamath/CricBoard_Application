@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/oswaldregular"
             android:textColor="@color/grey"
-            android:text="To create team your own teams!" />
+            android:text="To create your own teams!" />
 
         <EditText
             android:layout_marginTop="20dp"

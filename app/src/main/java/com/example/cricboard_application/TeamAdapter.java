@@ -1,6 +1,8 @@
 package com.example.cricboard_application;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +47,40 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         holder.tvMatches.setText(String.valueOf(teamDetails.matches));
         holder.tvWins.setText(String.valueOf(teamDetails.won));
         holder.tvLost.setText(String.valueOf(teamDetails.lost));
+
+        int randomColor = generateRandomColor();
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.OVAL);
+        drawable.setColor(randomColor);
+        String teamName=teamDetails.teamName.toUpperCase();
+        String initial="";
+        String[] words = teamName.split(" ");
+
+        if (words.length == 1) {
+            if (teamName.length() > 2) {
+                char firstLetter = teamName.charAt(0);
+                char secondLetter = teamName.charAt(1);
+                char thirdLetter = teamName.charAt(2);
+                initial = String.valueOf(firstLetter) + String.valueOf(secondLetter)+String.valueOf(thirdLetter);
+            } else if (teamName.length() == 1) {
+                char firstLetter = teamName.charAt(0);
+                initial = String.valueOf(firstLetter);
+            }
+        } else if (words.length==2) {
+            char firstLetter = words[0].charAt(0);
+            char secondLetter = words[1].charAt(0);
+            initial = String.valueOf(firstLetter) + String.valueOf(secondLetter);
+        }
+        holder.txtImageView.setText(initial);
+        holder.txtImageView.setBackground(drawable);
+    }
+
+    private int generateRandomColor() {
+        int red = (int) (Math.random() * 256);
+        int green = (int) (Math.random() * 256);
+        int blue = (int) (Math.random() * 256);
+
+        return Color.rgb(red, green, blue);
     }
 
     @Override
@@ -54,15 +90,14 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
 
     public static class TeamViewHolder extends RecyclerView.ViewHolder{
 
-        ShapeableImageView shapeableImageView;
-        TextView tvTeamName,tvMatches,tvWins,tvLost;
+        TextView tvTeamName,tvMatches,tvWins,tvLost,txtImageView;
         ImageView imgDelete,imgEdit;
         FragmentManager fragmentManager;
         public TeamViewHolder(@NonNull View itemView,FragmentManager fragmentManager,TeamsInterfaceRV teamsInterfaceRV) {
             super(itemView);
 
             this.fragmentManager=fragmentManager;
-            shapeableImageView=itemView.findViewById(R.id.title_image);
+            txtImageView=itemView.findViewById(R.id.title_image);
             tvTeamName=itemView.findViewById(R.id.tvTeamName);
             tvMatches=itemView.findViewById(R.id.tvMatchesValues);
             tvWins=itemView.findViewById(R.id.tvWonValues);

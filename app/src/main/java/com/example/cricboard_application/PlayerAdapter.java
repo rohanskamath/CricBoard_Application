@@ -1,6 +1,9 @@
 package com.example.cricboard_application;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +41,48 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     public void onBindViewHolder(@NonNull PlayerAdapter.PlayerViewHolder holder, int position) {
         PlayerNames playerDetails=playerArrayList.get(position);
         holder.tvPlayerName.setText(playerDetails.playerName);
+
+        int randomColor = generateRandomColor();
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.OVAL);
+        drawable.setColor(randomColor);
+        String playerName=playerDetails.playerName.toUpperCase();
+        String initial="";
+        String[] words = playerName.split(" ");
+
+        if (words.length == 1) {
+            if (playerName.length() > 2) {
+                char firstLetter = playerName.charAt(0);
+                char secondLetter = playerName.charAt(1);
+                initial = String.valueOf(firstLetter) + String.valueOf(secondLetter);
+            } else if (playerName.length() == 1) {
+                char firstLetter = playerName.charAt(0);
+                initial = String.valueOf(firstLetter);
+            }
+        } else if (words.length==2) {
+            char firstLetter = words[0].charAt(0);
+            char secondLetter = words[1].charAt(0);
+            initial = String.valueOf(firstLetter) + String.valueOf(secondLetter);
+        }
+        holder.tvImgPlayerName.setText(initial);
+        holder.tvImgPlayerName.setBackground(drawable);
+
+        holder.imgPlayerEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent updatePlayerIntent=new Intent(playerContext,UpdatePlayerActivity.class);
+                updatePlayerIntent.putExtra("Player Name",playerDetails.playerName);
+                playerContext.startActivity(updatePlayerIntent);
+            }
+        });
+    }
+
+    private int generateRandomColor() {
+        int red = (int) (Math.random() * 256);
+        int green = (int) (Math.random() * 256);
+        int blue = (int) (Math.random() * 256);
+
+        return Color.rgb(red, green, blue);
     }
 
     @Override
@@ -47,15 +92,17 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
     public static class PlayerViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvPlayerName;
-        ImageView imgPlayerDelete;
+        TextView tvPlayerName,tvImgPlayerName;
+        ImageView imgPlayerDelete,imgPlayerEdit;
         FragmentManager fragmentManager;
         public PlayerViewHolder(@NonNull View itemView, FragmentManager fragmentManager) {
             super(itemView);
             this.fragmentManager=fragmentManager;
 
+            tvImgPlayerName=itemView.findViewById(R.id.title_image);
             tvPlayerName=itemView.findViewById(R.id.tvPlayerName);
             imgPlayerDelete=itemView.findViewById(R.id.imgPlayerDelete);
+            imgPlayerEdit=itemView.findViewById(R.id.imgPlayerEdit);
 
             imgPlayerDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
