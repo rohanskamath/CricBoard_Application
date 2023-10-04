@@ -1,30 +1,22 @@
 package com.example.cricboard_application;
 
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.constraintlayout.widget.Constraints;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupWindow;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,8 +42,6 @@ public class TeamFragment extends Fragment implements TeamsInterfaceRV {
     RecyclerView teamRecyclerView;
 
     FloatingActionButton teamFloatingBtn;
-
-    View layout;
 
     public TeamFragment() {
         // Required empty public constructor
@@ -97,7 +87,6 @@ public class TeamFragment extends Fragment implements TeamsInterfaceRV {
 
         teamRecyclerView=view.findViewById(R.id.teamRecyclerview);
         teamFloatingBtn=view.findViewById(R.id.floatBtn);
-        layout=view.findViewById(R.id.constraintLayout);
 
         dataInitialize();
 

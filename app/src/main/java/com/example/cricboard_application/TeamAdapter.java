@@ -34,7 +34,6 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
     @NonNull
     @Override
     public TeamViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View teamView= LayoutInflater.from(teamContext).inflate(R.layout.teams_layout,parent,false);
         return new TeamViewHolder(teamView,fragmentManager,teamsInterfaceRV);
     }
@@ -105,6 +104,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
             imgEdit=itemView.findViewById(R.id.imgEdit);
             imgDelete=itemView.findViewById(R.id.imgDelete);
 
+            //Onclick of Edit
             imgEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -113,6 +113,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
                 }
             });
 
+            //Onclick of Delete
             imgDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -121,6 +122,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
                 }
             });
 
+            //Onclick of Item
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

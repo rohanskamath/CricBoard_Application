@@ -26,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
         if(item.getItemId()==R.id.menuHome) {
             replaceFragment(new HomeFragment());
-
-        }else if(item.getItemId()==R.id.menuTeams){
+        } else if(item.getItemId()==R.id.menuTeams){
             replaceFragment(new TeamFragment());
+        } else if(item.getItemId()==R.id.menuHistory){
+            replaceFragment(new HistoryFragment());
         }
         return true;
         });
