@@ -19,21 +19,37 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tvHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/oswaldbold"
             android:textColor="@color/black"
-            android:layout_marginTop="10dp"
-            android:textSize="30sp"
-            android:text="@string/confrim" />
+            android:text="End of the first innings"
+            android:textSize="30sp" />
 
         <TextView
+            android:id="@+id/tvTeamTarget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
             android:fontFamily="@font/oswaldregular"
-            android:textColor="@color/grey"
-            android:text="Do you want to delete this record ?" />
+            android:layout_weight="1"
+            android:text="Team-1 needs 20 runs in 2 overs"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvRunrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:fontFamily="@font/oswaldregular"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:text="Required Run Rate: 14.00"
+            android:textSize="25sp" />
 
     </LinearLayout>
-    
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -77,8 +77,10 @@ public class HomeFragment extends Fragment {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent congoIntent=new Intent(getContext(), CongratulationActivity.class);
-                startActivity(congoIntent);
+                //Intent congoIntent=new Intent(getContext(), CongratulationActivity.class);
+                //startActivity(congoIntent);
+                Intent openingPlayerIntent=new Intent(getContext(), OpeningPlayerActivity.class);
+                startActivity(openingPlayerIntent);
             }
         });
     }
