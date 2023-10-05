@@ -14,9 +14,14 @@
         android:supportsRtl="true"
         tools:targetApi="31">
         <activity
-            android:name=".UpdatePlayerActivity"
-            android:theme="@style/Theme.CricBoard_Application3"
+            android:name=".CongratulationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.CricBoard_Application2"
             android:exported="false" />
+        <activity
+            android:name=".UpdatePlayerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CricBoard_Application3" />
         <activity
             android:name=".AddPlayerActivity"
             android:exported="false"
