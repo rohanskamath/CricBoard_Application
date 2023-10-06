@@ -34,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                app:buttonTint="@color/main_color"
                 android:fontFamily="@font/oswaldbold"
                 android:text="Player-1"/>
 
@@ -41,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                app:buttonTint="@color/main_color"
                 android:layout_marginStart="120dp"
                 android:fontFamily="@font/oswaldbold"
                 android:text="Player-2"/>
