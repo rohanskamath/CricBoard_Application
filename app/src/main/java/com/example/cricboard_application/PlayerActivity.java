@@ -18,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class PlayerActivity extends AppCompatActivity {
+public class PlayerActivity extends AppCompatActivity implements PlayerInterfaceRV{
 
     RecyclerView playerRecyclerView;
     FloatingActionButton addPlayerFloat;
@@ -50,7 +50,7 @@ public class PlayerActivity extends AppCompatActivity {
         //Fitting Adapter to Recycler View
         playerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         playerRecyclerView.setHasFixedSize(true);
-        PlayerAdapter playerAdapter=new PlayerAdapter(this,playerArrayList,getSupportFragmentManager());
+        PlayerAdapter playerAdapter=new PlayerAdapter(this,playerArrayList,getSupportFragmentManager(),this);
         playerRecyclerView.setAdapter(playerAdapter);
         playerAdapter.notifyDataSetChanged();
 
@@ -155,5 +155,12 @@ public class PlayerActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent playerStatIntent=new Intent(this, PlayerStatActivity.class);
+        playerStatIntent.putExtra("Player Name",playerNames[position]);
+        startActivity(playerStatIntent);
     }
 }

@@ -2,9 +2,11 @@ package com.example.cricboard_application;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -67,6 +69,14 @@ public class OpeningPlayerActivity extends AppCompatActivity {
         ArrayAdapter awayTeamAdapter=new ArrayAdapter(this, R.layout.spinner_item_layout,awayTeam);
         spinnerNonStriker.setAdapter(awayTeamAdapter);
         spinnerBowler.setAdapter(awayTeamAdapter);
+
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent scoreboardIntent=new Intent(OpeningPlayerActivity.this, ScoreboardActivity.class);
+                startActivity(scoreboardIntent);
+            }
+        });
 
     }
 

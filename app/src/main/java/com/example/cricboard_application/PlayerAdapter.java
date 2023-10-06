@@ -22,19 +22,21 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     Context playerContext;
     ArrayList<PlayerNames> playerArrayList;
     final FragmentManager fragmentManager;
+    private final PlayerInterfaceRV playerInterfaceRV;
 
     // Inflating layout using custom adapter
-    public PlayerAdapter(Context playerContext, ArrayList<PlayerNames> playerArrayList,FragmentManager fragmentManager){
+    public PlayerAdapter(Context playerContext, ArrayList<PlayerNames> playerArrayList,FragmentManager fragmentManager,PlayerInterfaceRV playerInterfaceRV){
         this.playerContext=playerContext;
         this.playerArrayList=playerArrayList;
         this.fragmentManager = fragmentManager;
+        this.playerInterfaceRV=playerInterfaceRV;
     }
 
     @NonNull
     @Override
     public PlayerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View playerView= LayoutInflater.from(playerContext).inflate(R.layout.players_layout,parent,false);
-        return new PlayerAdapter.PlayerViewHolder(playerView,fragmentManager);
+        return new PlayerAdapter.PlayerViewHolder(playerView,fragmentManager,playerInterfaceRV);
     }
 
     @Override
@@ -95,7 +97,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         TextView tvPlayerName,tvImgPlayerName;
         ImageView imgPlayerDelete,imgPlayerEdit;
         FragmentManager fragmentManager;
-        public PlayerViewHolder(@NonNull View itemView, FragmentManager fragmentManager) {
+
+        public PlayerViewHolder(@NonNull View itemView, FragmentManager fragmentManager,PlayerInterfaceRV playerInterfaceRV) {
             super(itemView);
             this.fragmentManager=fragmentManager;
 
@@ -109,6 +112,18 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
                 public void onClick(View view) {
                     DeleteDialog deleteDialog=new DeleteDialog();
                     deleteDialog.show(fragmentManager,"Delete Player Name");
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(playerInterfaceRV != null){
+                        int position=getAdapterPosition();
+                        if(position !=RecyclerView.NO_POSITION){
+                            playerInterfaceRV.onItemClick(position);
+                        }
+                    }
                 }
             });
         }

@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/bgScreenColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BattingFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardMatches"
+                android:layout_width="120dp"
+                android:layout_height="90dp"
+                android:layout_weight="1"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Matches"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center|top"
+                    android:fontFamily="@font/oswaldbold"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvPMatches"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/oswaldbold"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:text="0"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardInnings"
+                android:layout_width="120dp"
+                android:layout_height="90dp"
+                android:layout_weight="1"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Innings"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center|top"
+                    android:fontFamily="@font/oswaldbold"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvPInings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/oswaldbold"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:text="0"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardRuns"
+                android:layout_width="120dp"
+                android:layout_height="90dp"
+                android:layout_weight="1"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Runs"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center|top"
+                    android:fontFamily="@font/oswaldbold"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvPRuns"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/oswaldbold"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:text="0"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardNotOuts"
+                android:layout_width="120dp"
+                android:layout_height="90dp"
+                android:layout_weight="1"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Not Outs"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center|top"
+                    android:fontFamily="@font/oswaldbold"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvPNotOuts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/oswaldbold"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:text="0"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardBestScore"
+                android:layout_width="120dp"
+                android:layout_height="90dp"
+                android:layout_weight="1"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Best Score"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center|top"
+                    android:fontFamily="@font/oswaldbold"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvPBestScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/oswaldbold"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:text="0"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardSR"
+                android:layout_width="120dp"
+                android:layout_height="90dp"
+                android:layout_weight="1"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Strike Rate"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center|top"
+                    android:fontFamily="@font/oswaldbold"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvPSR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/oswaldbold"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:text="0"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDucks"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ducks"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center|top"
+                android:fontFamily="@font/oswaldbold"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvDucks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="0"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardFours"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fours"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center|top"
+                android:fontFamily="@font/oswaldbold"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvPFours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="0"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardSix"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sixes"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center|top"
+                android:fontFamily="@font/oswaldbold"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvPSix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="0"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardThirties"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thirties"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center|top"
+                android:fontFamily="@font/oswaldbold"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvPThirties"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="0"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardFifties"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fifties"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center|top"
+                android:fontFamily="@font/oswaldbold"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvPFifties"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="0"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardHundreds"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hundreds"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center|top"
+                android:fontFamily="@font/oswaldbold"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvPHundreds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="0"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</LinearLayout>
