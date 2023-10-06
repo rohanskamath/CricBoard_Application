@@ -138,6 +138,18 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             tvAwayTeamLogo=itemView.findViewById(R.id.tvAwayTeamLogo);
             tvHostTeamLogo=itemView.findViewById(R.id.tvHostTeamLogo);
             tvOverallToss=itemView.findViewById(R.id.tvOverallToss);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(historyInterfaceRV != null){
+                        int position=getAdapterPosition();
+                        if(position !=RecyclerView.NO_POSITION){
+                            historyInterfaceRV.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

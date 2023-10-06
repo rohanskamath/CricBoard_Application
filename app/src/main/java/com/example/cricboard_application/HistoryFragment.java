@@ -1,5 +1,6 @@
 package com.example.cricboard_application;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -117,6 +118,7 @@ public class HistoryFragment extends Fragment implements HistoryInterfaceRV{
 
     @Override
     public void onItemClick(int position) {
-
+        Intent scoreSummaryIntent=new Intent(getContext(), ScoreSummaryActivity.class);
+        startActivity(scoreSummaryIntent);
     }
 }

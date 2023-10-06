@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgScreenColor"
+    tools:context=".ScoreSummaryActivity">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scorecard_s"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToOutline="true">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutToss"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="#FFFFFF">
+
+            <TextView
+                android:id="@+id/tvToss"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:text="Team 1 won the toss and opted to bowl first"
+                android:textSize="20sp"
+                android:fontFamily="@font/oswaldbold"
+                android:textColorHint="@color/grey"
+                android:gravity="top" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/team1_view_layout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:background="@color/main_color"
+            android:layout_below="@+id/relativeLayoutToss">
+
+            <TextView
+                android:id="@+id/tvTeamName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/oswaldbold"
+                android:text="Team-1"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:id ="@+id/tvRunsScored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswaldbold"
+                android:text = "5"
+                android:textSize="25dp"
+                android:layout_marginLeft="275dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswaldbold"
+                android:text = "-"
+                android:textSize="25sp"
+                android:layout_marginLeft="290dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/tvWicketsTaken"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswaldbold"
+                android:text = "0"
+                android:textSize="25sp"
+                android:layout_marginLeft="300dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswaldregular"
+                android:text = "("
+                android:textSize="20sp"
+                android:layout_marginLeft="317dp"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id ="@+id/tvOvers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswaldregular"
+                android:text = "0.0"
+                android:textSize="20sp"
+                android:layout_marginLeft="326dp"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswaldregular"
+                android:text = ")"
+                android:textSize="20sp"
+                android:layout_marginLeft="355dp"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/white"/>
+
+            <Spinner
+                android:id="@+id/dropdown"
+                android:layout_width="25dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="375dp"
+                android:layout_marginTop="42dp"
+                android:background="@drawable/drop_img" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/scoreHeaderLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="0dp"
+            android:layout_below="@+id/team1_view_layout"
+            android:background="@color/player">
+
+            <TextView
+                android:id="@+id/batsman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="8dp"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:text="Batsman"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/runs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="200dp"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:text="Runs"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/Balls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginLeft="250dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:text="Balls"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="300dp"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:text="4s"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/six"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginLeft="340dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:text="6s"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/sr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginLeft="380dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:text="SR"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:gravity="top"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/players_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/scoreHeaderLayout"
+            android:layout_marginLeft="0dp">
+
+            <TextView
+                android:id="@+id/tvPlayerOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oswaldbold"
+                android:gravity="top"
+                android:text="Player-1" />
+
+            <TextView
+                android:id="@+id/tvDecison"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/oswaldregular"
+                android:gravity="top"
+                android:text="Not Out"
+                android:textColor="@color/dark_grey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="210dp"
+                android:fontFamily="@font/oswaldregular"
+                android:layout_marginTop="20dp"
+                android:gravity="top"
+                android:text="0"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="260dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/oswaldregular"
+                android:gravity="top"
+                android:text="0"
+                android:textColor="@color/black" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="305dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/oswaldregular"
+                android:gravity="top"
+                android:text="0"
+                android:textColor="@color/black" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="345dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/oswaldregular"
+                android:gravity="top"
+                android:text="0"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="380dp"
+                android:layout_marginTop="20dp"
+                android:gravity="top"
+                android:fontFamily="@font/oswaldregular"
+                android:text="0.0"
+                android:textColor="@color/black" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/players_details"
+            android:background="@color/dark_grey" />
+
+        <RelativeLayout
+            android:id="@+id/playerTwoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0dp"
+            android:layout_below="@+id/view1"
+            android:background="@color/bgScreenColor">
+
+            <TextView
+                android:id="@+id/player_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="8dp"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:gravity="top"
+                android:text="Player-2" />
+
+            <TextView
+                android:id="@+id/tvDecison2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/oswaldregular"
+                android:gravity="top"
+                android:text="Not Out"
+                android:textColor="@color/dark_grey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="210dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/oswaldregular"
+                android:gravity="top"
+                android:text="0"
+                android:textColor="#000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="260dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/oswaldregular"
+                android:gravity="top"
+                android:text="0"
+                android:textColor="#000000" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="305dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/oswaldregular"
+                android:gravity="top"
+                android:text="0"
+                android:textColor="#000000" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="345dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/oswaldregular"
+                android:gravity="top"
+                android:text="0"
+                android:textColor="#000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="380dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/oswaldregular"
+                android:gravity="top"
+                android:text="0.0"
+                android:textColor="#000000" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/playerTwoLayout"
+            android:background="@color/dark_grey" />
+
+        <RelativeLayout
+            android:id="@id/batsmanTotal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:layout_below="@+id/view2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart = "10dp"
+                android:layout_marginTop="10dp"
+                android:text="Total"
+                android:fontFamily="@font/oswaldbold"
+                android:textColor="@color/black"
+                android:gravity="top" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft = "300dp"
+                android:layout_marginTop="10dp"
+                android:text="0.00"
+                android:textColor="@color/black"
+                android:fontFamily="@font/oswaldbold"
+                android:gravity="top" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bowlerHeadingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/batsmanTotal"
+            android:background="@color/player" >
+
+            <TextView
+                android:id="@+id/bowler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="8dp"
+                android:text="Bowler"
+                android:fontFamily="@font/oswaldbold"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/over_bowler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="190dp"
+                android:layout_marginTop="10dp"
+                android:text="Overs"
+                android:textColor="@color/white"
+                android:fontFamily="@font/oswaldbold"
+                android:textSize="15sp"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/madian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="235dp"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:text="Madian"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/tvBowlerRuns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="290dp"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:text="Runs"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/wicket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="330dp"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:text="Wicket"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/er"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="380dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oswaldbold"
+                android:text="ER"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:gravity="top" />
+
+        </RelativeLayout>
+
+        <!--Bowler 1 -->
+        <RelativeLayout
+            android:id ="@+id/bowler1_view"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/bowlerHeadingLayout"
+            android:layout_marginStart="0dp">
+
+            <TextView
+                android:id="@+id/bowler1"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="8dp"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:text="Bowler-1"
+                android:gravity="top" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="210dp"
+                android:layout_marginTop="10dp"
+                android:text="0"
+                android:fontFamily="@font/oswaldbold"
+                android:textColor="@color/black"
+                android:gravity="top" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="260dp"
+                android:layout_marginTop="10dp"
+                android:text="0"
+                android:fontFamily="@font/oswaldbold"
+                android:textColor="@color/black"
+                android:gravity="top" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="305dp"
+                android:fontFamily="@font/oswaldbold"
+                android:layout_marginTop="10dp"
+                android:text="0"
+                android:textColor="@color/black"
+                android:gravity="top" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="345dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oswaldbold"
+                android:text="0"
+                android:textColor="@color/black"
+                android:gravity="top" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="380dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oswaldbold"
+                android:text="0.0"
+                android:textColor="@color/black"
+                android:gravity="top" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:background="@color/dark_grey"
+            android:layout_below="@+id/bowler1_view"/>
+
+        <!--Bowler 2-->
+        <RelativeLayout
+            android:id ="@+id/bowler2Layout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/view4"
+            android:layout_marginStart="0dp">
+
+            <TextView
+                android:id="@+id/bowler2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oswaldbold"
+                android:text="Bowler-2"
+                android:gravity="top"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="210dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oswaldbold"
+                android:text="0"
+                android:textColor="@color/black"
+                android:gravity="top"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="260dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oswaldbold"
+                android:text="0"
+                android:textColor="@color/black"
+                android:gravity="top" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="305dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oswaldbold"
+                android:text="0"
+                android:textColor="@color/black"
+                android:gravity="top"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="345dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oswaldbold"
+                android:text="0"
+                android:textColor="@color/black"
+                android:gravity="top"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="380dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oswaldbold"
+                android:text="0.0"
+                android:textColor="@color/black"
+                android:gravity="top"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_below="@+id/bowler2Layout"
+            android:background="#a9a9a9"/>
+
+    </RelativeLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
