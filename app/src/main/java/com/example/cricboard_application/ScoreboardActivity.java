@@ -30,6 +30,14 @@ public class ScoreboardActivity extends AppCompatActivity {
                 startActivity(retireIntent);
             }
         });
+
+        btnSwapBatsman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ScoreSummaryIntent=new Intent(ScoreboardActivity.this, ScoreSummaryActivity.class);
+                startActivity(ScoreSummaryIntent);
+            }
+        });
     }
 
     @Override
