@@ -7,7 +7,25 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
     <string name="addteam">addTeam</string>
+    <string name="batsman">Batsman</string>
+    <string name="runs">Runs</string>
+    <string name="balls">Balls</string>
+    <string name="_4s">4s</string>
+    <string name="_6s">6s</string>
+    <string name="sr">SR</string>
+    <string name="bowler">Bowler</string>
+    <string name="overs">Overs</string>
+    <string name="madian">Madian</string>
+    <string name="wickets">Wicket</string>
+    <string name="er">ER</string>
+    <string name="bowler_1">Bowler-1</string>
+    <string name="zero">0</string>
+    <string name="bowler_2">Bowler-2</string>
+    <string name="addplayer">addPlayer</string>
+    <string name="addplayerdp">addPlayerDP</string>
+    <string name="confrim">Confrim</string>
 
     <!-- Sample data -->
     <string name="Team_1">India</string>
@@ -18,7 +36,7 @@
     <string name="Team_6">West Indies</string>
     <string name="Team_7">Pakistan</string>
     <string name="Team_8">Bangladesh</string>
-    <string name="confrim">Confrim</string>
+
 
     <string name="player0">No Players</string>
     <string name="player1">Virat Kohli</string>
@@ -75,8 +93,6 @@
     <string name="player48">Suryakumar Yadav</string>
     <string name="player49">Ruturaj Gaikwad</string>
     <string name="player50">Devdutt Padikkal</string>
-    <string name="addplayer">addPlayer</string>
-    <string name="addplayerdp">addPlayerDP</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

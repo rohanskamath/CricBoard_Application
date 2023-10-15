@@ -10,4 +10,5 @@
     <color name="underline">#D8D6D6</color>
     <color name="player">#BF072B5A</color>
     <color name="teamLogo">#EC5656</color>
+    <color name="teamHeading">#2B425E</color>
 </resources>
