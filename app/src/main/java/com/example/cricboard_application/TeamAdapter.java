@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder>{
 
+    /* UI Objects and others objects created */
     final FragmentManager fragmentManager;
     Context teamContext;
     ArrayList<Teams> teamsArrayList;
@@ -47,6 +48,9 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         holder.tvWins.setText(String.valueOf(teamDetails.won));
         holder.tvLost.setText(String.valueOf(teamDetails.lost));
 
+        DataBaseHandler dataBaseHandler = new DataBaseHandler(teamContext);
+
+        /* Generating logo by taking first letter and second letter from the team name */
         int randomColor = generateRandomColor();
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.OVAL);
@@ -72,8 +76,30 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         }
         holder.txtImageView.setText(initial);
         holder.txtImageView.setBackground(drawable);
+
+        /* get teamid from arraylist */
+        int teamId = teamsArrayList.get(position).getTeam_id();
+
+        /* Onclick of Delete button */
+        holder.imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DeleteDialog deleteDialog=new DeleteDialog(teamId,dataBaseHandler,teamsArrayList,TeamAdapter.this);
+                deleteDialog.show(fragmentManager,"Delete Team Dailog Box");
+            }
+        });
+
+        /* Onclick of Edit button */
+        holder.imgEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UpdateTeamDialog updateTeamDialog=new UpdateTeamDialog(TeamAdapter.this,teamsArrayList,dataBaseHandler,teamDetails);
+                updateTeamDialog.show(fragmentManager, "Update Team Dailog Box");
+            }
+        });
     }
 
+    /* Generating random colors for logo */
     private int generateRandomColor() {
         int red = (int) (Math.random() * 256);
         int green = (int) (Math.random() * 256);
@@ -95,6 +121,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         public TeamViewHolder(@NonNull View itemView,FragmentManager fragmentManager,TeamsInterfaceRV teamsInterfaceRV) {
             super(itemView);
 
+            /* Setting UI Objects of Recyclerview with Java in custom adapter */
             this.fragmentManager=fragmentManager;
             txtImageView=itemView.findViewById(R.id.title_image);
             tvTeamName=itemView.findViewById(R.id.tvTeamName);
@@ -104,25 +131,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
             imgEdit=itemView.findViewById(R.id.imgEdit);
             imgDelete=itemView.findViewById(R.id.imgDelete);
 
-            //Onclick of Edit
-            imgEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    UpdateTeamDialog updateTeamDialog=new UpdateTeamDialog();
-                    updateTeamDialog.show(fragmentManager, "Update Team Dailog Box");
-                }
-            });
-
-            //Onclick of Delete
-            imgDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    DeleteDialog deleteDialog=new DeleteDialog();
-                    deleteDialog.show(fragmentManager,"Delete Team Dailog Box");
-                }
-            });
-
-            //Onclick of Item
+            /* Onclick of Item (single recyclerview) */
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

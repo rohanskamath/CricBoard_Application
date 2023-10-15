@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -22,35 +23,45 @@ public class PlayerActivity extends AppCompatActivity implements PlayerInterface
 
     RecyclerView playerRecyclerView;
     FloatingActionButton addPlayerFloat;
+    PlayerInterfaceRV playerInterfaceRV;
 
     ArrayList<PlayerNames> playerArrayList;
     String playerNames[];
 
-    //Making teamName gobally accessible
+    /* Making teamName globally accessible */
     Intent TeamNameintent;
     String teamName;
+    int teamID;
+    DataBaseHandler dataBaseHandler;
+    PlayerAdapter playerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 
+        /* Getting Team name and Team ID */
         TeamNameintent = getIntent();
         teamName=TeamNameintent.getStringExtra("Team Name");
-        //Changing Action bar programmatically
+        teamID=TeamNameintent.getIntExtra("Team ID",-1);
+
+
+        /* Changing Action bar programmatically */
         getSupportActionBar().setTitle(teamName);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        playerDataInitialize();
+        /* Database Object */
+        dataBaseHandler=new DataBaseHandler(this);
 
         playerRecyclerView=findViewById(R.id.playerRV);
         addPlayerFloat=findViewById(R.id.floatPlayerBtn);
 
-        //Fitting Adapter to Recycler View
+        /* Setting Adapter to Recycler View */
         playerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         playerRecyclerView.setHasFixedSize(true);
-        PlayerAdapter playerAdapter=new PlayerAdapter(this,playerArrayList,getSupportFragmentManager(),this);
+        playerArrayList=dataBaseHandler.getAllPlayersByTeam(teamID);
+        playerAdapter=new PlayerAdapter(this,playerArrayList,getSupportFragmentManager(),this);
         playerRecyclerView.setAdapter(playerAdapter);
         playerAdapter.notifyDataSetChanged();
 
@@ -58,109 +69,34 @@ public class PlayerActivity extends AppCompatActivity implements PlayerInterface
             @Override
             public void onClick(View view) {
                 Intent addPlayerIntent=new Intent(PlayerActivity.this, AddPlayerActivity.class);
+                addPlayerIntent.putExtra("Team ID",teamID);
                 startActivity(addPlayerIntent);
             }
         });
 
     }
 
-    private void playerDataInitialize() {
-        playerArrayList = new ArrayList<>();
-        if(teamName.equalsIgnoreCase("India"))
-        {
-            playerNames = new String[]{
-                    getString(R.string.player1),
-                    getString(R.string.player2),
-                    getString(R.string.player3),
-                    getString(R.string.player4),
-                    getString(R.string.player5),
-                    getString(R.string.player6),
-                    getString(R.string.player7),
-                    getString(R.string.player8),
-                    getString(R.string.player9),
-                    getString(R.string.player10),
-                    getString(R.string.player11)
-            };
-        } else if(teamName.equalsIgnoreCase("Sri Lanka")){
-            playerNames = new String[]{
-                    getString(R.string.player12),
-                    getString(R.string.player13),
-                    getString(R.string.player14),
-                    getString(R.string.player15),
-                    getString(R.string.player16),
-                    getString(R.string.player17),
-                    getString(R.string.player18),
-                    getString(R.string.player19),
-                    getString(R.string.player20),
-                    getString(R.string.player21),
-                    getString(R.string.player22),
-                    getString(R.string.player23)
-            };
-        } else if(teamName.equalsIgnoreCase("Australia")){
-            playerNames = new String[]{
-                    getString(R.string.player24),
-                    getString(R.string.player25),
-                    getString(R.string.player26),
-                    getString(R.string.player27),
-                    getString(R.string.player28),
-                    getString(R.string.player29),
-                    getString(R.string.player30),
-                    getString(R.string.player31),
-                    getString(R.string.player32),
-                    getString(R.string.player33),
-                    getString(R.string.player34),
-                    getString(R.string.player35)
-            };
-        } else if(teamName.equalsIgnoreCase("New Zealand")) {
-            playerNames = new String[]{
-                    getString(R.string.player35),
-                    getString(R.string.player36),
-                    getString(R.string.player37),
-                    getString(R.string.player38),
-                    getString(R.string.player39),
-                    getString(R.string.player40)
-            };
-        } else if(teamName.equalsIgnoreCase("England")) {
-            playerNames = new String[]{
-                    getString(R.string.player41),
-                    getString(R.string.player42),
-                    getString(R.string.player43),
-                    getString(R.string.player44),
-                    getString(R.string.player45)
-            };
-        } else if(teamName.equalsIgnoreCase("West Indies")) {
-            playerNames = new String[]{
-                    getString(R.string.player46),
-                    getString(R.string.player47),
-                    getString(R.string.player48),
-                    getString(R.string.player49),
-                    getString(R.string.player50)
-            };
-        }
-        else
-        {
-            playerNames = new String[]{
-                    getString(R.string.player0)
-            };
-        }
-
-        for(int i=0;i<playerNames.length;i++)
-        {
-            PlayerNames players=new PlayerNames(playerNames[i]);
-            playerArrayList.add(players);
-        }
+    /* To Go back to Previous activity and Refresh / to get updated Data */
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
     }
 
+    /* Navigate to Back in actionbar */
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
     }
 
+    /* Onclick of Single recyclerview */
     @Override
     public void onItemClick(int position) {
         Intent playerStatIntent=new Intent(this, PlayerStatActivity.class);
-        playerStatIntent.putExtra("Player Name",playerNames[position]);
+        playerStatIntent.putExtra("Player Name",playerArrayList.get(position).getPlayerName());
+        playerStatIntent.putExtra("Player ID",playerArrayList.get(position).getPlayerId());
         startActivity(playerStatIntent);
     }
 }

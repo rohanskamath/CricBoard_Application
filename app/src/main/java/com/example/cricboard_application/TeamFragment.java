@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,14 +34,13 @@ public class TeamFragment extends Fragment implements TeamsInterfaceRV {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<Teams> teamsArrayList;
+
+
+    private ArrayList<Teams> teamsArrayList = new ArrayList<>();
     private String[] teamNames;
-    private int[] matches;
-    private int[] won;
-    private int[] lost;
 
+    /* UI Objects created */
     RecyclerView teamRecyclerView;
-
     FloatingActionButton teamFloatingBtn;
 
     public TeamFragment() {
@@ -77,7 +77,6 @@ public class TeamFragment extends Fragment implements TeamsInterfaceRV {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_team, container, false);
     }
 
@@ -85,58 +84,47 @@ public class TeamFragment extends Fragment implements TeamsInterfaceRV {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        teamRecyclerView=view.findViewById(R.id.teamRecyclerview);
-        teamFloatingBtn=view.findViewById(R.id.floatBtn);
+        /* Setting UI elements with Java */
+        teamRecyclerView = view.findViewById(R.id.teamRecyclerview);
+        teamFloatingBtn = view.findViewById(R.id.floatBtn);
 
-        dataInitialize();
+        /* Creating Database object */
+        DataBaseHandler dataBaseHandler = new DataBaseHandler(getContext());
 
+
+        /* Retrieving From Database and Storing in arraylist */
+        teamsArrayList = getTeamsFromDataSource();
+
+        /* Setting up custom adapter to recyclerview */
+        TeamAdapter teamAdapter = new TeamAdapter(getContext(), teamsArrayList, getFragmentManager(), this);
         teamRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         teamRecyclerView.setHasFixedSize(true);
-        TeamAdapter teamAdapter=new TeamAdapter(getContext(),teamsArrayList,getFragmentManager(),this);
         teamRecyclerView.setAdapter(teamAdapter);
         teamAdapter.notifyDataSetChanged();
 
+        /* On Click of Floating Button loading Dialog box for adding team */
         teamFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //createTeamPopUp();
-                CreateTeamDialog createTeamDialog=new CreateTeamDialog();
+                CreateTeamDialog createTeamDialog = new CreateTeamDialog(teamAdapter, teamsArrayList, dataBaseHandler);
                 createTeamDialog.show(getActivity().getSupportFragmentManager(), "Create Team Dailog Box");
             }
         });
     }
 
-    private void dataInitialize() {
-        teamsArrayList = new ArrayList<>();
-
-        teamNames = new String[]{
-                getString(R.string.Team_1),
-                getString(R.string.Team_2),
-                getString(R.string.Team_3),
-                getString(R.string.Team_4),
-                getString(R.string.Team_5),
-                getString(R.string.Team_6),
-                getString(R.string.Team_7),
-                getString(R.string.Team_8)
-        };
-        
-        matches=new int[]{9,0,4,5,6,1,8,4};
-        
-        won=new int[]{9,0,3,4,2,1,0,1};
-
-        lost=new int[]{0,0,1,2,3,0,8,3};
-
-        for(int i=0;i<teamNames.length;i++)
-        {
-            Teams teams=new Teams(teamNames[i],matches[i],won[i],lost[i]);
-            teamsArrayList.add(teams);
-        }
+    /* Retrieving From Database and Storing in arraylist */
+    private ArrayList<Teams> getTeamsFromDataSource() {
+        DataBaseHandler dataBaseHandler = new DataBaseHandler(getContext());
+        return dataBaseHandler.getAllTeams();
     }
 
+    /* On Single item-click of Teams recyclerview */
     @Override
     public void onItemClick(int position) {
-        Intent playerIntent=new Intent(getContext(), PlayerActivity.class);
-        playerIntent.putExtra("Team Name",teamNames[position]);
+        Intent playerIntent = new Intent(getContext(), PlayerActivity.class);
+        playerIntent.putExtra("Team Name", teamsArrayList.get(position).getTeamName());
+        playerIntent.putExtra("Team ID", teamsArrayList.get(position).getTeam_id());
         startActivity(playerIntent);
     }
 }

@@ -7,10 +7,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +35,12 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    Button btnStart;
+    /* UI Objects Created */
+    private EditText txtHost, txtVisitor, txtOvers;
+    private RadioGroup radioGroupToss, radioGroupOpt;
+    private RadioButton radioBtnHostToss, radioBtnVistorToss, radioBtnBat, radioBtnBall;
+    private Button btnStart;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -72,16 +84,65 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btnStart=view.findViewById(R.id.btnStart);
+        /* Setting UI elements with Java */
+        txtHost = view.findViewById(R.id.txtHost);
+        txtVisitor = view.findViewById(R.id.txtVistor);
+        txtOvers = view.findViewById(R.id.txtOvers);
+
+        radioGroupToss = view.findViewById(R.id.radioGroupToss);
+        radioGroupOpt = view.findViewById(R.id.radioGroupOpt);
+        radioBtnHostToss = view.findViewById(R.id.radioBtnHostToss);
+        radioBtnVistorToss = view.findViewById(R.id.radioBtnVistorToss);
+        radioBtnBat = view.findViewById(R.id.radioBtnBat);
+        radioBtnBall = view.findViewById(R.id.radioBtnBall);
+
+        btnStart = view.findViewById(R.id.btnStart);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent congoIntent=new Intent(getContext(), CongratulationActivity.class);
-                //startActivity(congoIntent);
-                Intent openingPlayerIntent=new Intent(getContext(), OpeningPlayerActivity.class);
-                startActivity(openingPlayerIntent);
+
+                if (isInputValid()) {
+
+                    /* Navigate to the next page */
+                    Intent openingPlayerIntent = new Intent(getContext(), OpeningPlayerActivity.class);
+                    startActivity(openingPlayerIntent);
+                } else {
+                    /* Display an error message or toast to inform the user*/
+                    if (TextUtils.isEmpty(txtHost.getText())) {
+                        txtHost.setError("Host Field is required!!!");
+                    } else if (TextUtils.isEmpty(txtVisitor.getText())) {
+                        txtVisitor.setError("Vistor Field is required!!!");
+                    } else if (!(radioBtnHostToss.isChecked() || radioBtnVistorToss.isChecked())) {
+                        Toast.makeText(getContext(), "Please select any of two toss!!", Toast.LENGTH_SHORT).show();
+                    } else if (!(radioBtnBat.isChecked() || radioBtnBall.isChecked())) {
+                        Toast.makeText(getContext(), "Please select any of two option!!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getContext(), "All Fields are required!!", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
+
+    }
+
+    /* Check for Validation before start of match */
+    private boolean isInputValid() {
+
+        try {
+            if (Integer.parseInt(txtOvers.getText().toString()) > 50 && Integer.parseInt(txtOvers.getText().toString()) < 1) {
+                Toast.makeText(getActivity(), "Overs range is between 1-50!!!", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+        }
+
+        return !TextUtils.isEmpty(txtHost.getText())
+                && !TextUtils.isEmpty(txtVisitor.getText())
+                && !TextUtils.isEmpty(txtOvers.getText())
+                && (radioBtnHostToss.isChecked() || radioBtnVistorToss.isChecked())
+                && (radioBtnBat.isChecked() || radioBtnBall.isChecked())
+                && Integer.parseInt(txtOvers.getText().toString()) <= 50
+                && Integer.parseInt(txtOvers.getText().toString()) > 0;
     }
 }

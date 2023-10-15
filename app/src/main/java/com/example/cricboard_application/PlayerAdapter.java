@@ -42,13 +42,13 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     @Override
     public void onBindViewHolder(@NonNull PlayerAdapter.PlayerViewHolder holder, int position) {
         PlayerNames playerDetails=playerArrayList.get(position);
-        holder.tvPlayerName.setText(playerDetails.playerName);
+        holder.tvPlayerName.setText(playerDetails.getPlayerName());
 
         int randomColor = generateRandomColor();
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.OVAL);
         drawable.setColor(randomColor);
-        String playerName=playerDetails.playerName.toUpperCase();
+        String playerName=playerDetails.getPlayerName().toUpperCase();
         String initial="";
         String[] words = playerName.split(" ");
 
@@ -73,7 +73,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
             @Override
             public void onClick(View view) {
                 Intent updatePlayerIntent=new Intent(playerContext,UpdatePlayerActivity.class);
-                updatePlayerIntent.putExtra("Player Name",playerDetails.playerName);
+                updatePlayerIntent.putExtra("Player Name",playerDetails.getPlayerName());
+                updatePlayerIntent.putExtra("Player ID",playerDetails.getPlayerId());
                 playerContext.startActivity(updatePlayerIntent);
             }
         });
@@ -102,6 +103,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
             super(itemView);
             this.fragmentManager=fragmentManager;
 
+            /* Setting UI elements with Java */
             tvImgPlayerName=itemView.findViewById(R.id.title_image);
             tvPlayerName=itemView.findViewById(R.id.tvPlayerName);
             imgPlayerDelete=itemView.findViewById(R.id.imgPlayerDelete);
@@ -110,11 +112,12 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
             imgPlayerDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DeleteDialog deleteDialog=new DeleteDialog();
-                    deleteDialog.show(fragmentManager,"Delete Player Name");
+                    //DeleteDialog deleteDialog=new DeleteDialog();
+                    //deleteDialog.show(fragmentManager,"Delete Player Name");
                 }
             });
 
+            /* OnClick of Item in recyclerview */
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
