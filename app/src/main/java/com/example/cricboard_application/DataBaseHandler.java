@@ -136,6 +136,29 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         return teamsList;
     }
 
+    /* Function to Retrieve all the teamsNames present in the teams table */
+    @SuppressLint("Range")
+    public ArrayList<String> getAllTeamNames() {
+
+        ArrayList<String> teamsNamesList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {TEAM_NAME};
+        String whereClause = null;
+        String[] selectionArgs = null;
+        Cursor cursor = db.query(TABLE_NAME_TEAM, columns, whereClause, selectionArgs, null, null, null);
+        teamsNamesList.add("---- Select Team ----");
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                String teamName = cursor.getString(cursor.getColumnIndex(TEAM_NAME));
+                teamsNamesList.add(teamName);
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+        db.close();
+        return teamsNamesList;
+    }
+
     /* Function to delete a team by team_id  in teams table */
     public void deleteTeam(int teamId) {
         SQLiteDatabase db = this.getWritableDatabase();

@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/constraintLayout"
     android:layout_height="match_parent"
     android:background="@color/bgScreenColor"
     tools:context=".MainActivity">
@@ -13,23 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         android:background="@color/main_color"
         app:itemIconSize="50dp"
         app:itemTextAppearanceActive="@dimen/design_bottom_navigation_text_size_hover"
         app:itemTextAppearanceInactive="@dimen/design_bottom_navigation_text_size"
-        app:menu="@menu/bottom_nav_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="parent"
+        app:menu="@menu/bottom_nav_menu"
         tools:ignore="PrivateResource" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

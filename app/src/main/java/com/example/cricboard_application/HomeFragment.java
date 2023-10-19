@@ -13,11 +13,16 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,10 +41,15 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     /* UI Objects Created */
-    private EditText txtHost, txtVisitor, txtOvers;
+    private EditText txtOvers;
+    private Spinner spinnerHost, spinnerVisitor;
     private RadioGroup radioGroupToss, radioGroupOpt;
     private RadioButton radioBtnHostToss, radioBtnVistorToss, radioBtnBat, radioBtnBall;
     private Button btnStart;
+    ArrayAdapter teamsCollectionAdapter;
+    ArrayList<String> OverallTeams=new ArrayList<>();
+    boolean isInitialHostLoad = true;
+    boolean isInitialVisitorLoad =true;
 
 
     public HomeFragment() {
@@ -85,9 +95,8 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         /* Setting UI elements with Java */
-        txtHost = view.findViewById(R.id.txtHost);
-        txtVisitor = view.findViewById(R.id.txtVistor);
-        txtOvers = view.findViewById(R.id.txtOvers);
+        spinnerHost = view.findViewById(R.id.spinnerHostTeam);
+        spinnerVisitor = view.findViewById(R.id.spinnerVisitorTeam);
 
         radioGroupToss = view.findViewById(R.id.radioGroupToss);
         radioGroupOpt = view.findViewById(R.id.radioGroupOpt);
@@ -96,29 +105,88 @@ public class HomeFragment extends Fragment {
         radioBtnBat = view.findViewById(R.id.radioBtnBat);
         radioBtnBall = view.findViewById(R.id.radioBtnBall);
 
+        txtOvers = view.findViewById(R.id.txtOvers);
         btnStart = view.findViewById(R.id.btnStart);
+
+        /* Retrieving From Database and Storing in arraylist */
+        OverallTeams=getTeamNamesFromDataSource();
+
+        /* Setting spinner Adapter */
+        teamsCollectionAdapter=new ArrayAdapter(getContext(), R.layout.spinner_item_layout,OverallTeams);
+        spinnerHost.setAdapter(teamsCollectionAdapter);
+        spinnerVisitor.setAdapter(teamsCollectionAdapter);
+
+        spinnerHost.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (isInitialHostLoad) {
+                    /* Ignore the initial selection */
+                    isInitialHostLoad = false;
+                    return;
+                }
+                /* Radio Text to be changed on spinner selection */
+                String selectedHostTeam = spinnerHost.getSelectedItem().toString();
+                if (selectedHostTeam.equals("---- Select Team ----")) {
+                    Toast.makeText(getContext(), "Please select correct Team", Toast.LENGTH_SHORT).show();
+                } else if (spinnerHost.getSelectedItem().toString().equals(spinnerVisitor.getSelectedItem().toString())){
+                    Toast.makeText(getContext(), "Please select correct Team", Toast.LENGTH_SHORT).show();
+                } else {
+                    radioBtnHostToss.setText(selectedHostTeam);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinnerVisitor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (isInitialVisitorLoad) {
+                    /* Ignore the initial selection */
+                    isInitialVisitorLoad = false;
+                    return;
+                }
+                /* Radio Text to be changed on spinner selection */
+                String selectedVisitorTeam = spinnerVisitor.getSelectedItem().toString();
+                if (selectedVisitorTeam.equals("---- Select Team ----")) {
+                    Toast.makeText(getContext(), "Please select correct Team", Toast.LENGTH_SHORT).show();
+                } else if (spinnerHost.getSelectedItem().toString().equals(spinnerVisitor.getSelectedItem().toString())){
+                    Toast.makeText(getContext(), "Please select correct Team", Toast.LENGTH_SHORT).show();
+                } else {
+                    radioBtnVistorToss.setText(selectedVisitorTeam);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //No Action
+            }
+        });
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (isInputValid()) {
-
                     /* Navigate to the next page */
                     Intent openingPlayerIntent = new Intent(getContext(), OpeningPlayerActivity.class);
                     startActivity(openingPlayerIntent);
                 } else {
                     /* Display an error message or toast to inform the user*/
-                    if (TextUtils.isEmpty(txtHost.getText())) {
-                        txtHost.setError("Host Field is required!!!");
-                    } else if (TextUtils.isEmpty(txtVisitor.getText())) {
-                        txtVisitor.setError("Vistor Field is required!!!");
+                    if(spinnerHost.getSelectedItem()==null){
+                        Toast.makeText(getContext(), "Please select a Host Team", Toast.LENGTH_SHORT).show();
+                    } else if(spinnerVisitor.getSelectedItem()==null){
+                        Toast.makeText(getContext(), "Please select a Vistor Team", Toast.LENGTH_SHORT).show();
+                    } else if(spinnerHost.getSelectedItem().toString().equals(spinnerVisitor.getSelectedItem().toString())){
+                        Toast.makeText(getContext(), "Please select correct Team", Toast.LENGTH_SHORT).show();
                     } else if (!(radioBtnHostToss.isChecked() || radioBtnVistorToss.isChecked())) {
                         Toast.makeText(getContext(), "Please select any of two toss!!", Toast.LENGTH_SHORT).show();
                     } else if (!(radioBtnBat.isChecked() || radioBtnBall.isChecked())) {
                         Toast.makeText(getContext(), "Please select any of two option!!", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         Toast.makeText(getContext(), "All Fields are required!!", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -137,12 +205,17 @@ public class HomeFragment extends Fragment {
         } catch (Exception e) {
         }
 
-        return !TextUtils.isEmpty(txtHost.getText())
-                && !TextUtils.isEmpty(txtVisitor.getText())
-                && !TextUtils.isEmpty(txtOvers.getText())
+        return !TextUtils.isEmpty(txtOvers.getText())
                 && (radioBtnHostToss.isChecked() || radioBtnVistorToss.isChecked())
                 && (radioBtnBat.isChecked() || radioBtnBall.isChecked())
+                && (spinnerHost.getSelectedItem().toString().equals("---- Select Team ----") && spinnerVisitor.getSelectedItem().toString().equals("---- Select Team ----"))
                 && Integer.parseInt(txtOvers.getText().toString()) <= 50
                 && Integer.parseInt(txtOvers.getText().toString()) > 0;
+    }
+
+    /* Retrieving From Database and Storing in arraylist */
+    private ArrayList<String> getTeamNamesFromDataSource() {
+        DataBaseHandler dataBaseHandler = new DataBaseHandler(getContext());
+        return dataBaseHandler.getAllTeamNames();
     }
 }

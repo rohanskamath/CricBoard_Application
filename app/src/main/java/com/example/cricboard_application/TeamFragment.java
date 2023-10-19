@@ -37,7 +37,6 @@ public class TeamFragment extends Fragment implements TeamsInterfaceRV {
 
 
     private ArrayList<Teams> teamsArrayList = new ArrayList<>();
-    private String[] teamNames;
 
     /* UI Objects created */
     RecyclerView teamRecyclerView;
