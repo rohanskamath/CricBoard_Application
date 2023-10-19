@@ -315,4 +315,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.close();
         return player;
     }
+
+    /* Function to delete a player by player_id  in teams table */
+    public void deletePlayer(int playerId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = PLAYER_ID + " = ?";
+        String[] whereArgs = {String.valueOf(playerId)};
+        db.delete(TABLE_NAME_PLAYER, whereClause, whereArgs);
+        db.close();
+    }
 }

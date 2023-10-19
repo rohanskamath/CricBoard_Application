@@ -23,6 +23,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     ArrayList<PlayerNames> playerArrayList;
     final FragmentManager fragmentManager;
     private final PlayerInterfaceRV playerInterfaceRV;
+    DataBaseHandler dataBaseHandler;
 
     // Inflating layout using custom adapter
     public PlayerAdapter(Context playerContext, ArrayList<PlayerNames> playerArrayList,FragmentManager fragmentManager,PlayerInterfaceRV playerInterfaceRV){
@@ -52,6 +53,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         String initial="";
         String[] words = playerName.split(" ");
 
+        dataBaseHandler = new DataBaseHandler(playerContext);
+
         if (words.length == 1) {
             if (playerName.length() > 2) {
                 char firstLetter = playerName.charAt(0);
@@ -69,6 +72,9 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         holder.tvImgPlayerName.setText(initial);
         holder.tvImgPlayerName.setBackground(drawable);
 
+        /* get playerId from arraylist */
+        int playerId = playerArrayList.get(position).getPlayerId();
+
         holder.imgPlayerEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +82,14 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
                 updatePlayerIntent.putExtra("Player Name",playerDetails.getPlayerName());
                 updatePlayerIntent.putExtra("Player ID",playerDetails.getPlayerId());
                 playerContext.startActivity(updatePlayerIntent);
+            }
+        });
+
+        holder.imgPlayerDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PlayerDeleteDialog playerDeleteDialog=new PlayerDeleteDialog(playerId,dataBaseHandler,playerArrayList,PlayerAdapter.this);
+                playerDeleteDialog.show(fragmentManager,"Delete Player Name");
             }
         });
     }
@@ -108,14 +122,6 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
             tvPlayerName=itemView.findViewById(R.id.tvPlayerName);
             imgPlayerDelete=itemView.findViewById(R.id.imgPlayerDelete);
             imgPlayerEdit=itemView.findViewById(R.id.imgPlayerEdit);
-
-            imgPlayerDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //DeleteDialog deleteDialog=new DeleteDialog();
-                    //deleteDialog.show(fragmentManager,"Delete Player Name");
-                }
-            });
 
             /* OnClick of Item in recyclerview */
             itemView.setOnClickListener(new View.OnClickListener() {
