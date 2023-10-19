@@ -208,7 +208,7 @@ public class HomeFragment extends Fragment {
         return !TextUtils.isEmpty(txtOvers.getText())
                 && (radioBtnHostToss.isChecked() || radioBtnVistorToss.isChecked())
                 && (radioBtnBat.isChecked() || radioBtnBall.isChecked())
-                && (spinnerHost.getSelectedItem().toString().equals("---- Select Team ----") && spinnerVisitor.getSelectedItem().toString().equals("---- Select Team ----"))
+                && !(spinnerHost.getSelectedItem().toString().equals("---- Select Team ----") || spinnerVisitor.getSelectedItem().toString().equals("---- Select Team ----"))
                 && Integer.parseInt(txtOvers.getText().toString()) <= 50
                 && Integer.parseInt(txtOvers.getText().toString()) > 0;
     }
