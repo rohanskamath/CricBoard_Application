@@ -173,6 +173,8 @@ public class HomeFragment extends Fragment {
                 if (isInputValid()) {
                     /* Navigate to the next page */
                     Intent openingPlayerIntent = new Intent(getContext(), OpeningPlayerActivity.class);
+                    openingPlayerIntent.putExtra("Team Host",spinnerHost.getSelectedItem().toString());
+                    openingPlayerIntent.putExtra("Team Visitor",spinnerVisitor.getSelectedItem().toString());
                     startActivity(openingPlayerIntent);
                 } else {
                     /* Display an error message or toast to inform the user*/

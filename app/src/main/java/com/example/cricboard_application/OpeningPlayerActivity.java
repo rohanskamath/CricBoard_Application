@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,6 +18,7 @@ public class OpeningPlayerActivity extends AppCompatActivity {
     TextView tvHostLogo,tvAwayLogo;
     Button btnStart;
     Spinner spinnerStriker,spinnerNonStriker,spinnerBowler;
+    String hostTeamName,visitorTeamName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,9 @@ public class OpeningPlayerActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Select Opening Players");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
+
+        hostTeamName=getIntent().getStringExtra("Team Host");
+        visitorTeamName=getIntent().getStringExtra("Team Visitor");
 
         String hostTeam[]={
                 "---- Select Players ----",
@@ -63,6 +68,60 @@ public class OpeningPlayerActivity extends AppCompatActivity {
         spinnerNonStriker=findViewById(R.id.spinnerNonStriker);
         spinnerBowler=findViewById(R.id.spinnerBowler);
 
+        /* Generating logo by taking first letter and second letter from the team name */
+        int hostRandomColor = generateRandomColor();
+        GradientDrawable hostDrawable = new GradientDrawable();
+        hostDrawable.setShape(GradientDrawable.OVAL);
+        hostDrawable.setColor(hostRandomColor);
+        String teamHostName=hostTeamName.toUpperCase();
+        String teamVisitorName=visitorTeamName.toUpperCase();
+        String hostInitial="";
+        String visitorInitial="";
+        String[] hostWords = teamHostName.split(" ");
+        String[] visitorWords = teamVisitorName.split(" ");
+
+        /* Host Logo */
+        if (hostWords.length == 1) {
+            if (teamHostName.length() > 2) {
+                char firstLetter = teamHostName.charAt(0);
+                char secondLetter = teamHostName.charAt(1);
+                char thirdLetter = teamHostName.charAt(2);
+                hostInitial = String.valueOf(firstLetter) + String.valueOf(secondLetter)+String.valueOf(thirdLetter);
+            } else if (teamHostName.length() == 1) {
+                char firstLetter = teamHostName.charAt(0);
+                hostInitial = String.valueOf(firstLetter);
+            }
+        } else if (hostWords.length==2) {
+            char firstLetter = hostWords[0].charAt(0);
+            char secondLetter = hostWords[1].charAt(0);
+            hostInitial = String.valueOf(firstLetter) + String.valueOf(secondLetter);
+        }
+        tvHostLogo.setText(hostInitial);
+        tvHostLogo.setBackground(hostDrawable);
+
+        /* Visitor Logo */
+        int awayRandomColor = generateRandomColor();
+        GradientDrawable awayDrawable = new GradientDrawable();
+        awayDrawable.setShape(GradientDrawable.OVAL);
+        awayDrawable.setColor(awayRandomColor);
+        if (visitorWords.length == 1) {
+            if (teamVisitorName.length() > 2) {
+                char firstLetter = teamVisitorName.charAt(0);
+                char secondLetter = teamVisitorName.charAt(1);
+                char thirdLetter = teamVisitorName.charAt(2);
+                visitorInitial = String.valueOf(firstLetter) + String.valueOf(secondLetter)+String.valueOf(thirdLetter);
+            } else if (teamVisitorName.length() == 1) {
+                char firstLetter = teamVisitorName.charAt(0);
+                visitorInitial = String.valueOf(firstLetter);
+            }
+        } else if (visitorWords.length==2) {
+            char firstLetter = visitorWords[0].charAt(0);
+            char secondLetter = visitorWords[1].charAt(0);
+            visitorInitial = String.valueOf(firstLetter) + String.valueOf(secondLetter);
+        }
+        tvAwayLogo.setText(visitorInitial);
+        tvAwayLogo.setBackground(awayDrawable);
+
         ArrayAdapter hostTeamAdapter=new ArrayAdapter(this, R.layout.spinner_item_layout,hostTeam);
         spinnerStriker.setAdapter(hostTeamAdapter);
 
@@ -77,7 +136,15 @@ public class OpeningPlayerActivity extends AppCompatActivity {
                 startActivity(scoreboardIntent);
             }
         });
+    }
 
+    /* Generating random colors for logo */
+    private int generateRandomColor() {
+        int red = (int) (Math.random() * 256);
+        int green = (int) (Math.random() * 256);
+        int blue = (int) (Math.random() * 256);
+
+        return Color.rgb(red, green, blue);
     }
 
     @Override
