@@ -347,4 +347,42 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.delete(TABLE_NAME_PLAYER, whereClause, whereArgs);
         db.close();
     }
+
+    /* Function to getPlayer by Team Name */
+    @SuppressLint("Range")
+    public ArrayList<String> getPlayerNamesByTeamName(String teamName) {
+        ArrayList<String> playerNamesList = new ArrayList<>();
+        playerNamesList.add("---- Select Player ----");
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // First, retrieve the team ID based on the team name
+        String[] teamColumns = {TEAM_ID};
+        String teamWhereClause = TEAM_NAME + " = ?";
+        String[] teamSelectionArgs = {teamName};
+        Cursor teamCursor = db.query(TABLE_NAME_TEAM, teamColumns, teamWhereClause, teamSelectionArgs, null, null, null);
+
+        if (teamCursor != null && teamCursor.moveToFirst()) {
+            int teamId = teamCursor.getInt(teamCursor.getColumnIndex(TEAM_ID));
+
+            // Now, retrieve player names for the specified team ID
+            String[] playerColumns = {PLAYER_NAME};
+            String playerWhereClause = TEAM_ID_PLAYER + " = ?";
+            String[] playerSelectionArgs = {String.valueOf(teamId)};
+            Cursor playerCursor = db.query(TABLE_NAME_PLAYER, playerColumns, playerWhereClause, playerSelectionArgs, null, null, null);
+
+            if (playerCursor != null && playerCursor.moveToFirst()) {
+                do {
+                    String playerName = playerCursor.getString(playerCursor.getColumnIndex(PLAYER_NAME));
+                    playerNamesList.add(playerName);
+                } while (playerCursor.moveToNext());
+
+                playerCursor.close();
+            }
+        }
+
+        db.close();
+        return playerNamesList;
+    }
+
+
 }

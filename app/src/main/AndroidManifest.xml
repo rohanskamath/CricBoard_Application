@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -12,12 +12,17 @@
         android:roundIcon="@mipmap/cricboard_logo_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        tools:targetApi="31" >
+        tools:targetApi="31">
         <activity
-            android:name=".ScoreSummaryActivity"
+            android:name=".WicketActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.CricBoard_Application2"
             android:exported="false" />
+        <activity
+            android:name=".ScoreSummaryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.CricBoard_Application2" />
         <activity
             android:name=".PlayerStatActivity"
             android:exported="false"
@@ -74,7 +79,7 @@
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.CricBoard_Application" >
+            android:theme="@style/Theme.CricBoard_Application">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

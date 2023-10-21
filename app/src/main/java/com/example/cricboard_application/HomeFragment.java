@@ -1,5 +1,6 @@
 package com.example.cricboard_application;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,9 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,12 +43,14 @@ public class HomeFragment extends Fragment {
     private EditText txtOvers;
     private Spinner spinnerHost, spinnerVisitor;
     private RadioGroup radioGroupToss, radioGroupOpt;
-    private RadioButton radioBtnHostToss, radioBtnVistorToss, radioBtnBat, radioBtnBall;
+    private RadioButton radioBtnHostToss, radioBtnVisitorToss, radioBtnBat, radioBtnBall;
     private Button btnStart;
     ArrayAdapter teamsCollectionAdapter;
     ArrayList<String> OverallTeams=new ArrayList<>();
+    CricBoardSharedPreferences sharedPreferences;
     boolean isInitialHostLoad = true;
     boolean isInitialVisitorLoad =true;
+    Context context;
 
 
     public HomeFragment() {
@@ -94,6 +95,9 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        /* Shared Object creation */
+        sharedPreferences= new CricBoardSharedPreferences(getContext());
+
         /* Setting UI elements with Java */
         spinnerHost = view.findViewById(R.id.spinnerHostTeam);
         spinnerVisitor = view.findViewById(R.id.spinnerVisitorTeam);
@@ -101,7 +105,7 @@ public class HomeFragment extends Fragment {
         radioGroupToss = view.findViewById(R.id.radioGroupToss);
         radioGroupOpt = view.findViewById(R.id.radioGroupOpt);
         radioBtnHostToss = view.findViewById(R.id.radioBtnHostToss);
-        radioBtnVistorToss = view.findViewById(R.id.radioBtnVistorToss);
+        radioBtnVisitorToss = view.findViewById(R.id.radioBtnVistorToss);
         radioBtnBat = view.findViewById(R.id.radioBtnBat);
         radioBtnBall = view.findViewById(R.id.radioBtnBall);
 
@@ -156,7 +160,7 @@ public class HomeFragment extends Fragment {
                 } else if (spinnerHost.getSelectedItem().toString().equals(spinnerVisitor.getSelectedItem().toString())){
                     Toast.makeText(getContext(), "Please select correct Team", Toast.LENGTH_SHORT).show();
                 } else {
-                    radioBtnVistorToss.setText(selectedVisitorTeam);
+                    radioBtnVisitorToss.setText(selectedVisitorTeam);
                 }
             }
 
@@ -171,6 +175,22 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
 
                 if (isInputValid()) {
+
+                    /* Store data in Shared preference */
+                    sharedPreferences.setHostTeamName(spinnerHost.getSelectedItem().toString());
+                    sharedPreferences.setVisitorTeamName(spinnerVisitor.getSelectedItem().toString());
+                    if(radioBtnHostToss.isChecked()){
+                        sharedPreferences.setTossWonBy(radioBtnHostToss.getText().toString());
+                    }else {
+                        sharedPreferences.setTossWonBy(radioBtnVisitorToss.getText().toString());
+                    }
+                    if(radioBtnBat.isChecked()){
+                        sharedPreferences.setOptedTo(radioBtnBat.getText().toString());
+                    }else {
+                        sharedPreferences.setOptedTo(radioBtnBall.getText().toString());
+                    }
+                    sharedPreferences.setOvers(Float.parseFloat(txtOvers.getText().toString()));
+
                     /* Navigate to the next page */
                     Intent openingPlayerIntent = new Intent(getContext(), OpeningPlayerActivity.class);
                     openingPlayerIntent.putExtra("Team Host",spinnerHost.getSelectedItem().toString());
@@ -184,7 +204,7 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getContext(), "Please select a Vistor Team", Toast.LENGTH_SHORT).show();
                     } else if(spinnerHost.getSelectedItem().toString().equals(spinnerVisitor.getSelectedItem().toString())){
                         Toast.makeText(getContext(), "Please select correct Team", Toast.LENGTH_SHORT).show();
-                    } else if (!(radioBtnHostToss.isChecked() || radioBtnVistorToss.isChecked())) {
+                    } else if (!(radioBtnHostToss.isChecked() || radioBtnVisitorToss.isChecked())) {
                         Toast.makeText(getContext(), "Please select any of two toss!!", Toast.LENGTH_SHORT).show();
                     } else if (!(radioBtnBat.isChecked() || radioBtnBall.isChecked())) {
                         Toast.makeText(getContext(), "Please select any of two option!!", Toast.LENGTH_SHORT).show();
@@ -208,7 +228,7 @@ public class HomeFragment extends Fragment {
         }
 
         return !TextUtils.isEmpty(txtOvers.getText())
-                && (radioBtnHostToss.isChecked() || radioBtnVistorToss.isChecked())
+                && (radioBtnHostToss.isChecked() || radioBtnVisitorToss.isChecked())
                 && (radioBtnBat.isChecked() || radioBtnBall.isChecked())
                 && !(spinnerHost.getSelectedItem().toString().equals("---- Select Team ----") || spinnerVisitor.getSelectedItem().toString().equals("---- Select Team ----"))
                 && Integer.parseInt(txtOvers.getText().toString()) <= 50

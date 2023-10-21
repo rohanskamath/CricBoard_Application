@@ -506,10 +506,66 @@
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/runsLogo"
+                    android:id="@+id/tvBallOne"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="10dp"
+                    android:visibility="invisible"
+                    android:background="@drawable/round_textview_outline"
+                    android:gravity="center"
+                    android:text="6"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvBallTwo"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:visibility="invisible"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/round_textview_outline"
+                    android:gravity="center"
+                    android:text="6"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvBallThree"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:visibility="invisible"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/round_textview_outline"
+                    android:gravity="center"
+                    android:text="6"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvBallFour"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:visibility="invisible"
+                    android:background="@drawable/round_textview_outline"
+                    android:gravity="center"
+                    android:text="6"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvBallFive"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:visibility="invisible"
+                    android:background="@drawable/round_textview_outline"
+                    android:gravity="center"
+                    android:text="6"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvBallSix"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:visibility="invisible"
                     android:background="@drawable/round_textview_outline"
                     android:gravity="center"
                     android:text="6"
@@ -543,6 +599,7 @@
                     android:orientation="horizontal">
 
                     <CheckBox
+                        android:id="@+id/chkBoxWide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -552,6 +609,7 @@
                         android:textColor="@color/black" />
 
                     <CheckBox
+                        android:id="@+id/chkBoxNoBall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -561,6 +619,7 @@
                         android:textColor="@color/black" />
 
                     <CheckBox
+                        android:id="@+id/chkBoxByes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -570,6 +629,7 @@
                         android:textColor="@color/black" />
 
                     <CheckBox
+                        android:id="@+id/chkBoxLByes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -588,6 +648,7 @@
                     android:orientation="horizontal">
 
                     <CheckBox
+                        android:id="@+id/chkBoxWicket"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -614,7 +675,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/main_color"
-                        android:text="Swap Batsman" />
+                        android:text="ScoreCard" />
 
                 </LinearLayout>
 

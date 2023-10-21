@@ -12,13 +12,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class OpeningPlayerActivity extends AppCompatActivity {
 
-    TextView tvHostLogo,tvAwayLogo;
+    TextView tvHostLogo, tvAwayLogo;
     Button btnStart;
-    Spinner spinnerStriker,spinnerNonStriker,spinnerBowler;
-    String hostTeamName,visitorTeamName;
+    Spinner spinnerStriker, spinnerNonStriker, spinnerBowler;
+    String hostTeamName, visitorTeamName;
+    CricBoardSharedPreferences sharedPreferences;
+    DataBaseHandler dataBaseHandler;
+    ArrayList<String> hostPlayers;
+    ArrayList<String> visitorPlayers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,55 +35,30 @@ public class OpeningPlayerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
 
-        hostTeamName=getIntent().getStringExtra("Team Host");
-        visitorTeamName=getIntent().getStringExtra("Team Visitor");
+        hostTeamName = getIntent().getStringExtra("Team Host");
+        visitorTeamName = getIntent().getStringExtra("Team Visitor");
 
-        String hostTeam[]={
-                "---- Select Players ----",
-                getString(R.string.player1),
-                getString(R.string.player2),
-                getString(R.string.player3),
-                getString(R.string.player4),
-                getString(R.string.player5),
-                getString(R.string.player6),
-                getString(R.string.player7),
-                getString(R.string.player8),
-                getString(R.string.player9),
-                getString(R.string.player10),
-                getString(R.string.player11)
-        };
-        String awayTeam[]={
-                "---- Select Players ----",
-                getString(R.string.player12),
-                getString(R.string.player13),
-                getString(R.string.player14),
-                getString(R.string.player15),
-                getString(R.string.player16),
-                getString(R.string.player17),
-                getString(R.string.player18),
-                getString(R.string.player19),
-                getString(R.string.player20),
-                getString(R.string.player21),
-                getString(R.string.player22),
-                getString(R.string.player23)
-        };
+        /* Shared preference & DatabaseHandler Object */
+        sharedPreferences = new CricBoardSharedPreferences(this);
+        dataBaseHandler = new DataBaseHandler(this);
 
-        tvHostLogo=findViewById(R.id.tvHostLogo);
-        tvAwayLogo=findViewById(R.id.tvAwayLogo);
-        btnStart=findViewById(R.id.btnStart);
-        spinnerStriker=findViewById(R.id.spinnerStriker);
-        spinnerNonStriker=findViewById(R.id.spinnerNonStriker);
-        spinnerBowler=findViewById(R.id.spinnerBowler);
+        /* Setting UI with Java */
+        tvHostLogo = findViewById(R.id.tvHostLogo);
+        tvAwayLogo = findViewById(R.id.tvAwayLogo);
+        btnStart = findViewById(R.id.btnStart);
+        spinnerStriker = findViewById(R.id.spinnerStriker);
+        spinnerNonStriker = findViewById(R.id.spinnerNonStriker);
+        spinnerBowler = findViewById(R.id.spinnerBowler);
 
         /* Generating logo by taking first letter and second letter from the team name */
         int hostRandomColor = generateRandomColor();
         GradientDrawable hostDrawable = new GradientDrawable();
         hostDrawable.setShape(GradientDrawable.OVAL);
         hostDrawable.setColor(hostRandomColor);
-        String teamHostName=hostTeamName.toUpperCase();
-        String teamVisitorName=visitorTeamName.toUpperCase();
-        String hostInitial="";
-        String visitorInitial="";
+        String teamHostName = hostTeamName.toUpperCase();
+        String teamVisitorName = visitorTeamName.toUpperCase();
+        String hostInitial = "";
+        String visitorInitial = "";
         String[] hostWords = teamHostName.split(" ");
         String[] visitorWords = teamVisitorName.split(" ");
 
@@ -86,12 +68,12 @@ public class OpeningPlayerActivity extends AppCompatActivity {
                 char firstLetter = teamHostName.charAt(0);
                 char secondLetter = teamHostName.charAt(1);
                 char thirdLetter = teamHostName.charAt(2);
-                hostInitial = String.valueOf(firstLetter) + String.valueOf(secondLetter)+String.valueOf(thirdLetter);
+                hostInitial = String.valueOf(firstLetter) + String.valueOf(secondLetter) + String.valueOf(thirdLetter);
             } else if (teamHostName.length() == 1) {
                 char firstLetter = teamHostName.charAt(0);
                 hostInitial = String.valueOf(firstLetter);
             }
-        } else if (hostWords.length==2) {
+        } else if (hostWords.length == 2) {
             char firstLetter = hostWords[0].charAt(0);
             char secondLetter = hostWords[1].charAt(0);
             hostInitial = String.valueOf(firstLetter) + String.valueOf(secondLetter);
@@ -109,12 +91,12 @@ public class OpeningPlayerActivity extends AppCompatActivity {
                 char firstLetter = teamVisitorName.charAt(0);
                 char secondLetter = teamVisitorName.charAt(1);
                 char thirdLetter = teamVisitorName.charAt(2);
-                visitorInitial = String.valueOf(firstLetter) + String.valueOf(secondLetter)+String.valueOf(thirdLetter);
+                visitorInitial = String.valueOf(firstLetter) + String.valueOf(secondLetter) + String.valueOf(thirdLetter);
             } else if (teamVisitorName.length() == 1) {
                 char firstLetter = teamVisitorName.charAt(0);
                 visitorInitial = String.valueOf(firstLetter);
             }
-        } else if (visitorWords.length==2) {
+        } else if (visitorWords.length == 2) {
             char firstLetter = visitorWords[0].charAt(0);
             char secondLetter = visitorWords[1].charAt(0);
             visitorInitial = String.valueOf(firstLetter) + String.valueOf(secondLetter);
@@ -122,18 +104,38 @@ public class OpeningPlayerActivity extends AppCompatActivity {
         tvAwayLogo.setText(visitorInitial);
         tvAwayLogo.setBackground(awayDrawable);
 
-        ArrayAdapter hostTeamAdapter=new ArrayAdapter(this, R.layout.spinner_item_layout,hostTeam);
-        spinnerStriker.setAdapter(hostTeamAdapter);
+        /* Getting Host and Visitor player names from database */
+        hostPlayers = dataBaseHandler.getPlayerNamesByTeamName(sharedPreferences.getHostTeamName());
+        visitorPlayers = dataBaseHandler.getPlayerNamesByTeamName(sharedPreferences.getVisitorTeamName());
 
-        ArrayAdapter awayTeamAdapter=new ArrayAdapter(this, R.layout.spinner_item_layout,awayTeam);
-        spinnerNonStriker.setAdapter(awayTeamAdapter);
-        spinnerBowler.setAdapter(awayTeamAdapter);
+        ArrayAdapter hostTeamAdapter = new ArrayAdapter(this, R.layout.spinner_item_layout, hostPlayers);
+        ArrayAdapter awayTeamAdapter = new ArrayAdapter(this, R.layout.spinner_item_layout, visitorPlayers);
+
+        /* Set array adapters according to previously chosen option */
+        if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
+            spinnerStriker.setAdapter(hostTeamAdapter);
+            spinnerNonStriker.setAdapter(hostTeamAdapter);
+            spinnerBowler.setAdapter(awayTeamAdapter);
+        } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
+            spinnerStriker.setAdapter(awayTeamAdapter);
+            spinnerNonStriker.setAdapter(awayTeamAdapter);
+            spinnerBowler.setAdapter(hostTeamAdapter);
+        }
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent scoreboardIntent=new Intent(OpeningPlayerActivity.this, ScoreboardActivity.class);
-                startActivity(scoreboardIntent);
+                if(spinnerStriker.getSelectedItem().toString().equalsIgnoreCase(spinnerNonStriker.getSelectedItem().toString())){
+                    Toast.makeText(OpeningPlayerActivity.this, "Players should not be same!", Toast.LENGTH_SHORT).show();
+                } else if(spinnerStriker.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----") || spinnerNonStriker.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----") || spinnerBowler.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----")) {
+                    Toast.makeText(OpeningPlayerActivity.this, "Select players!", Toast.LENGTH_SHORT).show();
+                } else {
+                    sharedPreferences.setStrikerName(spinnerStriker.getSelectedItem().toString());
+                    sharedPreferences.setNonStrikerName(spinnerNonStriker.getSelectedItem().toString());
+                    sharedPreferences.setBowlerName(spinnerBowler.getSelectedItem().toString());
+                    Intent scoreboardIntent = new Intent(OpeningPlayerActivity.this, ScoreboardActivity.class);
+                    startActivity(scoreboardIntent);
+                }
             }
         });
     }
@@ -143,7 +145,6 @@ public class OpeningPlayerActivity extends AppCompatActivity {
         int red = (int) (Math.random() * 256);
         int green = (int) (Math.random() * 256);
         int blue = (int) (Math.random() * 256);
-
         return Color.rgb(red, green, blue);
     }
 
