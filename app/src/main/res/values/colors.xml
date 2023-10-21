@@ -5,6 +5,7 @@
     <color name="grey">#CCCACA</color>
     <color name="dark_grey">#7C7979</color>
     <color name="green">#65F100</color>
+    <color name="red">#FF0000</color>
     <color name="main_color">#072B5A</color>
     <color name="bgScreenColor">#E1E0E0</color>
     <color name="underline">#D8D6D6</color>

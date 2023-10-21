@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +25,15 @@ public class ScoreboardActivity extends AppCompatActivity {
     Button btnRetire, btnSwapBatsman;
     TextView tvBattingTeamName, tvPlayerStrike, tvPlayerNonStrike, tvBowlerName;
     TextView btnZeroRuns, btnOneRuns, btnTwoRuns, btnThreeRuns, btnFourRuns, btnFiveRuns, btnSixRuns;
+    TextView tvBallOne, tvBallTwo, tvBallThree, tvBallFour, tvBallFive, tvBallSix;
     CheckBox chkBoxWicket;
 
     /* sharedPreferences & DataBaseHandler objects */
     CricBoardSharedPreferences sharedPreferences;
     DataBaseHandler dataBaseHandler;
+
+    /* Objects */
+    Bowler bowler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +49,10 @@ public class ScoreboardActivity extends AppCompatActivity {
         tvPlayerStrike = findViewById(R.id.tvPlayerStrike);
         tvPlayerNonStrike = findViewById(R.id.tvPlayerNonStrike);
         tvBowlerName = findViewById(R.id.tvBowlerName);
+
         btnRetire = findViewById(R.id.btnRetire);
         btnSwapBatsman = findViewById(R.id.btnSwapBatsman);
+
         btnZeroRuns = findViewById(R.id.btnZeroRuns);
         btnOneRuns = findViewById(R.id.btnOneRuns);
         btnTwoRuns = findViewById(R.id.btnTwoRuns);
@@ -53,7 +60,16 @@ public class ScoreboardActivity extends AppCompatActivity {
         btnFourRuns = findViewById(R.id.btnFourRuns);
         btnFiveRuns = findViewById(R.id.btnFiveRuns);
         btnSixRuns = findViewById(R.id.btnSixRuns);
+
         chkBoxWicket = findViewById(R.id.chkBoxWicket);
+
+        tvBallOne = findViewById(R.id.tvBallOne);
+        tvBallTwo = findViewById(R.id.tvBallTwo);
+        tvBallThree = findViewById(R.id.tvBallThree);
+        tvBallFour = findViewById(R.id.tvBallFour);
+        tvBallFive = findViewById(R.id.tvBallFive);
+        tvBallSix = findViewById(R.id.tvBallSix);
+        bowler = new Bowler();
 
         /* Setting Batting name, Striker,Non-Striker */
         if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
@@ -68,8 +84,90 @@ public class ScoreboardActivity extends AppCompatActivity {
         btnZeroRuns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                defaultBowlerOperation();
+                if (isWicket()) {
+                    setOverRuns("W", true);
 
-                isWicket();
+                } else {
+                    setOverRuns("0", false);
+                }
+            }
+        });
+
+        btnOneRuns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                defaultBowlerOperation();
+
+                if (isWicket()) {
+                    setOverRuns("W", true);
+                } else {
+                    setOverRuns("1", false);
+                }
+            }
+        });
+
+        btnTwoRuns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                defaultBowlerOperation();
+                if (isWicket()) {
+                    setOverRuns("W", true);
+                } else {
+                    setOverRuns("2", false);
+                }
+
+            }
+        });
+
+        btnThreeRuns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                defaultBowlerOperation();
+                if (isWicket()) {
+                    setOverRuns("W", true);
+                } else {
+                    setOverRuns("3", false);
+                }
+            }
+        });
+
+        btnFourRuns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                defaultBowlerOperation();
+                if (isWicket()) {
+                    setOverRuns("W", true);
+                } else {
+                    setOverRuns("4", false);
+                }
+            }
+        });
+
+        btnFiveRuns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                defaultBowlerOperation();
+
+                if (isWicket()) {
+                    setOverRuns("W", true);
+                } else {
+                    setOverRuns("5", false);
+                }
+            }
+        });
+
+
+        btnSixRuns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                defaultBowlerOperation();
+
+                if (isWicket()) {
+                    setOverRuns("W", true);
+                } else {
+                    setOverRuns("6", false);
+                }
             }
         });
 
@@ -96,16 +194,90 @@ public class ScoreboardActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
-    public void isWicket() {
-        if (chkBoxWicket.isChecked()) {
-            if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
-                showCustomAlertDialog(this,sharedPreferences.getHostTeamName());
-            } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
-                showCustomAlertDialog(this,sharedPreferences.getVisitorTeamName());
+    /* Function checks if its wicket then we set it to w otherwise run is taken accordingly in the arguement */
+    public void setOverRuns(String run, boolean isWicket) {
+        if (isWicket) {
+            run = "W";
+            if (bowler.getBalls() == 1) {
+                tvBallOne.setText(run);
+                tvBallOne.setBackground(getResources().getDrawable(R.drawable.round_textview_out_outline));
+            } else if (bowler.getBalls() == 2) {
+                tvBallTwo.setText(run);
+                tvBallTwo.setBackground(getResources().getDrawable(R.drawable.round_textview_out_outline));
+            } else if (bowler.getBalls() == 3) {
+                tvBallThree.setText(run);
+                tvBallThree.setBackground(getResources().getDrawable(R.drawable.round_textview_out_outline));
+            } else if (bowler.getBalls() == 4) {
+                tvBallFour.setText(run);
+                tvBallFour.setBackground(getResources().getDrawable(R.drawable.round_textview_out_outline));
+            } else if (bowler.getBalls() == 5) {
+                tvBallFive.setText(run);
+                tvBallFive.setBackground(getResources().getDrawable(R.drawable.round_textview_out_outline));
+            } else if (bowler.getBalls() == 6) {
+                if (tvBallSix.getText().toString().equalsIgnoreCase("-1")) {
+                    tvBallSix.setText(run);
+                    tvBallSix.setBackground(getResources().getDrawable(R.drawable.round_textview_out_outline));
+                }
+            }
+        } else {
+            if (bowler.getBalls() == 1) {
+                tvBallOne.setText(run);
+            } else if (bowler.getBalls() == 2) {
+                tvBallTwo.setText(run);
+            } else if (bowler.getBalls() == 3) {
+                tvBallThree.setText(run);
+            } else if (bowler.getBalls() == 4) {
+                tvBallFour.setText(run);
+            } else if (bowler.getBalls() == 5) {
+                tvBallFive.setText(run);
+            } else if (bowler.getBalls() == 6) {
+                if (tvBallSix.getText().toString().equalsIgnoreCase("-1")) {
+                    tvBallSix.setText(run);
+                }
             }
         }
     }
 
+    /* Function checks if ball is wicket or not ,if wicket then save the current striker and take
+    new striker as input nd store in shared preference */
+    public boolean isWicket() {
+        if (chkBoxWicket.isChecked()) {
+            bowler.setWickets(bowler.getWickets() + 1);
+            if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
+                showCustomAlertDialog(this, sharedPreferences.getHostTeamName());
+            } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
+                showCustomAlertDialog(this, sharedPreferences.getVisitorTeamName());
+            }
+            //TODO: Create Batsman class and perform swap ,on wicket
+            //TODO: Update score,runs, batsaman, overs, etc
+            return true;
+        }
+        return false;
+    }
+
+    /* Default bowler functionality */
+    public void defaultBowlerOperation() {
+        if (bowler.getBalls() < 6) {
+            bowler.setBalls(bowler.getBalls() + 1);
+            if (bowler.getBalls() == 1) {
+                tvBallOne.setVisibility(View.VISIBLE);
+            } else if (bowler.getBalls() == 2) {
+                tvBallTwo.setVisibility(View.VISIBLE);
+            } else if (bowler.getBalls() == 3) {
+                tvBallThree.setVisibility(View.VISIBLE);
+            } else if (bowler.getBalls() == 4) {
+                tvBallFour.setVisibility(View.VISIBLE);
+            } else if (bowler.getBalls() == 5) {
+                tvBallFive.setVisibility(View.VISIBLE);
+            } else if (bowler.getBalls() == 6) {
+                tvBallSix.setVisibility(View.VISIBLE);
+            }
+        } else {
+            bowler.setOvers(bowler.getOvers() + 1);
+        }
+    }
+
+    /*  Show customDailog box for new batsaman after wicket */
     public static void showCustomAlertDialog(Context context, String battingTeamName) {
         /* Create AlertDialog Builder*/
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -119,7 +291,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         /* Declaration */
         Spinner spinnerNewStriker;
         CricBoardSharedPreferences sharedPreferences;
-        DataBaseHandler dataBaseHandler=new DataBaseHandler(context.getApplicationContext());
+        DataBaseHandler dataBaseHandler = new DataBaseHandler(context.getApplicationContext());
         ArrayList<String> StrikerList;
         ArrayAdapter newStrikerAdapter;
 
@@ -146,16 +318,17 @@ public class ScoreboardActivity extends AppCompatActivity {
         Button btnDone;
         btnDone = wicketView.findViewById(R.id.btnDone);
 
-        // Create the AlertDialog
+        /* To Show the Dailog Box */
         final AlertDialog dialog = alertDialogBuilder.create();
         dialog.show();
 
-        // Set click listener for cancel button
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss(); // Dismiss the dialog on cancel button click
+                sharedPreferences.setNewStrikerName(spinnerNewStriker.getSelectedItem().toString());
+                dialog.dismiss();
             }
         });
+
     }
 }
