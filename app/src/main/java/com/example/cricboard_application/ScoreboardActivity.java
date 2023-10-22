@@ -54,8 +54,6 @@ public class ScoreboardActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
 
-
-
         /* Setting UI with java */
         tvBattingTeamName = findViewById(R.id.tvBattingTeamName);
         tvPlayerStrike = findViewById(R.id.tvPlayerStrike);
@@ -140,8 +138,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                     if(bowler.getOvers()>1.0){
                         return;
                     }
-
-
                 }
                 updateStriker(striker);
                 updateBowler(bowler);
@@ -175,13 +171,10 @@ public class ScoreboardActivity extends AppCompatActivity {
                     bowler.setRuns(bowler.getRuns()+1);
                     bowler.calculateEconomyRate();
 
-
-
                     Batsman tempNonStriker = striker.getObject();
                     Batsman tempStriker = nonStriker.getObject();
                     striker = tempStriker;
                     nonStriker = tempNonStriker;
-
 
                     updateNStriker(nonStriker);
                 }
@@ -210,10 +203,7 @@ public class ScoreboardActivity extends AppCompatActivity {
                     updateTeamStat(2,0,0.1f,0.69f);
                     bowler.setRuns(bowler.getRuns()+2);
 
-
                     striker.setRuns(striker.getRuns()+2);
-
-
                 }
                 updateStriker(striker);
                 updateBowler(bowler);
@@ -253,7 +243,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                     striker = tempStriker;
                     nonStriker = tempNonStriker;
 
-
                     updateNStriker(nonStriker);
                 }
                 updateStriker(striker);
@@ -270,7 +259,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                 if(bowler.getOvers()==0.6){
                     bowler.setOvers(1.0);
                 }
-
                 if (isWicket()) {
                     setOverRuns("W", true);
                     updateTeamStat(0,1,0.1f,0.69f);
@@ -284,8 +272,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                     bowler.setRuns(bowler.getRuns()+4);
                     striker.setRuns(striker.getRuns()+4);
                     striker.setNoFours(striker.getNoFours()+1);
-
-
                 }
                 updateStriker(striker);
                 updateBowler(bowler);
@@ -322,12 +308,10 @@ public class ScoreboardActivity extends AppCompatActivity {
                     if(bowler.getOvers()==0.6){
                         bowler.setOvers(1.0);
                     }
-
                     Batsman tempNonStriker = striker.getObject();
                     Batsman tempStriker = nonStriker.getObject();
                     striker = tempStriker;
                     nonStriker = tempNonStriker;
-
 
                     updateNStriker(nonStriker);
                 }
@@ -359,8 +343,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                     bowler.setRuns(bowler.getRuns()+6);
                     striker.setRuns(striker.getRuns()+6);
                     striker.setNoSix(striker.getNoSix()+1);
-
-
                 }
                 updateStriker(striker);
                 updateBowler(bowler);
@@ -444,9 +426,6 @@ public class ScoreboardActivity extends AppCompatActivity {
             } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
                 showCustomAlertDialog(this, sharedPreferences.getVisitorTeamName());
             }
-            //TODO: Create Batsman class and perform swap ,on wicket
-
-            //TODO: Update score,runs, batsaman, overs, etc
             return true;
         }
         return false;
@@ -563,12 +542,9 @@ public class ScoreboardActivity extends AppCompatActivity {
             sharedPreferences.setTotalOvers(1.0f);
         }
         sharedPreferences.setCurrentRunRate();
-
         tvTeamRuns.setText(String.valueOf(sharedPreferences.getTotalTeamRuns()));
         tvTeamWickets.setText(String.valueOf(sharedPreferences.getTotalTeamWickets()));
         tvTeamOvers.setText(String.valueOf(sharedPreferences.getTotalOvers()));
-
         tvTeamCRR.setText(String.valueOf(sharedPreferences.getCurrentRunRate()));
-
     }
 }
