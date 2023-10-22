@@ -53,6 +53,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         oldBowlerList=new ArrayList<>();
         /* SharedPreference & DatabaseHandler Objects */
         sharedPreferences = new CricBoardSharedPreferences(this);
+        dataBaseHandler=new DataBaseHandler(this);
         sharedPreferences.setTotalTeamRuns(0);
         sharedPreferences.setTotalOvers(0.0f);
         sharedPreferences.setTotalTeamWickets(0);
@@ -141,10 +142,22 @@ public class ScoreboardActivity extends AppCompatActivity {
                     setOverRuns("W", true);
                     updateTeamStat(0,1,0.1f);
                 } else {
-                    setOverRuns("0", false);
-                    updateTeamStat(0,0,0.1f);
-                    if(bowler.getOvers()>1.0){
-                        return;
+                    if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
+                        if(sharedPreferences.getTotalTeamWickets()<dataBaseHandler.getPlayerCountByTeamName(sharedPreferences.getHostTeamName())-1){
+                            setOverRuns("0", false);
+                            updateTeamStat(0,0,0.1f);
+                            if(bowler.getOvers()>1.0){
+                                return;
+                            }
+                        }
+                    } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
+                        if(sharedPreferences.getTotalTeamWickets()<dataBaseHandler.getPlayerCountByTeamName(sharedPreferences.getVisitorTeamName())-1){
+                            setOverRuns("0", false);
+                            updateTeamStat(0,0,0.1f);
+                            if(bowler.getOvers()>1.0){
+                                return;
+                            }
+                        }
                     }
                 }
                 updateStriker(striker);
@@ -430,11 +443,10 @@ public class ScoreboardActivity extends AppCompatActivity {
         if (chkBoxWicket.isChecked()) {
             bowler.setWickets(bowler.getWickets() + 1);
             if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
-                showCustomAlertDialog(this, sharedPreferences.getHostTeamName());
+                return showCustomAlertDialog(this, sharedPreferences.getHostTeamName());
             } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
-                showCustomAlertDialog(this, sharedPreferences.getVisitorTeamName());
+                return showCustomAlertDialog(this, sharedPreferences.getVisitorTeamName());
             }
-            return true;
         }
         return false;
     }
@@ -462,7 +474,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     }
 
     /*  Show customDialog box for new batsman after wicket */
-    public void showCustomAlertDialog(Context context, String battingTeamName) {
+    public boolean showCustomAlertDialog(Context context, String battingTeamName) {
         /* Create AlertDialog Builder*/
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -486,6 +498,8 @@ public class ScoreboardActivity extends AppCompatActivity {
             for(Batsman player: oldBatsmanList){
                 StrikerList.remove(player.getName().replace("*",""));
             }
+            if(StrikerList.size()==2)
+                return false;
             newStrikerAdapter = new ArrayAdapter(context, R.layout.spinner_item_layout, StrikerList);
             spinnerNewStriker.setAdapter(newStrikerAdapter);
 
@@ -504,16 +518,21 @@ public class ScoreboardActivity extends AppCompatActivity {
         dialog.show();
         if (StrikerList.size()==1){
             dialog.dismiss();
-            Intent targetIntent = new Intent(ScoreboardActivity.this, TargetActivity.class);
-            if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
-                targetIntent.putExtra("Next Batting Name",sharedPreferences.getVisitorTeamName());
-            } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
-                targetIntent.putExtra("Next Batting Name",sharedPreferences.getHostTeamName());
+
+            if(!sharedPreferences.getIsTargetActivityDone()){
+                Intent targetIntent = new Intent(ScoreboardActivity.this, TargetActivity.class);
+                if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
+                    targetIntent.putExtra("Next Batting Name",sharedPreferences.getVisitorTeamName());
+                } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
+                    targetIntent.putExtra("Next Batting Name",sharedPreferences.getHostTeamName());
+                }
+                targetIntent.putExtra("Total Team Runs",sharedPreferences.getTotalTeamRuns());
+                targetIntent.putExtra("Total Overs",sharedPreferences.getTotalOvers());
+                targetIntent.putExtra("Required Run Rate",sharedPreferences.getCurrentRunRate());
+                sharedPreferences.setIsTargetActivityDone(true);
+                startActivity(targetIntent);
             }
-            targetIntent.putExtra("Total Team Runs",sharedPreferences.getTotalTeamRuns());
-            targetIntent.putExtra("Total Overs",sharedPreferences.getTotalOvers());
-            targetIntent.putExtra("Required Run Rate",sharedPreferences.getCurrentRunRate());
-            startActivity(targetIntent);
+
         }
         Button btnDone;
         btnDone = wicketView.findViewById(R.id.btnDone);
@@ -533,6 +552,7 @@ public class ScoreboardActivity extends AppCompatActivity {
 
             }
         });
+        return true;
     }
 
     /* Function to update current players stat */
@@ -563,14 +583,25 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     /* Function to update Total Team Runs,Wickets,Overs,CRR */
     public void updateTeamStat(int runs,int wicket,float overs){
+
         sharedPreferences.setTotalTeamRuns(sharedPreferences.getTotalTeamRuns()+runs);
-        sharedPreferences.setTotalTeamWickets(sharedPreferences.getTotalTeamWickets()+wicket);
-        sharedPreferences.setTotalOvers(sharedPreferences.getTotalOvers()+overs);
+        int playerCount=0;
+        if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
+            playerCount=dataBaseHandler.getPlayerCountByTeamName(sharedPreferences.getVisitorTeamName())-2;
+        } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
+            playerCount=dataBaseHandler.getPlayerCountByTeamName(sharedPreferences.getHostTeamName())-2;
+        }
+        if(!(playerCount<sharedPreferences.getTotalTeamWickets())){
+            sharedPreferences.setTotalTeamWickets(sharedPreferences.getTotalTeamWickets()+wicket);
+        }
+
         if(sharedPreferences.getTotalOvers()==0.6f){
             sharedPreferences.setTotalOvers(1.0f);
         }else if(sharedPreferences.getTotalOvers()==1.6f){
             sharedPreferences.setTotalOvers(2.0f);
         }
+        sharedPreferences.setTotalOvers(sharedPreferences.getTotalOvers()+overs);
+
         sharedPreferences.setCurrentRunRate();
         tvTeamRuns.setText(String.valueOf(sharedPreferences.getTotalTeamRuns()));
         tvTeamWickets.setText(String.valueOf(sharedPreferences.getTotalTeamWickets()));

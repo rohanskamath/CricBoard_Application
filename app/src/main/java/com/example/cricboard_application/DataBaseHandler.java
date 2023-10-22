@@ -384,5 +384,40 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         return playerNamesList;
     }
 
+    /* Method get player count */
+    public int getPlayerCountByTeamName(String teamName) {
+        int teamId = getTeamIdByName(teamName);
+
+        if (teamId != -1) {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String[] columns = {PLAYER_ID};
+            String whereClause = TEAM_ID_PLAYER + " = ?";
+            String[] selectionArgs = {String.valueOf(teamId)};
+            Cursor cursor = db.query(TABLE_NAME_PLAYER, columns, whereClause, selectionArgs, null, null, null);
+            int playerCount = cursor.getCount();
+            cursor.close();
+            db.close();
+            return playerCount;
+        }
+
+        return 0;
+    }
+
+    /* Function to retrieve team ID by team name */
+    private int getTeamIdByName(String teamName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {TEAM_ID};
+        String whereClause = TEAM_NAME + " = ?";
+        String[] selectionArgs = {teamName};
+        Cursor cursor = db.query(TABLE_NAME_TEAM, columns, whereClause, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int teamId = cursor.getInt(cursor.getColumnIndex(TEAM_ID));
+            cursor.close();
+            db.close();
+            return teamId;
+        }
+        return -1;
+    }
 
 }

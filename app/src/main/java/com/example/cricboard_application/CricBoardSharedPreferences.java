@@ -22,6 +22,8 @@ public class CricBoardSharedPreferences {
     private static final String KEY_TOTAL_OVERS = "TotalOvers";
     private static final String KEY_CURRENT_RUN_RATE = "CurrentRunRate";
 
+    private static final String KEY_IS_TARGET_ACTIVITY_DONE = "IsTargetActivityDone";
+
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -155,6 +157,14 @@ public class CricBoardSharedPreferences {
         } else {
             return (0.0f);
         }
+    }
+    public boolean getIsTargetActivityDone() {
+        return sharedPreferences.getBoolean(KEY_IS_TARGET_ACTIVITY_DONE, false);
+    }
+
+    public void setIsTargetActivityDone(boolean isDone) {
+        editor.putBoolean(KEY_IS_TARGET_ACTIVITY_DONE, isDone);
+        editor.apply();
     }
 
 
