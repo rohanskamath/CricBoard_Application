@@ -23,9 +23,11 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     /* UI Objects */
     Button btnRetire, btnSwapBatsman;
+    TextView tvTeamRuns,tvTeamWickets,tvTeamOvers,tvTeamCRR;
     TextView tvBattingTeamName, tvPlayerStrike, tvPlayerNonStrike, tvBowlerName;
     TextView btnZeroRuns, btnOneRuns, btnTwoRuns, btnThreeRuns, btnFourRuns, btnFiveRuns, btnSixRuns;
     TextView tvBallOne, tvBallTwo, tvBallThree, tvBallFour, tvBallFive, tvBallSix;
+    TextView tvSplayerRuns, tvSplayerBalls, tvSplayer4s, tvSplayer6s, tvSplayerSR, tvNSplayerRuns, tvNSplayerBalls, tvNSplayer4s, tvNSplayer6s, tvNSplayerSR, tvOvers, tvMaiden, tvBowlerRuns, tvBowlerWickets, tvER;
     CheckBox chkBoxWicket;
 
     /* sharedPreferences & DataBaseHandler objects */
@@ -34,15 +36,21 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     /* Objects */
     Bowler bowler;
+    Batsman striker,nonStriker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
+
+        /* SharedPreference & DatabaseHandler Objects */
         sharedPreferences = new CricBoardSharedPreferences(this);
+
         getSupportActionBar().setTitle(sharedPreferences.getHostTeamName() + " v/s " + sharedPreferences.getVisitorTeamName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
+
+
 
         /* Setting UI with java */
         tvBattingTeamName = findViewById(R.id.tvBattingTeamName);
@@ -69,7 +77,34 @@ public class ScoreboardActivity extends AppCompatActivity {
         tvBallFour = findViewById(R.id.tvBallFour);
         tvBallFive = findViewById(R.id.tvBallFive);
         tvBallSix = findViewById(R.id.tvBallSix);
-        bowler = new Bowler();
+
+        tvSplayerRuns = findViewById(R.id.tvSplayerRuns);
+        tvSplayerBalls = findViewById(R.id.tvSplayerBalls);
+        tvSplayer4s = findViewById(R.id.tvSplayer4s);
+        tvSplayer6s = findViewById(R.id.tvSplayer6s);
+        tvSplayerSR = findViewById(R.id.tvSplayerSR);
+
+        tvNSplayerRuns = findViewById(R.id.tvNSplayerRuns);
+        tvNSplayerBalls = findViewById(R.id.tvNSplayerBalls);
+        tvNSplayer4s = findViewById(R.id.tvNSplayer4s);
+        tvNSplayer6s = findViewById(R.id.tvNSplayer6s);
+        tvNSplayerSR = findViewById(R.id.tvNSplayerSR);
+
+        tvOvers = findViewById(R.id.tvOvers);
+        tvMaiden = findViewById(R.id.tvMaiden);
+        tvBowlerRuns = findViewById(R.id.tvBowlerRuns);
+        tvBowlerWickets = findViewById(R.id.tvBowlerWickets);
+        tvER = findViewById(R.id.tvER);
+
+        tvTeamRuns = findViewById(R.id.tvTeamRuns);
+        tvTeamWickets = findViewById(R.id.tvTeamWickets);
+        tvTeamOvers = findViewById(R.id.tvTeamOvers);
+        tvTeamCRR = findViewById(R.id.tvTeamCRR);
+
+        /* Creating Objects of current players */
+        bowler = new Bowler(sharedPreferences.getBowlerName());
+        striker=new Batsman(sharedPreferences.getStrikerName(),true);
+        nonStriker=new Batsman(sharedPreferences.getNonStrikerName(),false);
 
         /* Setting Batting name, Striker,Non-Striker */
         if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
@@ -77,9 +112,11 @@ public class ScoreboardActivity extends AppCompatActivity {
         } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
             tvBattingTeamName.setText(sharedPreferences.getVisitorTeamName());
         }
-        tvPlayerStrike.setText(sharedPreferences.getStrikerName() + "*");
-        tvPlayerNonStrike.setText(sharedPreferences.getNonStrikerName());
-        tvBowlerName.setText(sharedPreferences.getBowlerName());
+
+        /* Setting player in textview */
+        tvPlayerStrike.setText(striker.getName());
+        tvPlayerNonStrike.setText(nonStriker.getName());
+        tvBowlerName.setText(bowler.getName());
 
         btnZeroRuns.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +127,16 @@ public class ScoreboardActivity extends AppCompatActivity {
 
                 } else {
                     setOverRuns("0", false);
+                    if(bowler.getOvers()>1.0){
+                        return;
+                    }
+                    striker.setBalls(striker.getBalls()+1);
+                    bowler.setOvers(bowler.getOvers()+0.1 );
+                    if(bowler.getOvers()==0.6){
+                        bowler.setOvers(1.0);
+                    }
+                    updateStriker(striker);
+                    updateBowler(bowler);
                 }
             }
         });
@@ -103,6 +150,32 @@ public class ScoreboardActivity extends AppCompatActivity {
                     setOverRuns("W", true);
                 } else {
                     setOverRuns("1", false);
+
+                    if(bowler.getOvers()>1.0){
+                        return;
+                    }
+
+                    striker.setBalls(striker.getBalls()+1);
+                    striker.setRuns(striker.getRuns()+1);
+                    striker.calculateStrikeRate();
+                    striker.setOnStrike(false);
+                    nonStriker.setOnStrike(true);
+
+                    bowler.setRuns(bowler.getRuns()+1);
+                    bowler.calculateEconomyRate();
+                    bowler.setOvers(bowler.getOvers()+0.1 );
+                    if(bowler.getOvers()==0.6){
+                        bowler.setOvers(1.0);
+                    }
+
+                    Batsman tempNonStriker = striker.getObject();
+                    Batsman tempStriker = nonStriker.getObject();
+                    striker = tempStriker;
+                    nonStriker = tempNonStriker;
+
+                    updateStriker(striker);
+                    updateBowler(bowler);
+                    updateNStriker(nonStriker);
                 }
             }
         });
@@ -115,6 +188,19 @@ public class ScoreboardActivity extends AppCompatActivity {
                     setOverRuns("W", true);
                 } else {
                     setOverRuns("2", false);
+                    if(bowler.getOvers()>1.0){
+                        return;
+                    }
+                    bowler.setRuns(bowler.getRuns()+2);
+                    striker.setBalls(striker.getBalls()+1);
+                    bowler.setOvers(bowler.getOvers()+0.1 );
+
+                    striker.setRuns(striker.getRuns()+2);
+                    if(bowler.getOvers()==0.6){
+                        bowler.setOvers(1.0);
+                    }
+                    updateStriker(striker);
+                    updateBowler(bowler);
                 }
 
             }
@@ -128,6 +214,30 @@ public class ScoreboardActivity extends AppCompatActivity {
                     setOverRuns("W", true);
                 } else {
                     setOverRuns("3", false);
+                    if(bowler.getOvers()>1.0){
+                        return;
+                    }
+                    striker.setBalls(striker.getBalls()+1);
+                    striker.setRuns(striker.getRuns()+3);
+                    striker.calculateStrikeRate();
+                    striker.setOnStrike(false);
+                    nonStriker.setOnStrike(true);
+
+                    bowler.setRuns(bowler.getRuns()+3);
+                    bowler.calculateEconomyRate();
+                    bowler.setOvers(bowler.getOvers()+0.1 );
+                    if(bowler.getOvers()==0.6){
+                        bowler.setOvers(1.0);
+                    }
+
+                    Batsman tempNonStriker = striker.getObject();
+                    Batsman tempStriker = nonStriker.getObject();
+                    striker = tempStriker;
+                    nonStriker = tempNonStriker;
+
+                    updateStriker(striker);
+                    updateBowler(bowler);
+                    updateNStriker(nonStriker);
                 }
             }
         });
@@ -140,6 +250,20 @@ public class ScoreboardActivity extends AppCompatActivity {
                     setOverRuns("W", true);
                 } else {
                     setOverRuns("4", false);
+                    if(bowler.getOvers()>1.0){
+                        return;
+                    }
+                    striker.setBalls(striker.getBalls()+1);
+                    bowler.setOvers(bowler.getOvers()+0.1 );
+
+                    bowler.setRuns(bowler.getRuns()+4);
+                    striker.setRuns(striker.getRuns()+4);
+                    striker.setNoFours(striker.getNoFours()+1);
+                    if(bowler.getOvers()==0.6){
+                        bowler.setOvers(1.0);
+                    }
+                    updateStriker(striker);
+                    updateBowler(bowler);
                 }
             }
         });
@@ -153,6 +277,30 @@ public class ScoreboardActivity extends AppCompatActivity {
                     setOverRuns("W", true);
                 } else {
                     setOverRuns("5", false);
+                    if(bowler.getOvers()>1.0){
+                        return;
+                    }
+                    striker.setBalls(striker.getBalls()+1);
+                    striker.setRuns(striker.getRuns()+5);
+                    striker.calculateStrikeRate();
+                    striker.setOnStrike(false);
+                    nonStriker.setOnStrike(true);
+
+                    bowler.setRuns(bowler.getRuns()+5);
+                    bowler.calculateEconomyRate();
+                    bowler.setOvers(bowler.getOvers()+0.1 );
+                    if(bowler.getOvers()==0.6){
+                        bowler.setOvers(1.0);
+                    }
+
+                    Batsman tempNonStriker = striker.getObject();
+                    Batsman tempStriker = nonStriker.getObject();
+                    striker = tempStriker;
+                    nonStriker = tempNonStriker;
+
+                    updateStriker(striker);
+                    updateBowler(bowler);
+                    updateNStriker(nonStriker);
                 }
             }
         });
@@ -167,6 +315,19 @@ public class ScoreboardActivity extends AppCompatActivity {
                     setOverRuns("W", true);
                 } else {
                     setOverRuns("6", false);
+                    if(bowler.getOvers()>1.0){
+                        return;
+                    }
+                    striker.setBalls(striker.getBalls()+1);
+                    bowler.setOvers(bowler.getOvers()+0.1 );
+                    bowler.setRuns(bowler.getRuns()+6);
+                    striker.setRuns(striker.getRuns()+6);
+                    striker.setNoSix(striker.getNoSix()+1);
+                    if(bowler.getOvers()==0.6){
+                        bowler.setOvers(1.0);
+                    }
+                    updateStriker(striker);
+                    updateBowler(bowler);
                 }
             }
         });
@@ -249,6 +410,7 @@ public class ScoreboardActivity extends AppCompatActivity {
                 showCustomAlertDialog(this, sharedPreferences.getVisitorTeamName());
             }
             //TODO: Create Batsman class and perform swap ,on wicket
+
             //TODO: Update score,runs, batsaman, overs, etc
             return true;
         }
@@ -318,7 +480,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         Button btnDone;
         btnDone = wicketView.findViewById(R.id.btnDone);
 
-        /* To Show the Dailog Box */
+        /* To Show the Dialog Box */
         final AlertDialog dialog = alertDialogBuilder.create();
         dialog.show();
 
@@ -329,6 +491,31 @@ public class ScoreboardActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+    }
 
+    /* Function to update current players stat */
+    public void updateStriker(Batsman striker){
+        tvPlayerStrike.setText(striker.getName());
+        tvSplayerBalls.setText(String.valueOf(striker.getBalls()));
+        tvSplayerRuns.setText(String.valueOf(striker.getRuns()));
+        tvSplayer4s.setText(String.valueOf(striker.getNoFours()));
+        tvSplayer6s.setText(String.valueOf(striker.getNoSix()));
+        tvSplayerSR.setText((String.format("%.1f",striker.getStrikeRate())));
+    }
+    public void updateNStriker(Batsman nonStriker){
+        tvPlayerNonStrike.setText(nonStriker.getName());
+        tvNSplayerBalls.setText(String.valueOf(nonStriker.getBalls()));
+        tvNSplayerRuns.setText(String.valueOf(nonStriker.getRuns()));
+        tvNSplayer4s.setText(String.valueOf(nonStriker.getNoFours()));
+        tvNSplayer6s.setText(String.valueOf(nonStriker.getNoSix()));
+        tvNSplayerSR.setText((String.format("%.1f",nonStriker.getStrikeRate())));
+    }
+
+    public void updateBowler(Bowler bowler){
+        tvOvers.setText((String.format("%.1f",bowler.getOvers())));
+        tvMaiden.setText(String.valueOf(bowler.getMaidens()));
+        tvBowlerRuns.setText(String.valueOf(bowler.getRuns()));
+        tvBowlerWickets.setText(String.valueOf(bowler.getWickets()));
+        tvER.setText((String.format("%.1f",bowler.getEconomyRate())));
     }
 }
