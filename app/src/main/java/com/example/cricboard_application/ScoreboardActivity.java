@@ -45,6 +45,10 @@ public class ScoreboardActivity extends AppCompatActivity {
 
         /* SharedPreference & DatabaseHandler Objects */
         sharedPreferences = new CricBoardSharedPreferences(this);
+        sharedPreferences.setTotalTeamRuns(0);
+        sharedPreferences.setTotalOvers(0.0f);
+        sharedPreferences.setTotalTeamWickets(0);
+        sharedPreferences.setCurrentRunRate();
 
         getSupportActionBar().setTitle(sharedPreferences.getHostTeamName() + " v/s " + sharedPreferences.getVisitorTeamName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -122,22 +126,25 @@ public class ScoreboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 defaultBowlerOperation();
+                striker.setBalls(striker.getBalls()+1);
+                bowler.setOvers(bowler.getOvers()+0.1 );
+                if(bowler.getOvers()==0.6){
+                    bowler.setOvers(1.0);
+                }
                 if (isWicket()) {
                     setOverRuns("W", true);
-
+                    updateTeamStat(0,1,0.1f,0.69f);
                 } else {
                     setOverRuns("0", false);
+                    updateTeamStat(0,0,0.1f,0.69f);
                     if(bowler.getOvers()>1.0){
                         return;
                     }
-                    striker.setBalls(striker.getBalls()+1);
-                    bowler.setOvers(bowler.getOvers()+0.1 );
-                    if(bowler.getOvers()==0.6){
-                        bowler.setOvers(1.0);
-                    }
-                    updateStriker(striker);
-                    updateBowler(bowler);
+
+
                 }
+                updateStriker(striker);
+                updateBowler(bowler);
             }
         });
 
@@ -145,17 +152,21 @@ public class ScoreboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 defaultBowlerOperation();
-
+                striker.setBalls(striker.getBalls()+1);
+                bowler.setOvers(bowler.getOvers()+0.1 );
+                if(bowler.getOvers()==0.6){
+                    bowler.setOvers(1.0);
+                }
                 if (isWicket()) {
                     setOverRuns("W", true);
+                    updateTeamStat(0,1,0.1f,0.69f);
                 } else {
                     setOverRuns("1", false);
 
                     if(bowler.getOvers()>1.0){
                         return;
                     }
-
-                    striker.setBalls(striker.getBalls()+1);
+                    updateTeamStat(1,0,0.1f,0.69f);
                     striker.setRuns(striker.getRuns()+1);
                     striker.calculateStrikeRate();
                     striker.setOnStrike(false);
@@ -163,20 +174,19 @@ public class ScoreboardActivity extends AppCompatActivity {
 
                     bowler.setRuns(bowler.getRuns()+1);
                     bowler.calculateEconomyRate();
-                    bowler.setOvers(bowler.getOvers()+0.1 );
-                    if(bowler.getOvers()==0.6){
-                        bowler.setOvers(1.0);
-                    }
+
+
 
                     Batsman tempNonStriker = striker.getObject();
                     Batsman tempStriker = nonStriker.getObject();
                     striker = tempStriker;
                     nonStriker = tempNonStriker;
 
-                    updateStriker(striker);
-                    updateBowler(bowler);
+
                     updateNStriker(nonStriker);
                 }
+                updateStriker(striker);
+                updateBowler(bowler);
             }
         });
 
@@ -184,25 +194,29 @@ public class ScoreboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 defaultBowlerOperation();
+                striker.setBalls(striker.getBalls()+1);
+                bowler.setOvers(bowler.getOvers()+0.1 );
+                if(bowler.getOvers()==0.6){
+                    bowler.setOvers(1.0);
+                }
                 if (isWicket()) {
                     setOverRuns("W", true);
+                    updateTeamStat(0,1,0.1f,0.69f);
                 } else {
                     setOverRuns("2", false);
                     if(bowler.getOvers()>1.0){
                         return;
                     }
+                    updateTeamStat(2,0,0.1f,0.69f);
                     bowler.setRuns(bowler.getRuns()+2);
-                    striker.setBalls(striker.getBalls()+1);
-                    bowler.setOvers(bowler.getOvers()+0.1 );
+
 
                     striker.setRuns(striker.getRuns()+2);
-                    if(bowler.getOvers()==0.6){
-                        bowler.setOvers(1.0);
-                    }
-                    updateStriker(striker);
-                    updateBowler(bowler);
-                }
 
+
+                }
+                updateStriker(striker);
+                updateBowler(bowler);
             }
         });
 
@@ -210,14 +224,22 @@ public class ScoreboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 defaultBowlerOperation();
+                striker.setBalls(striker.getBalls()+1);
+                bowler.setOvers(bowler.getOvers()+0.1 );
+                if(bowler.getOvers()==0.6){
+                    bowler.setOvers(1.0);
+                }
+
                 if (isWicket()) {
                     setOverRuns("W", true);
+                    updateTeamStat(0,1,0.1f,0.69f);
                 } else {
                     setOverRuns("3", false);
                     if(bowler.getOvers()>1.0){
                         return;
                     }
-                    striker.setBalls(striker.getBalls()+1);
+                    updateTeamStat(3,0,0.1f,0.69f);
+
                     striker.setRuns(striker.getRuns()+3);
                     striker.calculateStrikeRate();
                     striker.setOnStrike(false);
@@ -225,20 +247,17 @@ public class ScoreboardActivity extends AppCompatActivity {
 
                     bowler.setRuns(bowler.getRuns()+3);
                     bowler.calculateEconomyRate();
-                    bowler.setOvers(bowler.getOvers()+0.1 );
-                    if(bowler.getOvers()==0.6){
-                        bowler.setOvers(1.0);
-                    }
 
                     Batsman tempNonStriker = striker.getObject();
                     Batsman tempStriker = nonStriker.getObject();
                     striker = tempStriker;
                     nonStriker = tempNonStriker;
 
-                    updateStriker(striker);
-                    updateBowler(bowler);
+
                     updateNStriker(nonStriker);
                 }
+                updateStriker(striker);
+                updateBowler(bowler);
             }
         });
 
@@ -246,25 +265,30 @@ public class ScoreboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 defaultBowlerOperation();
+                striker.setBalls(striker.getBalls()+1);
+                bowler.setOvers(bowler.getOvers()+0.1 );
+                if(bowler.getOvers()==0.6){
+                    bowler.setOvers(1.0);
+                }
+
                 if (isWicket()) {
                     setOverRuns("W", true);
+                    updateTeamStat(0,1,0.1f,0.69f);
                 } else {
                     setOverRuns("4", false);
                     if(bowler.getOvers()>1.0){
                         return;
                     }
-                    striker.setBalls(striker.getBalls()+1);
-                    bowler.setOvers(bowler.getOvers()+0.1 );
+                    updateTeamStat(4,0,0.1f,0.69f);
 
                     bowler.setRuns(bowler.getRuns()+4);
                     striker.setRuns(striker.getRuns()+4);
                     striker.setNoFours(striker.getNoFours()+1);
-                    if(bowler.getOvers()==0.6){
-                        bowler.setOvers(1.0);
-                    }
-                    updateStriker(striker);
-                    updateBowler(bowler);
+
+
                 }
+                updateStriker(striker);
+                updateBowler(bowler);
             }
         });
 
@@ -272,15 +296,21 @@ public class ScoreboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 defaultBowlerOperation();
-
+                striker.setBalls(striker.getBalls()+1);
+                bowler.setOvers(bowler.getOvers()+0.1 );
+                if(bowler.getOvers()==0.6){
+                    bowler.setOvers(1.0);
+                }
                 if (isWicket()) {
                     setOverRuns("W", true);
+                    updateTeamStat(0,1,0.1f,0.69f);
                 } else {
                     setOverRuns("5", false);
                     if(bowler.getOvers()>1.0){
                         return;
                     }
-                    striker.setBalls(striker.getBalls()+1);
+                    updateTeamStat(5,0,0.1f,0.69f);
+
                     striker.setRuns(striker.getRuns()+5);
                     striker.calculateStrikeRate();
                     striker.setOnStrike(false);
@@ -288,7 +318,7 @@ public class ScoreboardActivity extends AppCompatActivity {
 
                     bowler.setRuns(bowler.getRuns()+5);
                     bowler.calculateEconomyRate();
-                    bowler.setOvers(bowler.getOvers()+0.1 );
+
                     if(bowler.getOvers()==0.6){
                         bowler.setOvers(1.0);
                     }
@@ -298,10 +328,11 @@ public class ScoreboardActivity extends AppCompatActivity {
                     striker = tempStriker;
                     nonStriker = tempNonStriker;
 
-                    updateStriker(striker);
-                    updateBowler(bowler);
+
                     updateNStriker(nonStriker);
                 }
+                updateStriker(striker);
+                updateBowler(bowler);
             }
         });
 
@@ -310,25 +341,29 @@ public class ScoreboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 defaultBowlerOperation();
-
+                striker.setBalls(striker.getBalls()+1);
+                bowler.setOvers(bowler.getOvers()+0.1 );
+                if(bowler.getOvers()==0.6){
+                    bowler.setOvers(1.0);
+                }
                 if (isWicket()) {
                     setOverRuns("W", true);
+                    updateTeamStat(0,1,0.1f,0.69f);
                 } else {
                     setOverRuns("6", false);
                     if(bowler.getOvers()>1.0){
                         return;
                     }
-                    striker.setBalls(striker.getBalls()+1);
-                    bowler.setOvers(bowler.getOvers()+0.1 );
+                    updateTeamStat(6,0,0.1f,0.69f);
+
                     bowler.setRuns(bowler.getRuns()+6);
                     striker.setRuns(striker.getRuns()+6);
                     striker.setNoSix(striker.getNoSix()+1);
-                    if(bowler.getOvers()==0.6){
-                        bowler.setOvers(1.0);
-                    }
-                    updateStriker(striker);
-                    updateBowler(bowler);
+
+
                 }
+                updateStriker(striker);
+                updateBowler(bowler);
             }
         });
 
@@ -517,5 +552,23 @@ public class ScoreboardActivity extends AppCompatActivity {
         tvBowlerRuns.setText(String.valueOf(bowler.getRuns()));
         tvBowlerWickets.setText(String.valueOf(bowler.getWickets()));
         tvER.setText((String.format("%.1f",bowler.getEconomyRate())));
+    }
+
+    /* Function to update Total Team Runs,Wickets,Overs,CRR */
+    public void updateTeamStat(int runs,int wicket,float overs,float crr){
+        sharedPreferences.setTotalTeamRuns(sharedPreferences.getTotalTeamRuns()+runs);
+        sharedPreferences.setTotalTeamWickets(sharedPreferences.getTotalTeamWickets()+wicket);
+        sharedPreferences.setTotalOvers(sharedPreferences.getTotalOvers()+overs);
+        if(sharedPreferences.getTotalOvers()==0.6f){
+            sharedPreferences.setTotalOvers(1.0f);
+        }
+        sharedPreferences.setCurrentRunRate();
+
+        tvTeamRuns.setText(String.valueOf(sharedPreferences.getTotalTeamRuns()));
+        tvTeamWickets.setText(String.valueOf(sharedPreferences.getTotalTeamWickets()));
+        tvTeamOvers.setText(String.valueOf(sharedPreferences.getTotalOvers()));
+
+        tvTeamCRR.setText(String.valueOf(sharedPreferences.getCurrentRunRate()));
+
     }
 }

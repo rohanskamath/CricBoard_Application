@@ -17,6 +17,11 @@ public class CricBoardSharedPreferences {
 
     private static final String KEY_NEW_STRIKER_NAME = "NewStrikerName";
 
+    private static final String KEY_TOTAL_TEAM_RUNS = "TotalTeamRuns";
+    private static final String KEY_TOTAL_TEAM_WICKETS = "TotalTeamWickets";
+    private static final String KEY_TOTAL_OVERS = "TotalOvers";
+    private static final String KEY_CURRENT_RUN_RATE = "CurrentRunRate";
+
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -104,6 +109,52 @@ public class CricBoardSharedPreferences {
     public void setNewStrikerName(String newStrikerName) {
         editor.putString(KEY_NEW_STRIKER_NAME, newStrikerName);
         editor.apply();
+    }
+
+    public int getTotalTeamRuns() {
+        return sharedPreferences.getInt(KEY_TOTAL_TEAM_RUNS, 0);
+    }
+
+    public void setTotalTeamRuns(int totalTeamRuns) {
+        editor.putInt(KEY_TOTAL_TEAM_RUNS, totalTeamRuns);
+        editor.apply();
+    }
+
+    public int getTotalTeamWickets() {
+        return sharedPreferences.getInt(KEY_TOTAL_TEAM_WICKETS, 0);
+    }
+
+    public void setTotalTeamWickets(int totalTeamWickets) {
+        editor.putInt(KEY_TOTAL_TEAM_WICKETS, totalTeamWickets);
+        editor.apply();
+    }
+
+    public float getTotalOvers() {
+        return sharedPreferences.getFloat(KEY_TOTAL_OVERS, 0.0f);
+    }
+
+    public void setTotalOvers(float totalOvers) {
+        editor.putFloat(KEY_TOTAL_OVERS, totalOvers);
+        editor.apply();
+    }
+
+    public float getCurrentRunRate() {
+        return sharedPreferences.getFloat(KEY_CURRENT_RUN_RATE, 0.0f);
+    }
+
+    public void setCurrentRunRate() {
+        editor.putFloat(KEY_CURRENT_RUN_RATE, calculateCurrentRunRate());
+        editor.apply();
+    }
+
+    public float calculateCurrentRunRate() {
+        int totalRuns = getTotalTeamRuns();
+        float totalOvers = getTotalOvers();
+        if (totalOvers > 0) {
+            return totalRuns / totalOvers;
+        } else {
+            return (0.0f);
+        }
     }
 }
 
