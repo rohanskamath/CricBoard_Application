@@ -142,6 +142,7 @@ public class ScoreboardActivity extends AppCompatActivity {
                     showTargetActivity();
                 }
                 if (isWicket()) {
+
                     setOverRuns("W", true);
                     updateTeamStat(0, 1, 0.1f);
                 } else {
@@ -444,10 +445,13 @@ public class ScoreboardActivity extends AppCompatActivity {
     new striker as input nd store in shared preference */
     public boolean isWicket() {
         if (chkBoxWicket.isChecked()) {
+
             bowler.setWickets(bowler.getWickets() + 1);
             if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
+                Toast.makeText(ScoreboardActivity.this, "Working1", Toast.LENGTH_SHORT).show();
                 return showCustomAlertDialog(this, sharedPreferences.getHostTeamName());
             } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
+                Toast.makeText(ScoreboardActivity.this, "Working2", Toast.LENGTH_SHORT).show();
                 return showCustomAlertDialog(this, sharedPreferences.getVisitorTeamName());
             }
         }

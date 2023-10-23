@@ -82,14 +82,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_NAME_HISTORY = "History";
     private static final String HISTORY_DATE = "date";
     private static final String HISTORY_TIME = "time";
-    private static final String HISTORY_HOST_TEAM_NAME = "host_team_name";
-    private static final String HISTORY_HOST_TOTAL_SCORE = "host_total_score";
-    private static final String HISTORY_HOST_OVERS = "host_overs";
-    private static final String HISTORY_HOST_WICKETS = "host_wickets";
-    private static final String HISTORY_VISITOR_TEAM_NAME = "visitor_team_name";
-    private static final String HISTORY_VISITOR_TOTAL_SCORE = "visitor_total_score";
-    private static final String HISTORY_VISITOR_WICKETS = "visitor_wickets";
-    private static final String HISTORY_TEAM_WINNING_NAME = "team_winning_name";
+    private static final String HISTORY_HOST_TEAM_NAME = "hostTeamName";
+    private static final String HISTORY_HOST_TOTAL_SCORE = "hostTotalScore";
+    private static final String HISTORY_HOST_OVERS = "hostOvers";
+    private static final String HISTORY_HOST_WICKETS = "hostWickets";
+    private static final String HISTORY_VISITOR_TEAM_NAME = "visitorTeamName";
+    private static final String HISTORY_VISITOR_TOTAL_SCORE = "visitorTotalScore";
+    private static final String HISTORY_VISITOR_WICKETS = "visitorWickets";
+    private static final String HISTORY_TEAM_WINNING_NAME = "teamWinningName";
     private static final String SQL_CREATE_HISTORY_TABLE = "CREATE TABLE " + TABLE_NAME_HISTORY + " ("
             + HISTORY_DATE + " TEXT NOT NULL, "
             + HISTORY_TIME + " TEXT NOT NULL, "
