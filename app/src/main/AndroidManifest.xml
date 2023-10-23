@@ -29,12 +29,22 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.CricBoard_Application2" />
         <activity
+            android:name=".OponentScoreboardActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.CricBoard_Application2" />
+        <activity
             android:name=".ScoreboardActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.CricBoard_Application2" />
         <activity
             android:name=".OpeningPlayerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.CricBoard_Application2" />
+        <activity
+            android:name=".OpeningOponentPlayerActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.CricBoard_Application2" />

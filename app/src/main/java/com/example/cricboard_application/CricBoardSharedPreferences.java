@@ -24,6 +24,8 @@ public class CricBoardSharedPreferences {
 
     private static final String KEY_IS_TARGET_ACTIVITY_DONE = "IsTargetActivityDone";
 
+    private static final String KEY_WINNING_TEAM_NAME = "WinningTeamName";
+
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -167,8 +169,12 @@ public class CricBoardSharedPreferences {
         editor.apply();
     }
 
+    public String getWinningTeamName() {
+        return sharedPreferences.getString(KEY_WINNING_TEAM_NAME, "");
+    }
 
+    public void setWinningTeamName(String winningTeamName) {
+        editor.putString(KEY_WINNING_TEAM_NAME, winningTeamName);
+        editor.apply();
+    }
 }
-
-
-

@@ -37,21 +37,14 @@
             app:lottie_rawRes="@raw/trophyanim"/>
 
         <TextView
+            android:id="@+id/tvWinningTeam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="40sp"
             android:layout_marginTop="20dp"
             android:textColor="@color/black"
             android:fontFamily="@font/oswaldsemibold"
-            android:text="Team Name"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:fontFamily="@font/oswaldsemibold"
-            android:textSize="30sp"
-            android:text="Team-1 won by 10 Wicket"/>
+            android:text="Team Won: Team Name"/>
 
     </LinearLayout>
 

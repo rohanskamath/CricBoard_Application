@@ -404,6 +404,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     }
 
     /* Function to retrieve team ID by team name */
+    @SuppressLint("Range")
     private int getTeamIdByName(String teamName) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {TEAM_ID};

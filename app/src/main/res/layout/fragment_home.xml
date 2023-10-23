@@ -275,9 +275,9 @@
                 android:ems="10"
                 android:fontFamily="@font/oswaldregular"
                 android:hint="5"
+                android:enabled="false"
                 android:inputType="number"
-
-                android:text="" />
+                android:text="1" />
 
         </LinearLayout>
 
