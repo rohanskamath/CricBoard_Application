@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         } else if(item.getItemId()==R.id.menuTeams){
             replaceFragment(new TeamFragment());
         } else if(item.getItemId()==R.id.menuHistory){
-            replaceFragment(new HistoryFragment());
+            replaceFragment(new HistoryFragment(getApplicationContext()));
         }
         return true;
         });

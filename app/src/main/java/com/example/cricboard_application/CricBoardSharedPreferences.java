@@ -3,6 +3,11 @@ package com.example.cricboard_application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class CricBoardSharedPreferences {
     private static final String PREF_NAME = "MyAppPreferences";
     private static final String KEY_HOST_TEAM_NAME = "HostTeamName";
@@ -25,6 +30,12 @@ public class CricBoardSharedPreferences {
     private static final String KEY_IS_TARGET_ACTIVITY_DONE = "IsTargetActivityDone";
 
     private static final String KEY_WINNING_TEAM_NAME = "WinningTeamName";
+
+    private static final String KEY_TOTAL_FIRST_TEAM_RUNS = "firstTeamRuns";
+    private static final String KEY_TOTAL_FIRST_TEAM_OVERS = "firstTeamOvers";
+    private static final String KEY_TOTAL_FIRST_TEAM_WICKETS = "firstTeamWickets";
+
+    private static final String KEY_HISTORY_LIST = "historyList";
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -176,5 +187,63 @@ public class CricBoardSharedPreferences {
     public void setWinningTeamName(String winningTeamName) {
         editor.putString(KEY_WINNING_TEAM_NAME, winningTeamName);
         editor.apply();
+    }
+
+    public int getTotalFirstTeamRuns() {
+        return sharedPreferences.getInt(KEY_TOTAL_FIRST_TEAM_RUNS, 0);
+    }
+
+    public void setTotalFirstTeamRuns(int totalFirstTeamRuns) {
+        editor.putInt(KEY_TOTAL_FIRST_TEAM_RUNS, totalFirstTeamRuns);
+        editor.apply();
+    }
+
+    public float getTotalFirstTeamOvers() {
+        return sharedPreferences.getFloat(KEY_TOTAL_FIRST_TEAM_OVERS, 0.0f);
+    }
+
+    public void setTotalFirstTeamOvers(float totalFirstTeamOvers) {
+        editor.putFloat(KEY_TOTAL_FIRST_TEAM_OVERS, totalFirstTeamOvers);
+        editor.apply();
+    }
+
+    public int getTotalFirstTeamWickets() {
+        return sharedPreferences.getInt(KEY_TOTAL_FIRST_TEAM_WICKETS, 0);
+    }
+
+    public void setTotalFirstTeamWickets(int totalFirstTeamWickets) {
+        editor.putInt(KEY_TOTAL_FIRST_TEAM_WICKETS, totalFirstTeamWickets);
+        editor.apply();
+    }
+
+    // Save the ArrayList of objects to SharedPreferences
+    public  void saveObjectList(ArrayList<History> objectList) {
+
+        // Convert the ArrayList to a JSON string
+        Gson gson = new Gson();
+        String json = gson.toJson(objectList);
+
+        editor.putString(KEY_HISTORY_LIST, json);
+        editor.apply();
+    }
+
+    // Retrieve the ArrayList of objects from SharedPreferences
+    public  ArrayList<History> getObjectList() {
+
+        // Retrieve the JSON string from SharedPreferences
+        String json = sharedPreferences.getString(KEY_HISTORY_LIST, null);
+
+        if (json != null) {
+            // Convert the JSON string back to an ArrayList
+            Gson gson = new Gson();
+            History[] objectArray = gson.fromJson(json, History[].class);
+
+            if (objectArray != null) {
+                ArrayList<History> objectList = new ArrayList<>(Arrays.asList(objectArray));
+                return objectList;
+            }
+        }
+
+        return new ArrayList<>(); // Return an empty list if data doesn't exist
     }
 }

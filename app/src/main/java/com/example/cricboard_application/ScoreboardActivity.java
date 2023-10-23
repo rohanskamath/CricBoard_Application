@@ -607,7 +607,6 @@ public class ScoreboardActivity extends AppCompatActivity {
             sharedPreferences.setTotalOvers(sharedPreferences.getTotalOvers() + overs);
         }
 
-
         sharedPreferences.setCurrentRunRate();
         tvTeamRuns.setText(String.valueOf(sharedPreferences.getTotalTeamRuns()));
         tvTeamWickets.setText(String.valueOf(sharedPreferences.getTotalTeamWickets()));
@@ -616,6 +615,11 @@ public class ScoreboardActivity extends AppCompatActivity {
     }
 
     public void showTargetActivity() {
+
+        sharedPreferences.setTotalFirstTeamRuns(sharedPreferences.getTotalTeamRuns());
+        sharedPreferences.setTotalFirstTeamOvers(sharedPreferences.getTotalOvers());
+        sharedPreferences.setTotalFirstTeamWickets(sharedPreferences.getTotalTeamWickets());
+
         Handler targetHandler = new Handler();
         targetHandler.postDelayed(new Runnable() {
             @Override

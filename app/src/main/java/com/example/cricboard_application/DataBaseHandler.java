@@ -77,6 +77,32 @@ public class DataBaseHandler extends SQLiteOpenHelper {
             + " FOREIGN KEY (" + TEAM_ID + ") REFERENCES " + TABLE_NAME_TEAM + "(" + TEAM_ID + ")"
             + ");";
 
+
+    // History Table instances
+    private static final String TABLE_NAME_HISTORY = "History";
+    private static final String HISTORY_DATE = "date";
+    private static final String HISTORY_TIME = "time";
+    private static final String HISTORY_HOST_TEAM_NAME = "host_team_name";
+    private static final String HISTORY_HOST_TOTAL_SCORE = "host_total_score";
+    private static final String HISTORY_HOST_OVERS = "host_overs";
+    private static final String HISTORY_HOST_WICKETS = "host_wickets";
+    private static final String HISTORY_VISITOR_TEAM_NAME = "visitor_team_name";
+    private static final String HISTORY_VISITOR_TOTAL_SCORE = "visitor_total_score";
+    private static final String HISTORY_VISITOR_WICKETS = "visitor_wickets";
+    private static final String HISTORY_TEAM_WINNING_NAME = "team_winning_name";
+    private static final String SQL_CREATE_HISTORY_TABLE = "CREATE TABLE " + TABLE_NAME_HISTORY + " ("
+            + HISTORY_DATE + " TEXT NOT NULL, "
+            + HISTORY_TIME + " TEXT NOT NULL, "
+            + HISTORY_HOST_TEAM_NAME + " TEXT NOT NULL, "
+            + HISTORY_HOST_TOTAL_SCORE + " INTEGER, "
+            + HISTORY_HOST_OVERS + " REAL, "
+            + HISTORY_HOST_WICKETS + " INTEGER, "
+            + HISTORY_VISITOR_TEAM_NAME + " TEXT NOT NULL, "
+            + HISTORY_VISITOR_TOTAL_SCORE + " INTEGER, "
+            + HISTORY_VISITOR_WICKETS + " INTEGER, "
+            + HISTORY_TEAM_WINNING_NAME + " TEXT NOT NULL"
+            + ");";
+
     public DataBaseHandler(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -89,6 +115,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         /* Create Player Table */
         sqLiteDatabase.execSQL(SQL_CREATE_PLAYERS_TABLE);
         Log.d("TABLE CREATION: ","Players created");
+
+        sqLiteDatabase.execSQL(SQL_CREATE_HISTORY_TABLE);
+        Log.d("TABLE CREATION: ","History created");
     }
 
     @Override
@@ -421,4 +450,46 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         return -1;
     }
 
+    public void addHistory(History history) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = history.toContentValues();
+        db.insert(TABLE_NAME_HISTORY, null, values);
+        db.close();
+    }
+
+    // Retrieve all History objects from the database
+    @SuppressLint("Range")
+    public ArrayList<History> getAllHistory() {
+        ArrayList<History> historyList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {
+                 HISTORY_DATE, HISTORY_TIME, HISTORY_HOST_TEAM_NAME,
+                HISTORY_HOST_TOTAL_SCORE, HISTORY_HOST_OVERS, HISTORY_HOST_WICKETS,
+                HISTORY_VISITOR_TEAM_NAME, HISTORY_VISITOR_TOTAL_SCORE,
+                HISTORY_VISITOR_WICKETS, HISTORY_TEAM_WINNING_NAME
+        };
+        Cursor cursor = db.query(TABLE_NAME_HISTORY, columns, null, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                String date = cursor.getString(cursor.getColumnIndex(HISTORY_DATE));
+                String time = cursor.getString(cursor.getColumnIndex(HISTORY_TIME));
+                String hostTeamName = cursor.getString(cursor.getColumnIndex(HISTORY_HOST_TEAM_NAME));
+                int hostTotalScore = cursor.getInt(cursor.getColumnIndex(HISTORY_HOST_TOTAL_SCORE));
+                float hostOvers = cursor.getFloat(cursor.getColumnIndex(HISTORY_HOST_OVERS));
+                int hostWickets = cursor.getInt(cursor.getColumnIndex(HISTORY_HOST_WICKETS));
+                String visitorTeamName = cursor.getString(cursor.getColumnIndex(HISTORY_VISITOR_TEAM_NAME));
+                int visitorTotalScore = cursor.getInt(cursor.getColumnIndex(HISTORY_VISITOR_TOTAL_SCORE));
+                int visitorWickets = cursor.getInt(cursor.getColumnIndex(HISTORY_VISITOR_WICKETS));
+                String teamWinningName = cursor.getString(cursor.getColumnIndex(HISTORY_TEAM_WINNING_NAME));
+
+                History history = new History(date, time, hostTeamName, hostOvers, hostTotalScore,
+                        hostWickets, visitorTeamName, hostOvers, visitorTotalScore, visitorWickets, teamWinningName);
+                historyList.add(history);
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+        db.close();
+        return historyList;
+    }
 }
