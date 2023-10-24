@@ -49,13 +49,12 @@ public class PlayerNames {
 
     public PlayerNames() {
 
-        // Default constructor
     }
 
-    public PlayerNames(int team_id,String PName) {
-        this.teamId=team_id;
-        this.playerName=PName;
-        this.playerImgPath="";
+    public PlayerNames(int team_id, String PName) {
+        this.teamId = team_id;
+        this.playerName = PName;
+        this.playerImgPath = "";
         this.playerId = 0;
         this.playerMatches = 0;
         this.playerRuns = 0;
@@ -75,10 +74,10 @@ public class PlayerNames {
         this.playerFiveWickets = 0;
     }
 
-    public PlayerNames(int team_id,String PName,String imgPath) {
-        this.teamId=team_id;
-        this.playerName=PName;
-        this.playerImgPath=imgPath;
+    public PlayerNames(int team_id, String PName, String imgPath) {
+        this.teamId = team_id;
+        this.playerName = PName;
+        this.playerImgPath = imgPath;
         this.playerId = 0;
         this.playerMatches = 0;
         this.playerRuns = 0;

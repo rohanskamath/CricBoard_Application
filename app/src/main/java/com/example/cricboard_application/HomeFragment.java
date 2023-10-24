@@ -46,10 +46,10 @@ public class HomeFragment extends Fragment {
     private RadioButton radioBtnHostToss, radioBtnVisitorToss, radioBtnBat, radioBtnBall;
     private Button btnStart;
     ArrayAdapter teamsCollectionAdapter;
-    ArrayList<String> OverallTeams=new ArrayList<>();
+    ArrayList<String> OverallTeams = new ArrayList<>();
     CricBoardSharedPreferences sharedPreferences;
     boolean isInitialHostLoad = true;
-    boolean isInitialVisitorLoad =true;
+    boolean isInitialVisitorLoad = true;
     Context context;
 
 
@@ -96,7 +96,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         /* Shared Object creation */
-        sharedPreferences= new CricBoardSharedPreferences(getContext());
+        sharedPreferences = new CricBoardSharedPreferences(getContext());
 
         /* Setting UI elements with Java */
         spinnerHost = view.findViewById(R.id.spinnerHostTeam);
@@ -113,10 +113,10 @@ public class HomeFragment extends Fragment {
         btnStart = view.findViewById(R.id.btnStart);
 
         /* Retrieving From Database and Storing in arraylist */
-        OverallTeams=getTeamNamesFromDataSource();
+        OverallTeams = getTeamNamesFromDataSource();
 
         /* Setting spinner Adapter */
-        teamsCollectionAdapter=new ArrayAdapter(getContext(), R.layout.spinner_item_layout,OverallTeams);
+        teamsCollectionAdapter = new ArrayAdapter(getContext(), R.layout.spinner_item_layout, OverallTeams);
         spinnerHost.setAdapter(teamsCollectionAdapter);
         spinnerVisitor.setAdapter(teamsCollectionAdapter);
 
@@ -132,7 +132,7 @@ public class HomeFragment extends Fragment {
                 String selectedHostTeam = spinnerHost.getSelectedItem().toString();
                 if (selectedHostTeam.equals("---- Select Team ----")) {
                     Toast.makeText(getContext(), "Please select correct Team", Toast.LENGTH_SHORT).show();
-                } else if (spinnerHost.getSelectedItem().toString().equals(spinnerVisitor.getSelectedItem().toString())){
+                } else if (spinnerHost.getSelectedItem().toString().equals(spinnerVisitor.getSelectedItem().toString())) {
                     Toast.makeText(getContext(), "Please select correct Team", Toast.LENGTH_SHORT).show();
                 } else {
                     radioBtnHostToss.setText(selectedHostTeam);
@@ -157,7 +157,7 @@ public class HomeFragment extends Fragment {
                 String selectedVisitorTeam = spinnerVisitor.getSelectedItem().toString();
                 if (selectedVisitorTeam.equals("---- Select Team ----")) {
                     Toast.makeText(getContext(), "Please select correct Team", Toast.LENGTH_SHORT).show();
-                } else if (spinnerHost.getSelectedItem().toString().equals(spinnerVisitor.getSelectedItem().toString())){
+                } else if (spinnerHost.getSelectedItem().toString().equals(spinnerVisitor.getSelectedItem().toString())) {
                     Toast.makeText(getContext(), "Please select correct Team", Toast.LENGTH_SHORT).show();
                 } else {
                     radioBtnVisitorToss.setText(selectedVisitorTeam);
@@ -179,30 +179,30 @@ public class HomeFragment extends Fragment {
                     /* Store data in Shared preference */
                     sharedPreferences.setHostTeamName(spinnerHost.getSelectedItem().toString());
                     sharedPreferences.setVisitorTeamName(spinnerVisitor.getSelectedItem().toString());
-                    if(radioBtnHostToss.isChecked()){
+                    if (radioBtnHostToss.isChecked()) {
                         sharedPreferences.setTossWonBy(radioBtnHostToss.getText().toString());
-                    }else {
+                    } else {
                         sharedPreferences.setTossWonBy(radioBtnVisitorToss.getText().toString());
                     }
-                    if(radioBtnBat.isChecked()){
+                    if (radioBtnBat.isChecked()) {
                         sharedPreferences.setOptedTo(radioBtnBat.getText().toString());
-                    }else {
+                    } else {
                         sharedPreferences.setOptedTo(radioBtnBall.getText().toString());
                     }
                     sharedPreferences.setOvers(Float.parseFloat(txtOvers.getText().toString()));
 
                     /* Navigate to the next page */
                     Intent openingPlayerIntent = new Intent(getContext(), OpeningPlayerActivity.class);
-                    openingPlayerIntent.putExtra("Team Host",spinnerHost.getSelectedItem().toString());
-                    openingPlayerIntent.putExtra("Team Visitor",spinnerVisitor.getSelectedItem().toString());
+                    openingPlayerIntent.putExtra("Team Host", spinnerHost.getSelectedItem().toString());
+                    openingPlayerIntent.putExtra("Team Visitor", spinnerVisitor.getSelectedItem().toString());
                     startActivity(openingPlayerIntent);
                 } else {
                     /* Display an error message or toast to inform the user*/
-                    if(spinnerHost.getSelectedItem()==null){
+                    if (spinnerHost.getSelectedItem() == null) {
                         Toast.makeText(getContext(), "Please select a Host Team", Toast.LENGTH_SHORT).show();
-                    } else if(spinnerVisitor.getSelectedItem()==null){
+                    } else if (spinnerVisitor.getSelectedItem() == null) {
                         Toast.makeText(getContext(), "Please select a Vistor Team", Toast.LENGTH_SHORT).show();
-                    } else if(spinnerHost.getSelectedItem().toString().equals(spinnerVisitor.getSelectedItem().toString())){
+                    } else if (spinnerHost.getSelectedItem().toString().equals(spinnerVisitor.getSelectedItem().toString())) {
                         Toast.makeText(getContext(), "Please select correct Team", Toast.LENGTH_SHORT).show();
                     } else if (!(radioBtnHostToss.isChecked() || radioBtnVisitorToss.isChecked())) {
                         Toast.makeText(getContext(), "Please select any of two toss!!", Toast.LENGTH_SHORT).show();

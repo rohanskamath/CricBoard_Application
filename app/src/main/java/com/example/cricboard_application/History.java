@@ -26,20 +26,20 @@ public class History {
     public static final String KEY_VISITOR_WICKETS = "visitorWickets";
     public static final String KEY_TEAM_WINNING_NAME = "teamWinningName";
 
-    public History(){
+    public History() {
 
     }
 
-    public History(String date, String time, String hostTeamName, float hostOvers,int hostTotalRuns, int hostWickets,
-                   String visitorTeamName, float visitorOvers,int visitorTotalScore, int visitorWickets, String teamWinningName) {
+    public History(String date, String time, String hostTeamName, float hostOvers, int hostTotalRuns, int hostWickets,
+                   String visitorTeamName, float visitorOvers, int visitorTotalScore, int visitorWickets, String teamWinningName) {
         this.date = date;
         this.time = time;
         this.hostTeamName = hostTeamName;
-        this.hostOvers=hostOvers;
+        this.hostOvers = hostOvers;
         this.hostTotalScore = hostTotalRuns;
         this.hostWickets = hostWickets;
         this.visitorTeamName = visitorTeamName;
-        this.visitorOvers=visitorOvers;
+        this.visitorOvers = visitorOvers;
         this.visitorTotalScore = visitorTotalScore;
         this.visitorWickets = visitorWickets;
         this.teamWinningName = teamWinningName;
@@ -135,8 +135,6 @@ public class History {
 
     public ContentValues toContentValues() {
         ContentValues values = new ContentValues();
-
-        // Map your class properties to database columns
         values.put(KEY_DATE, this.date);
         values.put(KEY_TIME, this.time);
         values.put(KEY_HOST_TEAM_NAME, this.hostTeamName);
@@ -147,7 +145,6 @@ public class History {
         values.put(KEY_VISITOR_TOTAL_SCORE, this.visitorTotalScore);
         values.put(KEY_VISITOR_WICKETS, this.visitorWickets);
         values.put(KEY_TEAM_WINNING_NAME, this.teamWinningName);
-
         return values;
     }
 }

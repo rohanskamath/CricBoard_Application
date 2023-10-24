@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 public class ScoreboardActivity extends AppCompatActivity {
 
     /* UI Objects */
-    Button btnRetire, btnSwapBatsman;
+    Button btnRetire, btnScoreCard;
     TextView tvTeamRuns, tvTeamWickets, tvTeamOvers, tvTeamCRR;
     TextView tvBattingTeamName, tvPlayerStrike, tvPlayerNonStrike, tvBowlerName;
     TextView btnZeroRuns, btnOneRuns, btnTwoRuns, btnThreeRuns, btnFourRuns, btnFiveRuns, btnSixRuns;
@@ -33,7 +32,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     CheckBox chkBoxWicket;
     Spinner spinnerNewStriker;
 
-    /* sharedPreferences & DataBaseHandler objects */
+    /* SharedPreferences & DataBaseHandler objects */
     CricBoardSharedPreferences sharedPreferences;
     DataBaseHandler dataBaseHandler;
 
@@ -52,14 +51,17 @@ public class ScoreboardActivity extends AppCompatActivity {
 
         oldBatsmanList = new ArrayList<>();
         oldBowlerList = new ArrayList<>();
+
         /* SharedPreference & DatabaseHandler Objects */
         sharedPreferences = new CricBoardSharedPreferences(this);
         dataBaseHandler = new DataBaseHandler(this);
+
         sharedPreferences.setTotalTeamRuns(0);
         sharedPreferences.setTotalOvers(0.0f);
         sharedPreferences.setTotalTeamWickets(0);
         sharedPreferences.setCurrentRunRate();
 
+        /* Changing Action bar programmatically */
         getSupportActionBar().setTitle(sharedPreferences.getHostTeamName() + " v/s " + sharedPreferences.getVisitorTeamName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
@@ -71,7 +73,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         tvBowlerName = findViewById(R.id.tvBowlerName);
 
         btnRetire = findViewById(R.id.btnRetire);
-        btnSwapBatsman = findViewById(R.id.btnSwapBatsman);
+        btnScoreCard = findViewById(R.id.btnScoreCard);
 
         btnZeroRuns = findViewById(R.id.btnZeroRuns);
         btnOneRuns = findViewById(R.id.btnOneRuns);
@@ -382,7 +384,7 @@ public class ScoreboardActivity extends AppCompatActivity {
             }
         });
 
-        btnSwapBatsman.setOnClickListener(new View.OnClickListener() {
+        btnScoreCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent ScoreSummaryIntent = new Intent(ScoreboardActivity.this, ScoreSummaryActivity.class);
@@ -474,7 +476,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                 tvBallFive.setVisibility(View.VISIBLE);
             } else if (bowler.getBalls() == 6) {
                 tvBallSix.setVisibility(View.VISIBLE);
-
             }
         } else {
             bowler.setOvers(bowler.getOvers() + 1);
@@ -644,6 +645,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                 startActivity(targetIntent);
                 finish();
             }
-        }, 3000);
+        }, 1000);
     }
 }

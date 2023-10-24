@@ -22,9 +22,13 @@ import java.io.File;
 
 public class PlayerStatActivity extends AppCompatActivity {
 
-    TextView tvBatting,tvBowling;
+    /* UI Objects */
+    TextView tvBatting, tvBowling;
     ImageView imageViewPP;
+
     int player_id;
+
+    /* DataBaseHandler Object */
     DataBaseHandler dataBaseHandler;
 
     @Override
@@ -32,18 +36,21 @@ public class PlayerStatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_stat);
 
+        /* Changing Action bar programmatically */
         getSupportActionBar().setTitle(getIntent().getStringExtra("Player Name"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
         replaceFragment(new BattingFragment());
 
-        player_id=getIntent().getIntExtra("Player ID",-1);
+        player_id = getIntent().getIntExtra("Player ID", -1);
 
-        tvBatting=findViewById(R.id.tvBatting);
-        tvBowling=findViewById(R.id.tvBowling);
-        imageViewPP=findViewById(R.id.imageViewPP);
+        /* Setting UI with Java */
+        tvBatting = findViewById(R.id.tvBatting);
+        tvBowling = findViewById(R.id.tvBowling);
+        imageViewPP = findViewById(R.id.imageViewPP);
 
-        dataBaseHandler=new DataBaseHandler(this);
+        /* DataBaseHandler Object Initialization */
+        dataBaseHandler = new DataBaseHandler(this);
 
         tvBatting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,9 +65,10 @@ public class PlayerStatActivity extends AppCompatActivity {
             }
         });
 
+        /* Based on player ID Image will be displaying playerStat */
         PlayerNames player = dataBaseHandler.getPlayerById(player_id);
-        String imagePath="";
-        try{
+        String imagePath = "";
+        try {
             imagePath = player.getPlayerImgPath().substring(7);
             if (!imagePath.isEmpty()) {
                 File imgFile = new File(imagePath);
@@ -70,17 +78,15 @@ public class PlayerStatActivity extends AppCompatActivity {
                     imageViewPP.setScaleType(ImageView.ScaleType.FIT_XY);
                 }
             }
-        }
-        catch (Exception e){
-
+        } catch (Exception e) {
         }
     }
 
-    private void replaceFragment(Fragment fragment)
-    {
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.playerStatLayout,fragment);
+    /* Function to Replace Fragment in FrameLayout */
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.playerStatLayout, fragment);
         fragmentTransaction.commit();
     }
 

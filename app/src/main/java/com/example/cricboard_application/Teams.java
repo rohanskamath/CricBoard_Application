@@ -85,5 +85,4 @@ public class Teams {
         values.put("lost", lost);
         return values;
     }
-
 }

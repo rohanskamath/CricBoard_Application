@@ -25,10 +25,10 @@ public class UpdateTeamDialog extends AppCompatDialogFragment {
     DataBaseHandler dataBaseHandler;
     private Teams teamToUpdate;
 
-    public UpdateTeamDialog(TeamAdapter teamAdapter, ArrayList<Teams> teamsArrayList,DataBaseHandler dataBaseHandler,Teams teamToUpdate) {
+    public UpdateTeamDialog(TeamAdapter teamAdapter, ArrayList<Teams> teamsArrayList, DataBaseHandler dataBaseHandler, Teams teamToUpdate) {
         this.teamAdapter = teamAdapter;
         this.teamsArrayList = teamsArrayList;
-        this.dataBaseHandler=dataBaseHandler;
+        this.dataBaseHandler = dataBaseHandler;
         this.teamToUpdate = teamToUpdate;
     }
 
@@ -36,12 +36,11 @@ public class UpdateTeamDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        AlertDialog.Builder updateTeamBuilder=new AlertDialog.Builder(getContext());
-        LayoutInflater UpdateTeamInflater=getActivity().getLayoutInflater();
+        AlertDialog.Builder updateTeamBuilder = new AlertDialog.Builder(getContext());
+        LayoutInflater UpdateTeamInflater = getActivity().getLayoutInflater();
+        View teamViewDailog = UpdateTeamInflater.inflate(R.layout.update_team_layout, null);
 
-        View teamViewDailog=UpdateTeamInflater.inflate(R.layout.update_team_layout,null);
-
-        txtNewName=teamViewDailog.findViewById(R.id.txtNewTeamName);
+        txtNewName = teamViewDailog.findViewById(R.id.txtNewTeamName);
 
         // Pre-fill the EditText with the existing team name
         txtNewName.setText(teamToUpdate.getTeamName());

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
     android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="10dp"
     android:background="@drawable/rounded_layout_design"
     android:elevation="6dp"
     android:padding="8dp">
@@ -93,22 +93,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/oswaldsemibold"
                 android:layout_weight="1"
-                android:text="Team-1" />
+                android:fontFamily="@font/oswaldsemibold"
+                android:text="Team-1"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tvHostTeamRunsWickets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:gravity="end"
                 android:layout_marginEnd="5dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/oswaldsemibold"
                 android:layout_weight="1"
-                android:text="0/0 (0.0)" />
+                android:fontFamily="@font/oswaldsemibold"
+                android:gravity="end"
+                android:text="0/0 (0.0)"
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
@@ -139,10 +139,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/oswaldsemibold"
                 android:layout_weight="1"
-                android:text="Team-2" />
+                android:fontFamily="@font/oswaldsemibold"
+                android:text="Team-2"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tvAwayTeamRunsWickets"
@@ -150,11 +150,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
-                android:textColor="@color/black"
-                android:gravity="end"
-                android:fontFamily="@font/oswaldsemibold"
                 android:layout_weight="1"
-                android:text="0/0 (0.0)" />
+                android:fontFamily="@font/oswaldsemibold"
+                android:gravity="end"
+                android:text="0/0 (0.0)"
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
@@ -164,12 +164,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:textColor="@color/grey"
             android:fontFamily="@font/oswaldsemibold"
-            android:text="Team 1 won the toss and opted to Bowl First" />
+            android:text="Team 1 won the toss and opted to Bowl First"
+            android:textColor="@color/grey" />
 
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

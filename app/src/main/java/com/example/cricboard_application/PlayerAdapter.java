@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder> {
 
+    /* Fragment, ArrayList, Context , DatabaseHandler Objects */
     Context playerContext;
     ArrayList<PlayerNames> playerArrayList;
     final FragmentManager fragmentManager;
@@ -26,33 +27,35 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     DataBaseHandler dataBaseHandler;
 
     // Inflating layout using custom adapter
-    public PlayerAdapter(Context playerContext, ArrayList<PlayerNames> playerArrayList,FragmentManager fragmentManager,PlayerInterfaceRV playerInterfaceRV){
-        this.playerContext=playerContext;
-        this.playerArrayList=playerArrayList;
+    public PlayerAdapter(Context playerContext, ArrayList<PlayerNames> playerArrayList, FragmentManager fragmentManager, PlayerInterfaceRV playerInterfaceRV) {
+        this.playerContext = playerContext;
+        this.playerArrayList = playerArrayList;
         this.fragmentManager = fragmentManager;
-        this.playerInterfaceRV=playerInterfaceRV;
+        this.playerInterfaceRV = playerInterfaceRV;
     }
 
     @NonNull
     @Override
     public PlayerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View playerView= LayoutInflater.from(playerContext).inflate(R.layout.players_layout,parent,false);
-        return new PlayerAdapter.PlayerViewHolder(playerView,fragmentManager,playerInterfaceRV);
+        View playerView = LayoutInflater.from(playerContext).inflate(R.layout.players_layout, parent, false);
+        return new PlayerAdapter.PlayerViewHolder(playerView, fragmentManager, playerInterfaceRV);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PlayerAdapter.PlayerViewHolder holder, int position) {
-        PlayerNames playerDetails=playerArrayList.get(position);
+        PlayerNames playerDetails = playerArrayList.get(position);
         holder.tvPlayerName.setText(playerDetails.getPlayerName());
 
+        /* Player Logo */
         int randomColor = generateRandomColor();
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.OVAL);
         drawable.setColor(randomColor);
-        String playerName=playerDetails.getPlayerName().toUpperCase();
-        String initial="";
+        String playerName = playerDetails.getPlayerName().toUpperCase();
+        String initial = "";
         String[] words = playerName.split(" ");
 
+        /* DataBaseHandler object initialization */
         dataBaseHandler = new DataBaseHandler(playerContext);
 
         if (words.length == 1) {
@@ -64,7 +67,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
                 char firstLetter = playerName.charAt(0);
                 initial = String.valueOf(firstLetter);
             }
-        } else if (words.length==2) {
+        } else if (words.length == 2) {
             char firstLetter = words[0].charAt(0);
             char secondLetter = words[1].charAt(0);
             initial = String.valueOf(firstLetter) + String.valueOf(secondLetter);
@@ -78,9 +81,9 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         holder.imgPlayerEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent updatePlayerIntent=new Intent(playerContext,UpdatePlayerActivity.class);
-                updatePlayerIntent.putExtra("Player Name",playerDetails.getPlayerName());
-                updatePlayerIntent.putExtra("Player ID",playerDetails.getPlayerId());
+                Intent updatePlayerIntent = new Intent(playerContext, UpdatePlayerActivity.class);
+                updatePlayerIntent.putExtra("Player Name", playerDetails.getPlayerName());
+                updatePlayerIntent.putExtra("Player ID", playerDetails.getPlayerId());
                 playerContext.startActivity(updatePlayerIntent);
             }
         });
@@ -88,8 +91,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         holder.imgPlayerDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PlayerDeleteDialog playerDeleteDialog=new PlayerDeleteDialog(playerId,dataBaseHandler,playerArrayList,PlayerAdapter.this);
-                playerDeleteDialog.show(fragmentManager,"Delete Player Name");
+                PlayerDeleteDialog playerDeleteDialog = new PlayerDeleteDialog(playerId, dataBaseHandler, playerArrayList, PlayerAdapter.this);
+                playerDeleteDialog.show(fragmentManager, "Delete Player Name");
             }
         });
     }
@@ -107,29 +110,30 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         return playerArrayList.size();
     }
 
-    public static class PlayerViewHolder extends RecyclerView.ViewHolder{
+    public static class PlayerViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvPlayerName,tvImgPlayerName;
-        ImageView imgPlayerDelete,imgPlayerEdit;
+        /* UI Objects */
+        TextView tvPlayerName, tvImgPlayerName;
+        ImageView imgPlayerDelete, imgPlayerEdit;
         FragmentManager fragmentManager;
 
-        public PlayerViewHolder(@NonNull View itemView, FragmentManager fragmentManager,PlayerInterfaceRV playerInterfaceRV) {
+        public PlayerViewHolder(@NonNull View itemView, FragmentManager fragmentManager, PlayerInterfaceRV playerInterfaceRV) {
             super(itemView);
-            this.fragmentManager=fragmentManager;
+            this.fragmentManager = fragmentManager;
 
             /* Setting UI elements with Java */
-            tvImgPlayerName=itemView.findViewById(R.id.title_image);
-            tvPlayerName=itemView.findViewById(R.id.tvPlayerName);
-            imgPlayerDelete=itemView.findViewById(R.id.imgPlayerDelete);
-            imgPlayerEdit=itemView.findViewById(R.id.imgPlayerEdit);
+            tvImgPlayerName = itemView.findViewById(R.id.title_image);
+            tvPlayerName = itemView.findViewById(R.id.tvPlayerName);
+            imgPlayerDelete = itemView.findViewById(R.id.imgPlayerDelete);
+            imgPlayerEdit = itemView.findViewById(R.id.imgPlayerEdit);
 
             /* OnClick of Item in recyclerview */
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(playerInterfaceRV != null){
-                        int position=getAdapterPosition();
-                        if(position !=RecyclerView.NO_POSITION){
+                    if (playerInterfaceRV != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
                             playerInterfaceRV.onItemClick(position);
                         }
                     }

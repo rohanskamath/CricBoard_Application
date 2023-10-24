@@ -37,29 +37,29 @@ public class UpdatePlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_player);
 
-        /*Changing Action bar programmatically*/
+        /* Changing Action bar programmatically */
         getSupportActionBar().setTitle("Update Players");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /* Setting UI Objects with Java */
-        imgViewDP=findViewById(R.id.imgViewUpdatePhoto);
-        floatBtnUpdateDP=findViewById(R.id.floatPlayerDPBtn);
-        btnUpdatePlayer=findViewById(R.id.btnUpdatePlayer);
-        txtPlayerName=findViewById(R.id.txtPlayerName);
+        imgViewDP = findViewById(R.id.imgViewUpdatePhoto);
+        floatBtnUpdateDP = findViewById(R.id.floatPlayerDPBtn);
+        btnUpdatePlayer = findViewById(R.id.btnUpdatePlayer);
+        txtPlayerName = findViewById(R.id.txtPlayerName);
 
         /* Database-handler object created */
-        dataBaseHandler=new DataBaseHandler(this);
+        dataBaseHandler = new DataBaseHandler(this);
 
         /* Getting values from previous Activity */
-        String playerName=getIntent().getStringExtra("Player Name");
-        int playerId=getIntent().getIntExtra("Player ID",-1);
+        String playerName = getIntent().getStringExtra("Player Name");
+        int playerId = getIntent().getIntExtra("Player ID", -1);
         txtPlayerName.setText(playerName);
 
         /* Setting Image path from database and loading into image view */
         PlayerNames player = dataBaseHandler.getPlayerById(playerId);
-        String imagePath="";
-        try{
+        String imagePath = "";
+        try {
             imagePath = player.getPlayerImgPath().substring(7);
             if (!imagePath.isEmpty()) {
                 File imgFile = new File(imagePath);
@@ -68,18 +68,16 @@ public class UpdatePlayerActivity extends AppCompatActivity {
                     imgViewDP.setImageBitmap(bitmap);
                 }
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
-
         floatBtnUpdateDP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ImagePicker.with(UpdatePlayerActivity.this)
-                        .crop()	    			//Crop image(Optional), Check Customization for more option
-                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
-                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                        .crop()                    //Crop image(Optional), Check Customization for more option
+                        .compress(1024)            //Final image size will be less than 1 MB(Optional)
+                        .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
                         .start();
             }
         });
@@ -88,23 +86,21 @@ public class UpdatePlayerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String newPlayerName = txtPlayerName.getText().toString();
-                try{
-                    dataBaseHandler.updatePlayerNameImageById(playerId, newPlayerName,imgViewDP.getTag().toString());
-                }catch (Exception e){
+                try {
+                    dataBaseHandler.updatePlayerNameImageById(playerId, newPlayerName, imgViewDP.getTag().toString());
+                } catch (Exception e) {
                     dataBaseHandler.updatePlayerNameById(playerId, newPlayerName);
                 }
                 Toast.makeText(UpdatePlayerActivity.this, "Player details updated successfully!", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     /* Setting up Image URI */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Uri uri=data.getData();
+        Uri uri = data.getData();
         imgViewDP.setImageURI(uri);
         imgViewDP.setTag(uri.toString());
     }

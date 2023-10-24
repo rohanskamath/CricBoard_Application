@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>{
 
+    /* Fragment, ArrayList, Context Objects */
     final FragmentManager fragmentManager;
     Context historyContext;
     ArrayList<History> historyList;
@@ -68,7 +69,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         holder.tvHostTeamLogo.setText(Hostinitial);
         holder.tvHostTeamLogo.setBackground(hostDrawable);
 
-        //Away Details
+        /* Away Details */
         holder.tvAwayTeamName.setText(historyList.get(position).getVisitorTeamName());
         holder.tvAwayTeamRunsWickets.setText(String.valueOf(historyList.get(position).getVisitorTotalScore())+"/"+String.valueOf(historyList.get(position).getVisitorWickets())+" ("+String.valueOf(historyList.get(position).getVisitorOvers()+")"));
 
@@ -109,7 +110,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         return Color.rgb(red, green, blue);
     }
 
-
     @Override
     public int getItemCount() {
         return historyList.size();
@@ -118,11 +118,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     public static class HistoryViewHolder extends RecyclerView.ViewHolder {
 
         FragmentManager fragmentManager;
-        TextView tvDate,tvTime,tvHostTeamName,tvAwayTeamName,tvHostTeamRunsWickets,
-                tvAwayTeamRunsWickets,tvAwayTeamLogo,tvOverallToss,tvHostTeamLogo;
+        /* UI Objects */
+        TextView tvDate,tvTime,tvHostTeamName,tvAwayTeamName,tvHostTeamRunsWickets,tvAwayTeamRunsWickets,tvAwayTeamLogo,tvOverallToss,tvHostTeamLogo;
         public HistoryViewHolder(@NonNull View itemView,FragmentManager fragmentManager) {
             super(itemView);
             this.fragmentManager=fragmentManager;
+
+            /* Setting UI Objects with Java */
             tvDate = itemView.findViewById(R.id.tvDate);
             tvTime = itemView.findViewById(R.id.tvTime);
             tvHostTeamLogo = itemView.findViewById(R.id.tvHostTeamLogo);

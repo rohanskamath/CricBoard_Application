@@ -17,7 +17,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "CricBoard.db";
     private static final int DATABASE_VERSION = 1;
 
-    //Teams Table instances
+    /* Teams Table */
     private static final String TABLE_NAME_TEAM = "Teams";
     private static final String TEAM_ID = "team_id";
     private static final String TEAM_NAME = "team_name";
@@ -31,7 +31,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
             + TEAM_WON + " INTEGER NOT NULL, "
             + TEAM_LOST + " INTEGER NOT NULL );";
 
-    //Player Table instances
+    /* Player Table */
     private static final String TABLE_NAME_PLAYER = "Player";
     private static final String PLAYER_ID = "player_id";
     private static final String TEAM_ID_PLAYER = "team_id";
@@ -78,7 +78,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
             + ");";
 
 
-    // History Table instances
+    /* History Table */
     private static final String TABLE_NAME_HISTORY = "History";
     private static final String HISTORY_DATE = "date";
     private static final String HISTORY_TIME = "time";
@@ -111,13 +111,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         /* Create Team Table */
         sqLiteDatabase.execSQL(SQL_CREATE_TEAMS_TABLE);
-        Log.d("TABLE CREATION: ","Teams created");
+        Log.d("TABLE CREATION: ", "Teams created");
         /* Create Player Table */
         sqLiteDatabase.execSQL(SQL_CREATE_PLAYERS_TABLE);
-        Log.d("TABLE CREATION: ","Players created");
-
+        Log.d("TABLE CREATION: ", "Players created");
+        /* Create History Table */
         sqLiteDatabase.execSQL(SQL_CREATE_HISTORY_TABLE);
-        Log.d("TABLE CREATION: ","History created");
+        Log.d("TABLE CREATION: ", "History created");
     }
 
     @Override
@@ -281,7 +281,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     }
 
     /* Method to update player name by player id */
-    public void updatePlayerNameImageById(int playerId, String newPlayerName,String newImgPath) {
+    public void updatePlayerNameImageById(int playerId, String newPlayerName, String newImgPath) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(PLAYER_NAME, newPlayerName);
@@ -377,14 +377,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    /* Function to getPlayer by Team Name */
+    /* Function to getPlayer by Team Name using teamID */
     @SuppressLint("Range")
     public ArrayList<String> getPlayerNamesByTeamName(String teamName) {
         ArrayList<String> playerNamesList = new ArrayList<>();
         playerNamesList.add("---- Select Player ----");
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // First, retrieve the team ID based on the team name
         String[] teamColumns = {TEAM_ID};
         String teamWhereClause = TEAM_NAME + " = ?";
         String[] teamSelectionArgs = {teamName};
@@ -393,7 +392,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         if (teamCursor != null && teamCursor.moveToFirst()) {
             int teamId = teamCursor.getInt(teamCursor.getColumnIndex(TEAM_ID));
 
-            // Now, retrieve player names for the specified team ID
             String[] playerColumns = {PLAYER_NAME};
             String playerWhereClause = TEAM_ID_PLAYER + " = ?";
             String[] playerSelectionArgs = {String.valueOf(teamId)};
@@ -408,7 +406,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 playerCursor.close();
             }
         }
-
         db.close();
         return playerNamesList;
     }
@@ -428,7 +425,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
             db.close();
             return playerCount;
         }
-
         return 0;
     }
 
@@ -457,13 +453,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Retrieve all History objects from the database
+    /* Retrieve all History objects from the database */
     @SuppressLint("Range")
     public ArrayList<History> getAllHistory() {
         ArrayList<History> historyList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {
-                 HISTORY_DATE, HISTORY_TIME, HISTORY_HOST_TEAM_NAME,
+                HISTORY_DATE, HISTORY_TIME, HISTORY_HOST_TEAM_NAME,
                 HISTORY_HOST_TOTAL_SCORE, HISTORY_HOST_OVERS, HISTORY_HOST_WICKETS,
                 HISTORY_VISITOR_TEAM_NAME, HISTORY_VISITOR_TOTAL_SCORE,
                 HISTORY_VISITOR_WICKETS, HISTORY_TEAM_WINNING_NAME

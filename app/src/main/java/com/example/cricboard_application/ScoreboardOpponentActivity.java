@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class OponentScoreboardActivity extends AppCompatActivity {
+public class ScoreboardOpponentActivity extends AppCompatActivity {
 
     /* UI Objects */
     Button btnRetire, btnSwapBatsman;
@@ -49,7 +49,7 @@ public class OponentScoreboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scoreboard_oponent);
+        setContentView(R.layout.activity_scoreboard_opponent);
 
         oldBatsmanList = new ArrayList<>();
         oldBowlerList = new ArrayList<>();
@@ -77,7 +77,7 @@ public class OponentScoreboardActivity extends AppCompatActivity {
         tvBowlerName = findViewById(R.id.tvBowlerName);
 
         btnRetire = findViewById(R.id.btnRetire);
-        btnSwapBatsman = findViewById(R.id.btnSwapBatsman);
+        btnSwapBatsman = findViewById(R.id.btnScoreCard);
 
         btnZeroRuns = findViewById(R.id.btnZeroRuns);
         btnOneRuns = findViewById(R.id.btnOneRuns);
@@ -347,7 +347,6 @@ public class OponentScoreboardActivity extends AppCompatActivity {
             }
         });
 
-
         btnSixRuns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -381,15 +380,15 @@ public class OponentScoreboardActivity extends AppCompatActivity {
         btnRetire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent retireIntent = new Intent(OponentScoreboardActivity.this, RetireActivity.class);
+                Intent retireIntent = new Intent(ScoreboardOpponentActivity.this, RetireActivity.class);
                 startActivity(retireIntent);
             }
-        });
+        });//Not required
 
         btnSwapBatsman.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent ScoreSummaryIntent = new Intent(OponentScoreboardActivity.this, ScoreSummaryActivity.class);
+                Intent ScoreSummaryIntent = new Intent(ScoreboardOpponentActivity.this, ScoreSummaryActivity.class);
                 startActivity(ScoreSummaryIntent);
             }
         });
@@ -483,8 +482,6 @@ public class OponentScoreboardActivity extends AppCompatActivity {
                     sharedPreferences.setWinningTeamName(battingTeam);
                 }
             }
-
-
         } else {
             bowler.setOvers(bowler.getOvers() + 1);
         }
@@ -538,7 +535,7 @@ public class OponentScoreboardActivity extends AppCompatActivity {
         if (StrikerList.size() == 1) {
             dialog.dismiss();
             if (!sharedPreferences.getIsTargetActivityDone()) {
-                Intent targetIntent = new Intent(OponentScoreboardActivity.this, TargetActivity.class);
+                Intent targetIntent = new Intent(ScoreboardOpponentActivity.this, TargetActivity.class);
                 if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
                     targetIntent.putExtra("Next Batting Name", sharedPreferences.getVisitorTeamName());
                 } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
@@ -619,8 +616,6 @@ public class OponentScoreboardActivity extends AppCompatActivity {
         } else if (sharedPreferences.getTotalOvers() < 0.6f) {
             sharedPreferences.setTotalOvers(sharedPreferences.getTotalOvers() + overs);
         }
-
-
         sharedPreferences.setCurrentRunRate();
         tvTeamRuns.setText(String.valueOf(sharedPreferences.getTotalTeamRuns()));
 
@@ -638,11 +633,11 @@ public class OponentScoreboardActivity extends AppCompatActivity {
         targetHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent targetIntent = new Intent(OponentScoreboardActivity.this, CongratulationActivity.class);
+                Intent targetIntent = new Intent(ScoreboardOpponentActivity.this, CongratulationActivity.class);
                 targetIntent.putExtra("Winning Team Name", winingTeam);
                 startActivity(targetIntent);
                 finish();
             }
-        }, 2000);
+        }, 3000);
     }
 }

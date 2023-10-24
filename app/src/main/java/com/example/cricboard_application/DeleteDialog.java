@@ -16,8 +16,10 @@ import java.util.ArrayList;
 
 public class DeleteDialog extends AppCompatDialogFragment {
 
-    // Store the team_id to delete
+    /* Store the team_id to delete */
     private int teamId;
+
+    /* Database , ArrayList, TeamAdapter Objects */
     DataBaseHandler dataBaseHandler;
     TeamAdapter teamAdapter;
     ArrayList<Teams> teamsArrayList;
@@ -35,9 +37,8 @@ public class DeleteDialog extends AppCompatDialogFragment {
 
         AlertDialog.Builder deleteTeamBuilder = new AlertDialog.Builder(getContext());
         LayoutInflater deleteTeamInflater = getActivity().getLayoutInflater();
-
-        View teamViewDailog = deleteTeamInflater.inflate(R.layout.delete_layout, null);
-        deleteTeamBuilder.setView(teamViewDailog)
+        View teamViewDialog = deleteTeamInflater.inflate(R.layout.delete_layout, null);
+        deleteTeamBuilder.setView(teamViewDialog)
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

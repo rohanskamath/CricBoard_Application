@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bgScreenColor"
-    android:layout_marginTop="20dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
     android:layout_marginHorizontal="8dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="10dp"
+    android:background="@color/bgScreenColor"
     android:elevation="6dp"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,18 +22,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/oswaldbold"
-            android:textColor="@color/black"
             android:layout_marginTop="10dp"
-            android:textSize="30sp"
-            android:text="Select new batsman" />
+            android:fontFamily="@font/oswaldbold"
+            android:text="Select new batsman"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/oswaldregular"
-            android:textColor="@color/black"
-            android:text="Select new batsman" />
+            android:text="Select new batsman"
+            android:textColor="@color/black" />
 
         <Spinner
             android:id="@+id/spinnerNewStriker"
@@ -46,14 +46,14 @@
             android:id="@+id/btnDone"
             android:layout_width="250dp"
             android:layout_height="70dp"
+            android:layout_gravity="center"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="30dp"
-            android:layout_gravity="center"
             android:backgroundTint="@color/main_color"
-            android:textSize="20sp"
+            android:text="Done"
             android:textColor="@color/white"
-            android:text="Done" />
+            android:textSize="20sp" />
 
     </LinearLayout>
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>

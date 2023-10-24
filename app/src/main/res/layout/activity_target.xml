@@ -10,8 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:gravity="center|top"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,11 +20,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/oswaldsemibold"
             android:layout_marginTop="50dp"
+            android:fontFamily="@font/oswaldsemibold"
             android:text="End of the first innings"
-            android:textSize="40sp"
             android:textColor="@color/black"
+            android:textSize="40sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,34 +34,34 @@
             android:layout_height="400dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/trophyanim"/>
+            app:lottie_rawRes="@raw/firstinnings" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40sp"
             android:layout_marginTop="20dp"
-            android:textColor="@color/black"
             android:fontFamily="@font/oswaldsemibold"
-            android:text="Target"/>
+            android:text="Target"
+            android:textColor="@color/black"
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/tvTeamTarget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:fontFamily="@font/oswaldsemibold"
-            android:textSize="20sp"
-            android:text="Team-1 needs 20 runs in 2 overs"/>
+            android:text="Team-1 needs 20 runs in 2 overs"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvRunrate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:fontFamily="@font/oswaldsemibold"
-            android:textSize="20sp"
-            android:text="Required Run Rate: 14.00"/>
+            android:text="Required Run Rate: 14.00"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
     </LinearLayout>
 

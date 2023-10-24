@@ -19,11 +19,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class PlayerActivity extends AppCompatActivity implements PlayerInterfaceRV{
+public class PlayerActivity extends AppCompatActivity implements PlayerInterfaceRV {
 
+    /* UI Object */
     RecyclerView playerRecyclerView;
     FloatingActionButton addPlayerFloat;
-    PlayerInterfaceRV playerInterfaceRV;
 
     ArrayList<PlayerNames> playerArrayList;
     String playerNames[];
@@ -32,6 +32,8 @@ public class PlayerActivity extends AppCompatActivity implements PlayerInterface
     Intent TeamNameintent;
     String teamName;
     int teamID;
+
+    /* DatabseHandler & PlayerAdapter Objects */
     DataBaseHandler dataBaseHandler;
     PlayerAdapter playerAdapter;
 
@@ -42,9 +44,8 @@ public class PlayerActivity extends AppCompatActivity implements PlayerInterface
 
         /* Getting Team name and Team ID */
         TeamNameintent = getIntent();
-        teamName=TeamNameintent.getStringExtra("Team Name");
-        teamID=TeamNameintent.getIntExtra("Team ID",-1);
-
+        teamName = TeamNameintent.getStringExtra("Team Name");
+        teamID = TeamNameintent.getIntExtra("Team ID", -1);
 
         /* Changing Action bar programmatically */
         getSupportActionBar().setTitle(teamName);
@@ -52,24 +53,24 @@ public class PlayerActivity extends AppCompatActivity implements PlayerInterface
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /* Database Object */
-        dataBaseHandler=new DataBaseHandler(this);
-
-        playerRecyclerView=findViewById(R.id.playerRV);
-        addPlayerFloat=findViewById(R.id.floatPlayerBtn);
+        dataBaseHandler = new DataBaseHandler(this);
+        /* Setting UI with Java */
+        playerRecyclerView = findViewById(R.id.playerRV);
+        addPlayerFloat = findViewById(R.id.floatPlayerBtn);
 
         /* Setting Adapter to Recycler View */
         playerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         playerRecyclerView.setHasFixedSize(true);
-        playerArrayList=dataBaseHandler.getAllPlayersByTeam(teamID);
-        playerAdapter=new PlayerAdapter(this,playerArrayList,getSupportFragmentManager(),this);
+        playerArrayList = dataBaseHandler.getAllPlayersByTeam(teamID);
+        playerAdapter = new PlayerAdapter(this, playerArrayList, getSupportFragmentManager(), this);
         playerRecyclerView.setAdapter(playerAdapter);
         playerAdapter.notifyDataSetChanged();
 
         addPlayerFloat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent addPlayerIntent=new Intent(PlayerActivity.this, AddPlayerActivity.class);
-                addPlayerIntent.putExtra("Team ID",teamID);
+                Intent addPlayerIntent = new Intent(PlayerActivity.this, AddPlayerActivity.class);
+                addPlayerIntent.putExtra("Team ID", teamID);
                 startActivity(addPlayerIntent);
             }
         });
@@ -78,7 +79,7 @@ public class PlayerActivity extends AppCompatActivity implements PlayerInterface
 
     /* To Go back to Previous activity and Refresh / to get updated Data */
     @Override
-    public void onRestart(){
+    public void onRestart() {
         super.onRestart();
         finish();
         startActivity(getIntent());
@@ -94,9 +95,9 @@ public class PlayerActivity extends AppCompatActivity implements PlayerInterface
     /* Onclick of Single recyclerview */
     @Override
     public void onItemClick(int position) {
-        Intent playerStatIntent=new Intent(this, PlayerStatActivity.class);
-        playerStatIntent.putExtra("Player Name",playerArrayList.get(position).getPlayerName());
-        playerStatIntent.putExtra("Player ID",playerArrayList.get(position).getPlayerId());
+        Intent playerStatIntent = new Intent(this, PlayerStatActivity.class);
+        playerStatIntent.putExtra("Player Name", playerArrayList.get(position).getPlayerName());
+        playerStatIntent.putExtra("Player ID", playerArrayList.get(position).getPlayerId());
         startActivity(playerStatIntent);
     }
 }

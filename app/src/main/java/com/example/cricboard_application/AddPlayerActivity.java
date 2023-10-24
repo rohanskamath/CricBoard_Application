@@ -26,6 +26,8 @@ public class AddPlayerActivity extends AppCompatActivity {
     Button btnAddPlayer;
     EditText txtPlayerName;
     int team_id;
+
+    /* DataBaseHandler Object */
     DataBaseHandler dataBaseHandler;
 
     @Override
@@ -39,7 +41,7 @@ public class AddPlayerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         team_id=getIntent().getIntExtra("Team ID",-1);
 
-        /* Database object created */
+        /* Database object initialized */
         dataBaseHandler=new DataBaseHandler(this);
 
         /* Setting UI elements with Java */

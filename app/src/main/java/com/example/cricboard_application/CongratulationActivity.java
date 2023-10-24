@@ -16,29 +16,36 @@ import java.util.ArrayList;
 
 public class CongratulationActivity extends AppCompatActivity {
 
+    /* UI Objects */
     TextView tvWinningTeam;
     ArrayList<History> matchHistory;
+
+    /* DatabaseHandler and shared preference Object */
     CricBoardSharedPreferences sharedPreferences;
     DataBaseHandler dataBaseHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_congratulation);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
 
+        /* Initialize DataBaseHandler and Shared Preference objects */
         dataBaseHandler=new DataBaseHandler(this);
-        tvWinningTeam=findViewById(R.id.tvWinningTeam);
-        tvWinningTeam.setText(tvWinningTeam.getText().toString().replace("Team Name",getIntent().getStringExtra("Winning Team Name")));
-
         sharedPreferences=new CricBoardSharedPreferences(this);
 
+        /* Setting UI object with java */
+        tvWinningTeam=findViewById(R.id.tvWinningTeam);
+
+        tvWinningTeam.setText(tvWinningTeam.getText().toString().replace("Team Name",getIntent().getStringExtra("Winning Team Name")));
+
+        /* Getting system currentDate */
         LocalDate currentDate = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             currentDate = LocalDate.now();
         }
-
-        // Format the date if needed
         DateTimeFormatter formatterDate = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -48,12 +55,11 @@ public class CongratulationActivity extends AppCompatActivity {
             formattedDate = currentDate.format(formatterDate);
         }
 
+        /* Getting system currentTime */
         LocalTime currentTime = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             currentTime = LocalTime.now();
         }
-
-        // Format the time if needed
         DateTimeFormatter formatterTime = null;
         String formattedTime = "";
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -63,26 +69,27 @@ public class CongratulationActivity extends AppCompatActivity {
              formattedTime = currentTime.format(formatterTime);
         }
 
+        /* Getting Overall match details from shared preference */
         String hostTeamName=sharedPreferences.getHostTeamName();
         String visitorTeamName=sharedPreferences.getVisitorTeamName();
         String winningTeamName= sharedPreferences.getWinningTeamName();
-
         int firstTeamScore=sharedPreferences.getTotalFirstTeamRuns();
         int secondTeamScore=sharedPreferences.getTotalTeamRuns();
-
         int firstTeamWickets=sharedPreferences.getTotalFirstTeamWickets();
         int secondTeamWickets=sharedPreferences.getTotalTeamWickets();
-
         float firstTeamOvers=sharedPreferences.getTotalFirstTeamOvers();
         float secondTeamOvers=sharedPreferences.getTotalOvers();
 
+        /* Storing the details in arrayList */
         matchHistory=new ArrayList<>( );
         matchHistory.add(new History(formattedDate ,formattedTime,hostTeamName,firstTeamOvers,firstTeamScore,firstTeamWickets,
                 visitorTeamName,secondTeamOvers,secondTeamScore,secondTeamWickets,winningTeamName));
 
+        /* Storing arraylist into database-handler & Shared Preference */
         dataBaseHandler.addHistory(matchHistory.get(0));
         sharedPreferences.saveObjectList(matchHistory);
 
+        /* Automatically after 3 seconds go to Home Page after Match */
         Handler targetHandler = new Handler();
         targetHandler.postDelayed(new Runnable() {
             @Override
@@ -92,10 +99,5 @@ public class CongratulationActivity extends AppCompatActivity {
                 finish();
             }
         }, 3000);
-    }
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return super.onSupportNavigateUp();
     }
 }

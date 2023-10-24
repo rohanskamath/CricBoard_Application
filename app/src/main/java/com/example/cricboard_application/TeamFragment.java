@@ -90,7 +90,6 @@ public class TeamFragment extends Fragment implements TeamsInterfaceRV {
         /* Creating Database object */
         DataBaseHandler dataBaseHandler = new DataBaseHandler(getContext());
 
-
         /* Retrieving From Database and Storing in arraylist */
         teamsArrayList = getTeamsFromDataSource();
 

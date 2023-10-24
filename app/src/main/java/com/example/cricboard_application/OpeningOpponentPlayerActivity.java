@@ -16,30 +16,36 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class OpeningOponentPlayerActivity extends AppCompatActivity {
+public class OpeningOpponentPlayerActivity extends AppCompatActivity {
 
+    /* UI Objects */
     TextView tvHostLogo, tvAwayLogo;
     Button btnStart;
     Spinner spinnerStriker, spinnerNonStriker, spinnerBowler;
+
     String currentBattingTeam, currentBowlingTeam;
+
+    /* DataBaseHandler, Shared Preference ,ArrayList Objects */
     CricBoardSharedPreferences sharedPreferences;
     DataBaseHandler dataBaseHandler;
     ArrayList<String> hostPlayers;
     ArrayList<String> visitorPlayers;
+
     int targetRuns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_opening_oponent_player);
+        setContentView(R.layout.activity_opening_opponent_player);
 
         getSupportActionBar().setTitle("Select Opening Players");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
 
+        /* Getting next batting team,bowling team and targetRuns from Intent */
         currentBattingTeam = getIntent().getStringExtra("Next Batting Team Name");
         currentBowlingTeam = getIntent().getStringExtra("Next Bowling Team Name");
-        targetRuns=getIntent().getIntExtra("Team Target Run",-1);
+        targetRuns = getIntent().getIntExtra("Team Target Run", -1);
 
         /* Shared preference & DatabaseHandler Object */
         sharedPreferences = new CricBoardSharedPreferences(this);
@@ -128,18 +134,19 @@ public class OpeningOponentPlayerActivity extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(spinnerStriker.getSelectedItem().toString().equalsIgnoreCase(spinnerNonStriker.getSelectedItem().toString())){
-                    Toast.makeText(OpeningOponentPlayerActivity.this, "Players should not be same!", Toast.LENGTH_SHORT).show();
-                } else if(spinnerStriker.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----") || spinnerNonStriker.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----") || spinnerBowler.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----")) {
-                    Toast.makeText(OpeningOponentPlayerActivity.this, "Select players!", Toast.LENGTH_SHORT).show();
+                if (spinnerStriker.getSelectedItem().toString().equalsIgnoreCase(spinnerNonStriker.getSelectedItem().toString())) {
+                    Toast.makeText(OpeningOpponentPlayerActivity.this, "Players should not be same!", Toast.LENGTH_SHORT).show();
+                } else if (spinnerStriker.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----") || spinnerNonStriker.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----") || spinnerBowler.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----")) {
+                    Toast.makeText(OpeningOpponentPlayerActivity.this, "Select players!", Toast.LENGTH_SHORT).show();
                 } else {
                     sharedPreferences.setStrikerName(spinnerStriker.getSelectedItem().toString());
                     sharedPreferences.setNonStrikerName(spinnerNonStriker.getSelectedItem().toString());
                     sharedPreferences.setBowlerName(spinnerBowler.getSelectedItem().toString());
-                    Intent oponentScoreboardIntent = new Intent(OpeningOponentPlayerActivity.this, OponentScoreboardActivity.class);
-                    oponentScoreboardIntent.putExtra("Current Batting Team",currentBattingTeam);
-                    oponentScoreboardIntent.putExtra("Current Bowling Team",currentBowlingTeam);
-                    oponentScoreboardIntent.putExtra("Target Runs",targetRuns);
+
+                    Intent oponentScoreboardIntent = new Intent(OpeningOpponentPlayerActivity.this, ScoreboardOpponentActivity.class);
+                    oponentScoreboardIntent.putExtra("Current Batting Team", currentBattingTeam);
+                    oponentScoreboardIntent.putExtra("Current Bowling Team", currentBowlingTeam);
+                    oponentScoreboardIntent.putExtra("Target Runs", targetRuns);
                     startActivity(oponentScoreboardIntent);
                 }
             }

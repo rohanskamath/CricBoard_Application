@@ -15,6 +15,8 @@ public class NewBowlerActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Choose Bowler");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        /* Not Required as its only one Over Match */
     }
 
     @Override

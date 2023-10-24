@@ -20,19 +20,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CricBoard"
-        android:fontFamily="@font/oswaldbold"
         android:layout_gravity="center"
+        android:fontFamily="@font/oswaldbold"
+        android:text="CricBoard"
         android:textColor="@color/white"
-        android:textSize="40sp"/>
+        android:textSize="40sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Pocket Scorekeeper"
-        android:fontFamily="@font/oswaldmedium"
         android:layout_gravity="center"
+        android:fontFamily="@font/oswaldmedium"
+        android:text="Your Pocket Scorekeeper"
         android:textColor="@color/white"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
 </LinearLayout>

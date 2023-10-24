@@ -33,6 +33,7 @@ public class HistoryFragment extends Fragment{
     private String mParam1;
     private String mParam2;
 
+    /* Context, ArrayList, RecyclerView Objects */
     Context context;
     ArrayList<History> historyArrayList;
     RecyclerView historyRecyclerview;
@@ -83,9 +84,12 @@ public class HistoryFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        /* Setting UI Objects with Java */
         historyRecyclerview=view.findViewById(R.id.historyRecyclerview);
         historyRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         historyRecyclerview.setHasFixedSize(true);
+
         HistoryAdapter historyAdapter=new HistoryAdapter(getContext(),historyArrayList,getFragmentManager());
         historyRecyclerview.setAdapter(historyAdapter);
     }

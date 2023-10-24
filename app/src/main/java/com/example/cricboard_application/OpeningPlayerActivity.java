@@ -18,10 +18,14 @@ import java.util.ArrayList;
 
 public class OpeningPlayerActivity extends AppCompatActivity {
 
+    /* UI Objects */
     TextView tvHostLogo, tvAwayLogo;
     Button btnStart;
     Spinner spinnerStriker, spinnerNonStriker, spinnerBowler;
+
     String hostTeamName, visitorTeamName;
+
+    /* DataBaseHandler, Shared Preference ,ArrayList Objects */
     CricBoardSharedPreferences sharedPreferences;
     DataBaseHandler dataBaseHandler;
     ArrayList<String> hostPlayers;
@@ -35,6 +39,7 @@ public class OpeningPlayerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
 
+        /* Getting next batting team,bowling team from Intent */
         hostTeamName = getIntent().getStringExtra("Team Host");
         visitorTeamName = getIntent().getStringExtra("Team Visitor");
 
@@ -125,14 +130,15 @@ public class OpeningPlayerActivity extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(spinnerStriker.getSelectedItem().toString().equalsIgnoreCase(spinnerNonStriker.getSelectedItem().toString())){
+                if (spinnerStriker.getSelectedItem().toString().equalsIgnoreCase(spinnerNonStriker.getSelectedItem().toString())) {
                     Toast.makeText(OpeningPlayerActivity.this, "Players should not be same!", Toast.LENGTH_SHORT).show();
-                } else if(spinnerStriker.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----") || spinnerNonStriker.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----") || spinnerBowler.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----")) {
+                } else if (spinnerStriker.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----") || spinnerNonStriker.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----") || spinnerBowler.getSelectedItem().toString().equalsIgnoreCase("---- Select Player ----")) {
                     Toast.makeText(OpeningPlayerActivity.this, "Select players!", Toast.LENGTH_SHORT).show();
                 } else {
                     sharedPreferences.setStrikerName(spinnerStriker.getSelectedItem().toString());
                     sharedPreferences.setNonStrikerName(spinnerNonStriker.getSelectedItem().toString());
                     sharedPreferences.setBowlerName(spinnerBowler.getSelectedItem().toString());
+
                     Intent scoreboardIntent = new Intent(OpeningPlayerActivity.this, ScoreboardActivity.class);
                     startActivity(scoreboardIntent);
                 }

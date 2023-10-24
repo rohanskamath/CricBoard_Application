@@ -27,21 +27,22 @@ public class CreateTeamDialog extends AppCompatDialogFragment {
     private ArrayList<Teams> teamsArrayList;
     DataBaseHandler dataBaseHandler;
 
-    public CreateTeamDialog(TeamAdapter teamAdapter, ArrayList<Teams> teamsArrayList,DataBaseHandler dataBaseHandler) {
+    public CreateTeamDialog(TeamAdapter teamAdapter, ArrayList<Teams> teamsArrayList, DataBaseHandler dataBaseHandler) {
         this.teamAdapter = teamAdapter;
         this.teamsArrayList = teamsArrayList;
-        this.dataBaseHandler=dataBaseHandler;
+        this.dataBaseHandler = dataBaseHandler;
     }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        AlertDialog.Builder teamBuilder=new AlertDialog.Builder(getContext());
-        LayoutInflater teamInflater=getActivity().getLayoutInflater();
+        AlertDialog.Builder teamBuilder = new AlertDialog.Builder(getContext());
+        LayoutInflater teamInflater = getActivity().getLayoutInflater();
 
         /* Creating view for working of UI Objects */
-        View teamViewDialog=teamInflater.inflate(R.layout.create_team_layout,null);
-        txtNewName=teamViewDialog.findViewById(R.id.txtNewTeam);
+        View teamViewDialog = teamInflater.inflate(R.layout.create_team_layout, null);
+        txtNewName = teamViewDialog.findViewById(R.id.txtNewTeam);
 
         teamBuilder.setView(teamViewDialog)
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -53,7 +54,7 @@ public class CreateTeamDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if(!TextUtils.isEmpty(txtNewName.getText())){
+                        if (!TextUtils.isEmpty(txtNewName.getText())) {
                             dataBaseHandler.addTeam(txtNewName.getText().toString());
                             if (teamAdapter != null && teamsArrayList != null) {
                                 Teams newTeam = new Teams(txtNewName.getText().toString());
@@ -61,9 +62,7 @@ public class CreateTeamDialog extends AppCompatDialogFragment {
                                 Toast.makeText(getContext(), "New team added successfully!!!", Toast.LENGTH_SHORT).show();
                                 teamAdapter.notifyItemInserted(teamsArrayList.size() - 1);
                             }
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(getActivity(), "Team Name is required!", Toast.LENGTH_SHORT).show();
                         }
                     }

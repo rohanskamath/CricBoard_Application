@@ -16,6 +16,9 @@ public class RetireActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        /* Not Implemented */
+
+
     }
 
     @Override

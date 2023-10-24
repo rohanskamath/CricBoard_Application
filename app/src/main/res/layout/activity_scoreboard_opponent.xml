@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgScreenColor"
-    tools:context=".OponentScoreboardActivity">
+    tools:context=".ScoreboardOpponentActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_marginTop="30dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -234,8 +234,8 @@
                     <TextView
                         android:id="@+id/tvSplayerRuns"
                         android:layout_width="15dp"
-                        android:layout_marginStart="30dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0"
@@ -244,8 +244,8 @@
                     <TextView
                         android:id="@+id/tvSplayerBalls"
                         android:layout_width="15dp"
-                        android:layout_marginStart="25dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0"
@@ -254,8 +254,8 @@
                     <TextView
                         android:id="@+id/tvSplayer4s"
                         android:layout_width="15dp"
-                        android:layout_marginStart="20dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0"
@@ -264,8 +264,8 @@
                     <TextView
                         android:id="@+id/tvSplayer6s"
                         android:layout_width="15dp"
-                        android:layout_marginStart="10dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0"
@@ -274,8 +274,8 @@
                     <TextView
                         android:id="@+id/tvSplayerSR"
                         android:layout_width="15dp"
-                        android:layout_marginStart="10dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0.0"
@@ -303,8 +303,8 @@
                     <TextView
                         android:id="@+id/tvNSplayerRuns"
                         android:layout_width="15dp"
-                        android:layout_marginStart="30dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0"
@@ -313,8 +313,8 @@
                     <TextView
                         android:id="@+id/tvNSplayerBalls"
                         android:layout_width="15dp"
-                        android:layout_marginStart="25dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0"
@@ -323,8 +323,8 @@
                     <TextView
                         android:id="@+id/tvNSplayer4s"
                         android:layout_width="15dp"
-                        android:layout_marginStart="20dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0"
@@ -333,8 +333,8 @@
                     <TextView
                         android:id="@+id/tvNSplayer6s"
                         android:layout_width="15dp"
-                        android:layout_marginStart="10dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0"
@@ -343,8 +343,8 @@
                     <TextView
                         android:id="@+id/tvNSplayerSR"
                         android:layout_width="15dp"
-                        android:layout_marginStart="10dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0.0"
@@ -440,8 +440,8 @@
                     <TextView
                         android:id="@+id/tvOvers"
                         android:layout_width="20dp"
-                        android:layout_marginStart="40dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0.0"
@@ -450,8 +450,8 @@
                     <TextView
                         android:id="@+id/tvMaiden"
                         android:layout_width="15dp"
-                        android:layout_marginStart="20dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0"
@@ -460,8 +460,8 @@
                     <TextView
                         android:id="@+id/tvBowlerRuns"
                         android:layout_width="15dp"
-                        android:layout_marginStart="10dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0"
@@ -520,66 +520,66 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="10dp"
-                    android:visibility="invisible"
                     android:background="@drawable/round_textview_outline"
                     android:gravity="center"
                     android:text="-1"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/tvBallTwo"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:visibility="invisible"
                     android:layout_marginStart="10dp"
                     android:background="@drawable/round_textview_outline"
                     android:gravity="center"
                     android:text="-1"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/tvBallThree"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:visibility="invisible"
                     android:layout_marginStart="10dp"
                     android:background="@drawable/round_textview_outline"
                     android:gravity="center"
                     android:text="-1"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/tvBallFour"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="10dp"
-                    android:visibility="invisible"
                     android:background="@drawable/round_textview_outline"
                     android:gravity="center"
                     android:text="-1"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/tvBallFive"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="10dp"
-                    android:visibility="invisible"
                     android:background="@drawable/round_textview_outline"
                     android:gravity="center"
                     android:text="-1"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/tvBallSix"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="10dp"
-                    android:visibility="invisible"
                     android:background="@drawable/round_textview_outline"
                     android:gravity="center"
                     android:text="-1"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:visibility="invisible" />
 
             </LinearLayout>
 
@@ -615,18 +615,18 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldbold"
                         android:text="Wide"
-                        app:buttonTint="@color/main_color"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:buttonTint="@color/main_color" />
 
                     <CheckBox
                         android:id="@+id/chkBoxNoBall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:buttonTint="@color/main_color"
                         android:fontFamily="@font/oswaldbold"
                         android:text="No Ball"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:buttonTint="@color/main_color" />
 
                     <CheckBox
                         android:id="@+id/chkBoxByes"
@@ -635,8 +635,8 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldbold"
                         android:text="Byes"
-                        app:buttonTint="@color/main_color"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:buttonTint="@color/main_color" />
 
                     <CheckBox
                         android:id="@+id/chkBoxLByes"
@@ -645,8 +645,8 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/oswaldbold"
                         android:text="Leg Byes"
-                        app:buttonTint="@color/main_color"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:buttonTint="@color/main_color" />
 
                 </LinearLayout>
 
@@ -662,23 +662,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:buttonTint="@color/main_color"
                         android:fontFamily="@font/oswaldbold"
                         android:text="Wicket"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:buttonTint="@color/main_color" />
 
                     <Button
                         android:id="@+id/btnRetire"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="1"
                         android:layout_marginStart="20dp"
+                        android:layout_weight="1"
                         android:backgroundTint="@color/main_color"
                         android:text="Retire" />
 
                     <Button
-                        android:id="@+id/btnSwapBatsman"
+                        android:id="@+id/btnScoreCard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -711,93 +711,93 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
                     <TextView
                         android:id="@+id/btnZeroRuns"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="20dp"
-                        android:textSize="15sp"
+                        android:background="@drawable/round_buttons_outline"
                         android:gravity="center"
-                        android:textColor="@color/black"
                         android:text="0"
-                        android:background="@drawable/round_buttons_outline" />
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/btnOneRuns"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="35dp"
-                        android:textSize="15sp"
+                        android:background="@drawable/round_buttons_outline"
                         android:gravity="center"
-                        android:textColor="@color/black"
                         android:text="1"
-                        android:background="@drawable/round_buttons_outline" />
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/btnTwoRuns"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="35dp"
-                        android:textSize="15sp"
+                        android:background="@drawable/round_buttons_outline"
                         android:gravity="center"
-                        android:textColor="@color/black"
                         android:text="2"
-                        android:background="@drawable/round_buttons_outline" />
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/btnThreeRuns"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="35dp"
-                        android:textSize="15sp"
+                        android:background="@drawable/round_buttons_outline"
                         android:gravity="center"
-                        android:textColor="@color/black"
                         android:text="3"
-                        android:background="@drawable/round_buttons_outline" />
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
                     <TextView
                         android:id="@+id/btnFourRuns"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="55dp"
-                        android:textSize="15sp"
+                        android:background="@drawable/round_buttons_outline"
                         android:gravity="center"
-                        android:textColor="@color/black"
                         android:text="4"
-                        android:background="@drawable/round_buttons_outline" />
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/btnFiveRuns"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="35dp"
-                        android:textSize="15sp"
+                        android:background="@drawable/round_buttons_outline"
                         android:gravity="center"
-                        android:textColor="@color/black"
                         android:text="5"
-                        android:background="@drawable/round_buttons_outline" />
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/btnSixRuns"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="35dp"
-                        android:textSize="15sp"
+                        android:background="@drawable/round_buttons_outline"
                         android:gravity="center"
-                        android:textColor="@color/black"
                         android:text="6"
-                        android:background="@drawable/round_buttons_outline" />
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 

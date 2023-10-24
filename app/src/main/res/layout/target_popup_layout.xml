@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
     android:layout_marginHorizontal="8dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="10dp"
     android:elevation="6dp"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,8 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/oswaldbold"
-            android:textColor="@color/black"
             android:text="End of the first innings"
+            android:textColor="@color/black"
             android:textSize="30sp" />
 
         <TextView
@@ -33,10 +32,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/oswaldregular"
             android:layout_weight="1"
+            android:fontFamily="@font/oswaldregular"
             android:text="Team-1 needs 20 runs in 2 overs"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
@@ -44,10 +43,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
-            android:fontFamily="@font/oswaldregular"
-            android:textColor="@color/black"
             android:layout_weight="1"
+            android:fontFamily="@font/oswaldregular"
             android:text="Required Run Rate: 14.00"
+            android:textColor="@color/black"
             android:textSize="25sp" />
 
     </LinearLayout>

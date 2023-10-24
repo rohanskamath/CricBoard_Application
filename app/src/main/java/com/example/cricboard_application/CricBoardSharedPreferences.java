@@ -171,6 +171,7 @@ public class CricBoardSharedPreferences {
             return (0.0f);
         }
     }
+
     public boolean getIsTargetActivityDone() {
         return sharedPreferences.getBoolean(KEY_IS_TARGET_ACTIVITY_DONE, false);
     }
@@ -216,25 +217,24 @@ public class CricBoardSharedPreferences {
         editor.apply();
     }
 
-    // Save the ArrayList of objects to SharedPreferences
-    public  void saveObjectList(ArrayList<History> objectList) {
+    /* Save the ArrayList of objects to SharedPreferences */
+    public void saveObjectList(ArrayList<History> objectList) {
 
-        // Convert the ArrayList to a JSON string
+        /* Convert the ArrayList to a JSON string */
         Gson gson = new Gson();
         String json = gson.toJson(objectList);
-
         editor.putString(KEY_HISTORY_LIST, json);
         editor.apply();
     }
 
-    // Retrieve the ArrayList of objects from SharedPreferences
-    public  ArrayList<History> getObjectList() {
+    /* Retrieve the ArrayList of objects from SharedPreferences */
+    public ArrayList<History> getObjectList() {
 
-        // Retrieve the JSON string from SharedPreferences
+        /* Retrieve the JSON string from SharedPreferences */
         String json = sharedPreferences.getString(KEY_HISTORY_LIST, null);
 
         if (json != null) {
-            // Convert the JSON string back to an ArrayList
+            /* Convert the JSON string back to an ArrayList */
             Gson gson = new Gson();
             History[] objectArray = gson.fromJson(json, History[].class);
 
@@ -243,7 +243,6 @@ public class CricBoardSharedPreferences {
                 return objectList;
             }
         }
-
-        return new ArrayList<>(); // Return an empty list if data doesn't exist
+        return new ArrayList<>();
     }
 }

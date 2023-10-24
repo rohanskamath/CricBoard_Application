@@ -9,24 +9,26 @@ public class Bowler {
     private int balls;
     private int maidens;
 
-    public Bowler(){
-        this.name="";
+    public Bowler() {
+        this.name = "";
         this.wickets = 0;
         this.runs = 0;
         this.overs = 0.0;
         this.balls = 0;
         this.maidens = 0;
     }
-    public Bowler(String name){
-        this.name=name;
+
+    public Bowler(String name) {
+        this.name = name;
         this.wickets = 0;
         this.runs = 0;
         this.overs = 0.0;
         this.balls = 0;
         this.maidens = 0;
     }
-    public Bowler(String name,int wickets, int runs, double overs, int balls, int maidens) {
-        this.name=name;
+
+    public Bowler(String name, int wickets, int runs, double overs, int balls, int maidens) {
+        this.name = name;
         this.wickets = wickets;
         this.runs = runs;
         this.overs = overs;
@@ -100,7 +102,7 @@ public class Bowler {
         if (overs > 0) {
             this.economyRate = runs / overs;
         } else {
-            this.economyRate=0.0;
+            this.economyRate = 0.0;
         }
     }
 

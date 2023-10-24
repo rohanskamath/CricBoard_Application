@@ -10,74 +10,77 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Player to retire"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginStart="30dp"
-            android:textSize="30sp"
-            android:fontFamily="@font/oswaldbold" />
+            android:fontFamily="@font/oswaldbold"
+            android:text="Select Player to retire"
+            android:textSize="30sp" />
 
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
             android:orientation="horizontal">
 
             <RadioButton
+                android:id="@+id/rdPlayer1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                app:buttonTint="@color/main_color"
                 android:fontFamily="@font/oswaldbold"
-                android:text="Player-1"/>
+                android:text="Player-1"
+                android:textSize="20sp"
+                app:buttonTint="@color/main_color" />
 
             <RadioButton
+                android:id="@+id/rdPlayer2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                app:buttonTint="@color/main_color"
                 android:layout_marginStart="120dp"
                 android:fontFamily="@font/oswaldbold"
-                android:text="Player-2"/>
+                android:text="Player-2"
+                android:textSize="20sp"
+                app:buttonTint="@color/main_color" />
         </RadioGroup>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Replaced By"
-            android:fontFamily="@font/oswaldbold"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
-            android:textSize="30sp"
-            android:layout_marginStart="30dp"/>
+            android:fontFamily="@font/oswaldbold"
+            android:text="Replaced By"
+            android:textSize="30sp" />
 
         <EditText
+            android:id="@+id/txtNewPlayer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter new player details"
-            android:fontFamily="@font/oswaldbold"
-            android:textColor="@color/black"
-            android:textSize="20sp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="50dp"
-            android:layout_marginStart="30dp" />
+            android:fontFamily="@font/oswaldbold"
+            android:hint="Enter new player details"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btnStart"
+            android:id="@+id/btnReplace"
             android:layout_width="250dp"
             android:layout_height="70dp"
-            android:layout_marginTop="24dp"
             android:layout_gravity="center"
+            android:layout_marginTop="24dp"
             android:backgroundTint="@color/main_color"
-            android:textSize="20sp"
+            android:text="Replace"
             android:textColor="@color/white"
-            android:text="Replace" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 

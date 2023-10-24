@@ -10,34 +10,35 @@ public class Batsman {
     private String name;
 
     public Batsman() {
-        this.name="";
+        this.name = "";
         this.runs = 0;
         this.balls = 0;
         this.noFours = 0;
         this.strikeRate = 0;
         this.noSix = 0;
-        this.isOnStrike=false;
+        this.isOnStrike = false;
     }
 
-    public Batsman(String name,boolean isOnStrike) {
-        this.name=name;
+    public Batsman(String name, boolean isOnStrike) {
+        this.name = name;
         this.runs = 0;
         this.balls = 0;
         this.noFours = 0;
         this.strikeRate = 0;
         this.noSix = 0;
-        this.isOnStrike=isOnStrike;
+        this.isOnStrike = isOnStrike;
     }
 
-    public Batsman(String name,int runs, int balls, int noFours, double strikeRate, int noSix, boolean isOnStrike) {
+    public Batsman(String name, int runs, int balls, int noFours, double strikeRate, int noSix, boolean isOnStrike) {
         this.runs = runs;
         this.balls = balls;
         this.noFours = noFours;
         this.strikeRate = strikeRate;
         this.noSix = noSix;
-        this.isOnStrike=isOnStrike;
-        this.name=name;
+        this.isOnStrike = isOnStrike;
+        this.name = name;
     }
+
     public boolean isOnStrike() {
         return isOnStrike;
     }
@@ -47,8 +48,8 @@ public class Batsman {
     }
 
     public String getName() {
-        if(isOnStrike)
-            return name+"*";
+        if (isOnStrike)
+            return name + "*";
         return name;
     }
 
@@ -96,7 +97,7 @@ public class Batsman {
         if (balls > 0) {
             this.strikeRate = ((double) runs / balls) * 100.0;
         } else {
-            this.strikeRate=0.0;
+            this.strikeRate = 0.0;
         }
     }
 
@@ -104,8 +105,8 @@ public class Batsman {
         this.noSix = noSix;
     }
 
-    public Batsman getObject(){
-        return new Batsman( name, runs,  balls,  noFours,  strikeRate,  noSix,  isOnStrike);
+    public Batsman getObject() {
+        return new Batsman(name, runs, balls, noFours, strikeRate, noSix, isOnStrike);
     }
 
 }

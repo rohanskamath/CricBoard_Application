@@ -16,8 +16,10 @@ import java.util.ArrayList;
 
 public class PlayerDeleteDialog extends AppCompatDialogFragment {
 
-    // Store the PlayerId to delete
+    /* Store the PlayerId to delete */
     private int playerId;
+
+    /* DatabaseHandler , PlayerAdapter, ArrayList Objects */
     DataBaseHandler dataBaseHandler;
     PlayerAdapter playerAdapter;
     ArrayList<PlayerNames> playerArrayList;
@@ -36,8 +38,8 @@ public class PlayerDeleteDialog extends AppCompatDialogFragment {
         AlertDialog.Builder deleteTeamBuilder = new AlertDialog.Builder(getContext());
         LayoutInflater deleteTeamInflater = getActivity().getLayoutInflater();
 
-        View teamViewDailog = deleteTeamInflater.inflate(R.layout.delete_layout, null);
-        deleteTeamBuilder.setView(teamViewDailog)
+        View teamViewDialog = deleteTeamInflater.inflate(R.layout.delete_layout, null);
+        deleteTeamBuilder.setView(teamViewDialog)
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -54,13 +56,12 @@ public class PlayerDeleteDialog extends AppCompatDialogFragment {
                                 playerArrayList.remove(position);
                                 Toast.makeText(getContext(), "Player name removed successfully!!!", Toast.LENGTH_SHORT).show();
                                 playerAdapter.notifyItemRemoved(position);
-                            }else {
+                            } else {
                                 Toast.makeText(getContext(), "Player Name not removed!!!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 });
-
         return deleteTeamBuilder.create();
     }
 

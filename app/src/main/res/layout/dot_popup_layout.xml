@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
     android:layout_marginHorizontal="8dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="10dp"
     android:elevation="6dp"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,9 +23,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/oswaldbold"
-            android:textColor="@color/black"
             android:text="End of First Innings"
-            android:textSize="35dp"/>
+            android:textColor="@color/black"
+            android:textSize="35dp" />
 
         <TextView
             android:id="@+id/tvScoredruns"
@@ -33,20 +33,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/oswaldregular"
-            android:textColor="@color/black"
             android:text="Scored runs"
-            android:textSize="25dp"/>
+            android:textColor="@color/black"
+            android:textSize="25dp" />
 
         <EditText
             android:id="@+id/etScoreruns"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15sp"
             android:ems="10"
             android:fontFamily="@font/oswaldregular"
-            android:textColor="@color/black"
-            android:layout_marginTop="15sp"
+            android:hint="0"
             android:inputType="text"
-            android:hint="0" />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tvPenaltyruns"
@@ -54,20 +54,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/oswaldregular"
-            android:textColor="@color/black"
             android:text="Penalty runs?"
-            android:textSize="25dp"/>
+            android:textColor="@color/black"
+            android:textSize="25dp" />
 
         <EditText
             android:id="@+id/etPenaltyruns"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15sp"
             android:ems="10"
             android:fontFamily="@font/oswaldregular"
-            android:textColor="@color/black"
-            android:layout_marginTop="15sp"
+            android:hint="0"
             android:inputType="text"
-            android:hint="0" />
+            android:textColor="@color/black" />
 
     </LinearLayout>
 

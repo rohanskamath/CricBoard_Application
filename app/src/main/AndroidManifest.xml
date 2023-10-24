@@ -16,7 +16,7 @@
         <activity
             android:name=".TargetActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.CricBoard_Application3"
+            android:theme="@style/Theme.CricBoard_Application2"
             android:exported="false" />
         <activity
             android:name=".ScoreSummaryActivity"
@@ -29,7 +29,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.CricBoard_Application2" />
         <activity
-            android:name=".OponentScoreboardActivity"
+            android:name=".ScoreboardOpponentActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.CricBoard_Application2" />
@@ -44,7 +44,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.CricBoard_Application2" />
         <activity
-            android:name=".OpeningOponentPlayerActivity"
+            android:name=".OpeningOpponentPlayerActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.CricBoard_Application2" />
