@@ -337,7 +337,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                     Batsman tempStriker = nonStriker.getObject();
                     striker = tempStriker;
                     nonStriker = tempNonStriker;
-
                     updateNStriker(nonStriker);
                 }
                 updateStriker(striker);
@@ -380,6 +379,10 @@ public class ScoreboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent retireIntent = new Intent(ScoreboardActivity.this, RetireActivity.class);
+                retireIntent.putExtra("Host Team Name",sharedPreferences.getHostTeamName());
+                retireIntent.putExtra("Visitor Team Name",sharedPreferences.getVisitorTeamName());
+                retireIntent.putExtra("Striker Name",sharedPreferences.getStrikerName());
+                retireIntent.putExtra("Non-Striker Name",sharedPreferences.getNonStrikerName());
                 startActivity(retireIntent);
             }
         });
@@ -447,13 +450,10 @@ public class ScoreboardActivity extends AppCompatActivity {
     new striker as input nd store in shared preference */
     public boolean isWicket() {
         if (chkBoxWicket.isChecked()) {
-
             bowler.setWickets(bowler.getWickets() + 1);
             if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
-                Toast.makeText(ScoreboardActivity.this, "Working1", Toast.LENGTH_SHORT).show();
                 return showCustomAlertDialog(this, sharedPreferences.getHostTeamName());
             } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
-                Toast.makeText(ScoreboardActivity.this, "Working2", Toast.LENGTH_SHORT).show();
                 return showCustomAlertDialog(this, sharedPreferences.getVisitorTeamName());
             }
         }
