@@ -99,7 +99,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         holder.tvAwayTeamLogo.setText(Awayinitial);
         holder.tvAwayTeamLogo.setBackground(awayDrawable);
 
-        holder.tvOverallToss.setText("winning Team: "+historyList.get(position).getTeamWinningName());
+        holder.tvOverallToss.setText("Team won: "+historyList.get(position).getTeamWinningName());
     }
 
     private int generateRandomColor() {
