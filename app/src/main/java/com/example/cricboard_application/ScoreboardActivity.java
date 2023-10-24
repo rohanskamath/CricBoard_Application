@@ -391,6 +391,10 @@ public class ScoreboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent ScoreSummaryIntent = new Intent(ScoreboardActivity.this, ScoreSummaryActivity.class);
+                ScoreSummaryIntent.putExtra("Host Team Name",sharedPreferences.getHostTeamName());
+                ScoreSummaryIntent.putExtra("Visitor Team Name",sharedPreferences.getVisitorTeamName());
+                ScoreSummaryIntent.putExtra("Striker Name",sharedPreferences.getStrikerName());
+                ScoreSummaryIntent.putExtra("Non-Striker Name",sharedPreferences.getNonStrikerName());
                 startActivity(ScoreSummaryIntent);
             }
         });

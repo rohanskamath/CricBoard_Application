@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScorecardSummaryHostAdapter extends RecyclerView.Adapter<ScorecardSummaryHostAdapter.ViewHolder> {
-    private List<HostScorecardItem> scorecardHostItems = new ArrayList<>();
+    private ArrayList<HostScorecardItem> scorecardHostItems = new ArrayList<>();
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvHostPlayerName, tvHostRuns, tvHostBalls, tvHostFours, tvHostSixes, tvHostSR,total;
@@ -40,6 +40,7 @@ public class ScorecardSummaryHostAdapter extends RecyclerView.Adapter<ScorecardS
         holder.tvHostFours.setText(item.getFours());
         holder.tvHostSixes.setText(item.getSixes());
         holder.tvHostSR.setText(item.getStrikeRate());
+
     }
 
     @Override

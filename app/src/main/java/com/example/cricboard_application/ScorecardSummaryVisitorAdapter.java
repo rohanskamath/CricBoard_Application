@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScorecardSummaryVisitorAdapter extends RecyclerView.Adapter<ScorecardSummaryVisitorAdapter.ViewHolder> {
-    private List<HostScorecardItem> scorecardVisitorItems = new ArrayList<>();
+    private List<VisitorScorecardItem> scorecardVisitorItems = new ArrayList<>();
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvVisitorPlayerName, tvVisitorRuns, tvVisitorBalls, tvVisitorFours, tvVisitorSixes, tvVisitorSR,total;
@@ -35,7 +35,7 @@ public class ScorecardSummaryVisitorAdapter extends RecyclerView.Adapter<Scoreca
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        HostScorecardItem item = scorecardVisitorItems.get(position);
+        VisitorScorecardItem item = scorecardVisitorItems.get(position);
         holder.tvVisitorPlayerName.setText(item.getPlayerName());
         holder.tvVisitorRuns.setText(item.getRuns());
         holder.tvVisitorBalls.setText(item.getBalls());
@@ -49,7 +49,7 @@ public class ScorecardSummaryVisitorAdapter extends RecyclerView.Adapter<Scoreca
         return scorecardVisitorItems.size();
     }
 
-    public void addData(HostScorecardItem item) {
+    public void addData(VisitorScorecardItem item) {
         scorecardVisitorItems.add(item);
         notifyDataSetChanged();
     }

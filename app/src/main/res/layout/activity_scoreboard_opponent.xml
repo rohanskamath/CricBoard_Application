@@ -45,16 +45,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:fontFamily="@font/oswaldsemibold"
-                        android:text="Team-1,"
+                        android:text="Team-1"
                         android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/tvIningsName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="2dp"
                         android:fontFamily="@font/oswaldsemibold"
-                        android:text="2nd Innings"
+                        android:text=",2nd Innings"
                         android:textColor="@color/black" />
 
                     <TextView
