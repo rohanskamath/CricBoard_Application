@@ -39,7 +39,7 @@ public class CongratulationActivity extends AppCompatActivity {
         /* Setting UI object with java */
         tvWinningTeam=findViewById(R.id.tvWinningTeam);
 
-        tvWinningTeam.setText(tvWinningTeam.getText().toString().replace("Team Name",getIntent().getStringExtra("Winning Team Name")));
+        tvWinningTeam.setText(tvWinningTeam.getText().toString().replace("Team Name",getIntent().getStringExtra("Winning Team Name"))+" Won the match");
 
         /* Getting system currentDate */
         LocalDate currentDate = null;
@@ -98,6 +98,6 @@ public class CongratulationActivity extends AppCompatActivity {
                 startActivity(homeIntent);
                 finish();
             }
-        }, 3000);
+        }, 5000);
     }
 }

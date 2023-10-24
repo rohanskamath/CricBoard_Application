@@ -638,6 +638,6 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
                 startActivity(targetIntent);
                 finish();
             }
-        }, 3000);
+        }, 1000);
     }
 }

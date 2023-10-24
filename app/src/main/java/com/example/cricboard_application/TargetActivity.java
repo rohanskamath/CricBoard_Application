@@ -46,7 +46,7 @@ public class TargetActivity extends AppCompatActivity {
                 startActivity(targetIntent);
                 finish();
             }
-        }, 1000);
+        }, 3000);
     }
 
     @Override
