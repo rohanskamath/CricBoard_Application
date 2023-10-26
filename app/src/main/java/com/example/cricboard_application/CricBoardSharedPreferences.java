@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +37,9 @@ public class CricBoardSharedPreferences {
     private static final String KEY_TOTAL_FIRST_TEAM_WICKETS = "firstTeamWickets";
 
     private static final String KEY_HISTORY_LIST = "historyList";
+
+    private static final String BATSMAN_KEY = "batsmanList";
+    private static final String BOWLER_KEY = "bowlerList";
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -244,5 +248,45 @@ public class CricBoardSharedPreferences {
             }
         }
         return new ArrayList<>();
+    }
+
+    public void saveBatsmanList(ArrayList<Batsman> batsmanList) {
+        Gson gson = new Gson();
+        String json = gson.toJson(batsmanList);
+        sharedPreferences.edit().putString(BATSMAN_KEY, json).apply();
+    }
+
+    public ArrayList<Batsman> getBatsmanList() {
+        String json = sharedPreferences.getString(BATSMAN_KEY, null);
+        Gson gson = new Gson();
+        if (json != null) {
+            Batsman[] objectArray = gson.fromJson(json, Batsman[].class);
+            if (objectArray != null) {
+                ArrayList<Batsman> objectList = new ArrayList<>(Arrays.asList(objectArray));
+                return objectList;
+            }
+        }
+        return new ArrayList<>();
+
+    }
+
+    public void saveBowlerList(ArrayList<Bowler> bowlerList) {
+        Gson gson = new Gson();
+        String json = gson.toJson(bowlerList);
+        sharedPreferences.edit().putString(BOWLER_KEY, json).apply();
+    }
+
+    public ArrayList<Bowler> getBowlerList() {
+        String json = sharedPreferences.getString(BOWLER_KEY, null);
+        Gson gson = new Gson();
+        if (json != null) {
+            Bowler[] objectArray = gson.fromJson(json, Bowler[].class);
+            if (objectArray != null) {
+                ArrayList<Bowler> objectList = new ArrayList<>(Arrays.asList(objectArray));
+                return objectList;
+            }
+        }
+        return new ArrayList<>();
+
     }
 }

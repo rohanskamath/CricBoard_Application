@@ -29,9 +29,6 @@ public class CongratulationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_congratulation);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
-
         /* Initialize DataBaseHandler and Shared Preference objects */
         dataBaseHandler=new DataBaseHandler(this);
         sharedPreferences=new CricBoardSharedPreferences(this);

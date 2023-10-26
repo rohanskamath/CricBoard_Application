@@ -44,11 +44,15 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
 
         Teams teamDetails = teamsArrayList.get(position);
         holder.tvTeamName.setText(teamDetails.teamName);
-        holder.tvMatches.setText(String.valueOf(teamDetails.matches));
-        holder.tvWins.setText(String.valueOf(teamDetails.won));
-        holder.tvLost.setText(String.valueOf(teamDetails.lost));
 
         DataBaseHandler dataBaseHandler = new DataBaseHandler(teamContext);
+
+        ArrayList<History> histories = dataBaseHandler.getAllHistory();
+        TeamStats teamStats = new History().getTeamStats(histories, teamDetails.teamName);
+
+        holder.tvMatches.setText(String.valueOf(teamStats.getNoOfMatches()));
+        holder.tvWins.setText(String.valueOf(teamStats.getNoOfWins()));
+        holder.tvLost.setText(String.valueOf(teamStats.getNoOfLosses()));
 
         /* Generating logo by taking first letter and second letter from the team name */
         int randomColor = generateRandomColor();

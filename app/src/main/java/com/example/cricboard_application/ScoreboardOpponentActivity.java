@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class ScoreboardOpponentActivity extends AppCompatActivity {
 
     /* UI Objects */
-    Button btnRetire, btnSwapBatsman;
+    Button btnRetire;
     TextView tvTeamRuns, tvTeamWickets, tvTeamOvers, tvTeamCRR;
     TextView tvBattingTeamName, tvPlayerStrike, tvPlayerNonStrike, tvBowlerName;
     TextView btnZeroRuns, btnOneRuns, btnTwoRuns, btnThreeRuns, btnFourRuns, btnFiveRuns, btnSixRuns;
@@ -39,8 +39,8 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
     /* Objects */
     Bowler bowler;
     Batsman striker, nonStriker;
-    ArrayList<Batsman> oldBatsmanList;
-    ArrayList<Bowler> oldBowlerList;
+    ArrayList<Batsman> oldBatsmanList,databaseBatsmanList;
+    ArrayList<Bowler> oldBowlerList,databaseBowlerList;
     ArrayList<String> StrikerList;
     ArrayAdapter newStrikerAdapter;
     String battingTeam, bowlingTeam;
@@ -53,6 +53,8 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
 
         oldBatsmanList = new ArrayList<>();
         oldBowlerList = new ArrayList<>();
+        databaseBatsmanList = new ArrayList<>();
+        databaseBowlerList = new ArrayList<>();
 
         /* SharedPreference & DatabaseHandler Objects */
         sharedPreferences = new CricBoardSharedPreferences(this);
@@ -77,7 +79,6 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
         tvBowlerName = findViewById(R.id.tvBowlerName);
 
         btnRetire = findViewById(R.id.btnRetire);
-        btnSwapBatsman = findViewById(R.id.btnScoreCard);
 
         btnZeroRuns = findViewById(R.id.btnZeroRuns);
         btnOneRuns = findViewById(R.id.btnOneRuns);
@@ -384,14 +385,6 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
                 startActivity(retireIntent);
             }
         });//Not required
-
-        btnSwapBatsman.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent ScoreSummaryIntent = new Intent(ScoreboardOpponentActivity.this, ScoreSummaryActivity.class);
-                startActivity(ScoreSummaryIntent);
-            }
-        });
     }
 
     @Override
@@ -424,6 +417,9 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
                     tvBallSix.setText(run);
                     tvBallSix.setBackground(getResources().getDrawable(R.drawable.round_textview_out_outline));
                 }
+                databaseBowlerList.add(bowler);
+                databaseBatsmanList.add(striker);
+                databaseBatsmanList.add(nonStriker);
             }
         } else {
             if (bowler.getBalls() == 1) {
@@ -440,6 +436,11 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
                 if (tvBallSix.getText().toString().equalsIgnoreCase("-1")) {
                     tvBallSix.setText(run);
                 }
+                databaseBowlerList.add(bowler);
+                databaseBatsmanList.add(striker);
+                databaseBatsmanList.add(nonStriker);
+                sharedPreferences.saveBatsmanList(databaseBatsmanList);
+                sharedPreferences.saveBowlerList(databaseBowlerList);
             }
         }
     }
@@ -448,6 +449,7 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
     new striker as input nd store in shared preference */
     public boolean isWicket() {
         if (chkBoxWicket.isChecked()) {
+            databaseBatsmanList.add(striker);
             bowler.setWickets(bowler.getWickets() + 1);
             if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
                 return showCustomAlertDialog(this, sharedPreferences.getHostTeamName());
@@ -629,6 +631,8 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
     }
 
     public void showWiningTeamActivity(String winingTeam) {
+        dataBaseHandler.updatePlayerRecords(sharedPreferences.getBatsmanList(),sharedPreferences.getBowlerList());
+        disableTextViews();
         Handler targetHandler = new Handler();
         targetHandler.postDelayed(new Runnable() {
             @Override
@@ -639,5 +643,15 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
                 finish();
             }
         }, 1000);
+    }
+
+    public void disableTextViews(){
+        btnZeroRuns.setClickable(false);
+        btnOneRuns.setClickable(false);
+        btnTwoRuns.setClickable(false);
+        btnThreeRuns.setClickable(false);
+        btnFourRuns.setClickable(false);
+        btnFiveRuns.setClickable(false);
+        btnSixRuns.setClickable(false);
     }
 }

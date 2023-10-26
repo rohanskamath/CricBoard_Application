@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class ScoreboardActivity extends AppCompatActivity {
 
     /* UI Objects */
-    Button btnRetire, btnScoreCard;
+    Button btnRetire;
     TextView tvTeamRuns, tvTeamWickets, tvTeamOvers, tvTeamCRR;
     TextView tvBattingTeamName, tvPlayerStrike, tvPlayerNonStrike, tvBowlerName;
     TextView btnZeroRuns, btnOneRuns, btnTwoRuns, btnThreeRuns, btnFourRuns, btnFiveRuns, btnSixRuns;
@@ -39,10 +39,11 @@ public class ScoreboardActivity extends AppCompatActivity {
     /* Objects */
     Bowler bowler;
     Batsman striker, nonStriker;
-    ArrayList<Batsman> oldBatsmanList;
-    ArrayList<Bowler> oldBowlerList;
+    ArrayList<Batsman> oldBatsmanList,databaseBatsmanList;
+    ArrayList<Bowler> oldBowlerList,databaseBowlerList;
     ArrayList<String> StrikerList;
     ArrayAdapter newStrikerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class ScoreboardActivity extends AppCompatActivity {
 
         oldBatsmanList = new ArrayList<>();
         oldBowlerList = new ArrayList<>();
+        databaseBatsmanList = new ArrayList<>();
+        databaseBowlerList = new ArrayList<>();
 
         /* SharedPreference & DatabaseHandler Objects */
         sharedPreferences = new CricBoardSharedPreferences(this);
@@ -73,7 +76,6 @@ public class ScoreboardActivity extends AppCompatActivity {
         tvBowlerName = findViewById(R.id.tvBowlerName);
 
         btnRetire = findViewById(R.id.btnRetire);
-        btnScoreCard = findViewById(R.id.btnScoreCard);
 
         btnZeroRuns = findViewById(R.id.btnZeroRuns);
         btnOneRuns = findViewById(R.id.btnOneRuns);
@@ -372,6 +374,7 @@ public class ScoreboardActivity extends AppCompatActivity {
                 }
                 updateStriker(striker);
                 updateBowler(bowler);
+
             }
         });
 
@@ -384,18 +387,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                 retireIntent.putExtra("Striker Name",sharedPreferences.getStrikerName());
                 retireIntent.putExtra("Non-Striker Name",sharedPreferences.getNonStrikerName());
                 startActivity(retireIntent);
-            }
-        });
-
-        btnScoreCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent ScoreSummaryIntent = new Intent(ScoreboardActivity.this, ScoreSummaryActivity.class);
-                ScoreSummaryIntent.putExtra("Host Team Name",sharedPreferences.getHostTeamName());
-                ScoreSummaryIntent.putExtra("Visitor Team Name",sharedPreferences.getVisitorTeamName());
-                ScoreSummaryIntent.putExtra("Striker Name",sharedPreferences.getStrikerName());
-                ScoreSummaryIntent.putExtra("Non-Striker Name",sharedPreferences.getNonStrikerName());
-                startActivity(ScoreSummaryIntent);
             }
         });
     }
@@ -430,6 +421,9 @@ public class ScoreboardActivity extends AppCompatActivity {
                     tvBallSix.setText(run);
                     tvBallSix.setBackground(getResources().getDrawable(R.drawable.round_textview_out_outline));
                 }
+                databaseBowlerList.add(bowler);
+                databaseBatsmanList.add(striker);
+                databaseBatsmanList.add(nonStriker);
             }
         } else {
             if (bowler.getBalls() == 1) {
@@ -446,6 +440,11 @@ public class ScoreboardActivity extends AppCompatActivity {
                 if (tvBallSix.getText().toString().equalsIgnoreCase("-1")) {
                     tvBallSix.setText(run);
                 }
+                databaseBowlerList.add(bowler);
+                databaseBatsmanList.add(striker);
+                databaseBatsmanList.add(nonStriker);
+                sharedPreferences.saveBatsmanList(databaseBatsmanList);
+                sharedPreferences.saveBowlerList(databaseBowlerList);
             }
         }
     }
@@ -454,6 +453,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     new striker as input nd store in shared preference */
     public boolean isWicket() {
         if (chkBoxWicket.isChecked()) {
+            databaseBatsmanList.add(striker);
             bowler.setWickets(bowler.getWickets() + 1);
             if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
                 return showCustomAlertDialog(this, sharedPreferences.getHostTeamName());
@@ -629,6 +629,9 @@ public class ScoreboardActivity extends AppCompatActivity {
         sharedPreferences.setTotalFirstTeamOvers(sharedPreferences.getTotalOvers());
         sharedPreferences.setTotalFirstTeamWickets(sharedPreferences.getTotalTeamWickets());
 
+        dataBaseHandler.updatePlayerRecords(sharedPreferences.getBatsmanList(),sharedPreferences.getBowlerList());
+
+        disableTextViews();
         Handler targetHandler = new Handler();
         targetHandler.postDelayed(new Runnable() {
             @Override
@@ -650,5 +653,15 @@ public class ScoreboardActivity extends AppCompatActivity {
                 finish();
             }
         }, 1000);
+    }
+
+    public void disableTextViews(){
+        btnZeroRuns.setClickable(false);
+        btnOneRuns.setClickable(false);
+        btnTwoRuns.setClickable(false);
+        btnThreeRuns.setClickable(false);
+        btnFourRuns.setClickable(false);
+        btnFiveRuns.setClickable(false);
+        btnSixRuns.setClickable(false);
     }
 }

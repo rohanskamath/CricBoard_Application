@@ -677,16 +677,6 @@
                         android:backgroundTint="@color/main_color"
                         android:text="Retire" />
 
-                    <Button
-                        android:id="@+id/btnScoreCard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/main_color"
-                        android:text="ScoreCard" />
-
                 </LinearLayout>
 
             </LinearLayout>

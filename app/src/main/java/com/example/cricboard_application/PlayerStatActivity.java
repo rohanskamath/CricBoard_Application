@@ -28,6 +28,8 @@ public class PlayerStatActivity extends AppCompatActivity {
 
     int player_id;
 
+    PlayerNames playersName;
+
     /* DataBaseHandler Object */
     DataBaseHandler dataBaseHandler;
 
@@ -36,32 +38,36 @@ public class PlayerStatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_stat);
 
+        /* DataBaseHandler Object Initialization */
+        dataBaseHandler = new DataBaseHandler(this);
+
+        playersName=dataBaseHandler.getPlayerByName(getIntent().getStringExtra("Player Name"));
         /* Changing Action bar programmatically */
         getSupportActionBar().setTitle(getIntent().getStringExtra("Player Name"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#072B5A")));
-        replaceFragment(new BattingFragment());
+        replaceFragment(new BattingFragment(playersName));
 
         player_id = getIntent().getIntExtra("Player ID", -1);
+
 
         /* Setting UI with Java */
         tvBatting = findViewById(R.id.tvBatting);
         tvBowling = findViewById(R.id.tvBowling);
         imageViewPP = findViewById(R.id.imageViewPP);
 
-        /* DataBaseHandler Object Initialization */
-        dataBaseHandler = new DataBaseHandler(this);
+
 
         tvBatting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragment(new BattingFragment());
+                replaceFragment(new BattingFragment(playersName));
             }
         });
         tvBowling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragment(new BowlingFragment());
+                replaceFragment(new BowlingFragment(playersName));
             }
         });
 

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,8 +25,16 @@ public class BowlingFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    PlayerNames playerNames;
+
+    TextView tvPMatches, tvPInings, tvPOvers, tvPMaidens, tvPWickets, tvPRuns, tvERate, tvPWides, tvPNoBalls, tvPDots, tvPFourWickets, tvPFiveWicket;
+
+
     public BowlingFragment() {
         // Required empty public constructor
+    }
+    public BowlingFragment(PlayerNames playerNames) {
+        this.playerNames=playerNames;
     }
 
     /**
@@ -59,6 +68,35 @@ public class BowlingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bowling, container, false);
+        View bowlingView=inflater.inflate(R.layout.fragment_bowling, container, false);
+        tvPMatches = bowlingView.findViewById(R.id.tvPMatches);
+        tvPInings = bowlingView.findViewById(R.id.tvPInings);
+        tvPOvers = bowlingView.findViewById(R.id.tvPOvers);
+        tvPMaidens = bowlingView.findViewById(R.id.tvPMaidens);
+        tvPWickets = bowlingView.findViewById(R.id.tvPWickets);
+        tvPRuns = bowlingView.findViewById(R.id.tvPRuns);
+        tvERate = bowlingView.findViewById(R.id.tvERate);
+        tvPWides = bowlingView.findViewById(R.id.tvPWides);
+        tvPNoBalls = bowlingView.findViewById(R.id.tvPNoBalls);
+        tvPDots = bowlingView.findViewById(R.id.tvPDots);
+        tvPFourWickets = bowlingView.findViewById(R.id.tvPFourWickets);
+        tvPFiveWicket = bowlingView.findViewById(R.id.tvPFiveWicket);
+
+        tvPMatches.setText(String.valueOf(playerNames.getPlayerMatches()));
+        tvPInings.setText(String.valueOf(playerNames.getPlayerMatches()));
+        tvPOvers.setText(String.valueOf(playerNames.getPlayerOvers()).substring(0,3));
+        tvPMaidens.setText("0");
+        tvPWickets.setText(String.valueOf(playerNames.getPlayerWickets()));
+        tvPRuns.setText(String.valueOf(playerNames.getPlayerRuns()));
+        tvERate.setText(String.valueOf(playerNames.getPlayerRuns()/23));
+        tvPWides.setText(String.valueOf(0));
+        tvPNoBalls.setText(String.valueOf(6));
+        tvPDots.setText(String.valueOf(0));
+        tvPFourWickets.setText(String.valueOf(0));
+        tvPFiveWicket.setText(String.valueOf(playerNames.getPlayerFiveWickets()));
+
+
+
+        return bowlingView;
     }
 }

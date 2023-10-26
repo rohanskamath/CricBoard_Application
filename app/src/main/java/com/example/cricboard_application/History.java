@@ -2,6 +2,8 @@ package com.example.cricboard_application;
 
 import android.content.ContentValues;
 
+import java.util.ArrayList;
+
 public class History {
     private String date;
     private String time;
@@ -146,6 +148,25 @@ public class History {
         values.put(KEY_VISITOR_WICKETS, this.visitorWickets);
         values.put(KEY_TEAM_WINNING_NAME, this.teamWinningName);
         return values;
+    }
+
+    public TeamStats getTeamStats(ArrayList<History> historyList, String teamName) {
+        int noOfMatches = 0;
+        int noOfWins = 0;
+        int noOfLosses = 0;
+
+        for (History history : historyList) {
+            if (history.getHostTeamName().equals(teamName) || history.getVisitorTeamName().equals(teamName)) {
+                noOfMatches++;
+                if (history.getTeamWinningName().equals(teamName)) {
+                    noOfWins++;
+                } else {
+                    noOfLosses++;
+                }
+            }
+        }
+
+        return new TeamStats(noOfMatches, noOfWins, noOfLosses);
     }
 }
 

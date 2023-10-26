@@ -488,4 +488,137 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.close();
         return historyList;
     }
+
+    public void updatePlayerRecords(ArrayList<Batsman> batsmanList, ArrayList<Bowler> bowlerList) {
+
+        Log.d("ufff", "working");
+
+        ContentValues values = new ContentValues();
+
+        for (Batsman batsman : batsmanList) {
+            PlayerNames oldStat;
+            String n;
+            if (batsman.getName().contains("*")) {
+                n = batsman.getName().substring(0, batsman.getName().length() - 1);
+            } else {
+                n = batsman.getName();
+            }
+
+            oldStat = this.getPlayerByName(n);
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            Log.d("ufff batsman", batsman.getName());
+            // Update Batsman data in the Player table
+            values.clear();
+            values.put(PLAYER_RUNS, batsman.getRuns() + oldStat.getPlayerRuns());
+            values.put(PLAYER_BEST_SCORE, batsman.getRuns() + oldStat.getPlayerRuns());
+            values.put(PLAYER_SR, batsman.getStrikeRate());
+            values.put(PLAYER_FOURS, batsman.getNoFours() + oldStat.getPlayerFours());
+            values.put(PLAYER_SIXES, batsman.getNoSix() + oldStat.getPlayerSixes());
+            values.put(PLAYER_MATCHES, batsman.getNoSix() + oldStat.getPlayerMatches());
+
+            // Assuming 'player_name' is the unique identifier for the player
+            String whereClause = PLAYER_NAME + " = ?";
+            String[] whereArgs;
+            if (batsman.getName().contains("*")) {
+                whereArgs = new String[]{batsman.getName().substring(0, batsman.getName().length() - 1)};
+            } else {
+                whereArgs = new String[]{batsman.getName()};
+            }
+
+            db.update(TABLE_NAME_PLAYER, values, whereClause, whereArgs);
+            db.close();
+        }
+
+        for (Bowler bowler : bowlerList) {
+            PlayerNames oldStat;
+            String n;
+            if (bowler.getName().contains("*")) {
+                n = bowler.getName().substring(0, bowler.getName().length() - 1);
+            } else {
+                n = bowler.getName();
+            }
+            oldStat = getPlayerByName(n);
+
+            // Update Bowler data in the Player table
+            values.clear();
+            values.put(PLAYER_WICKETS, bowler.getWickets() + oldStat.getPlayerWickets());
+            values.put(PLAYER_OVERS, bowler.getOvers() + oldStat.getPlayerOvers());
+            values.put(PLAYER_RUNS_BOWL, bowler.getRuns() + oldStat.getPlayerRunsBowl());
+
+            // Assuming 'player_name' is the unique identifier for the player
+            String whereClause = PLAYER_NAME + " = ?";
+            String[] whereArgs = {bowler.getName()};
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            db.update(TABLE_NAME_PLAYER, values, whereClause, whereArgs);
+            db.close();
+        }
+
+
+    }
+
+    @SuppressLint("Range")
+    public PlayerNames getPlayerByName(String playerName) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        PlayerNames player = null;
+
+        String[] columns = {
+                PLAYER_ID,
+                TEAM_ID_PLAYER,
+                PLAYER_NAME,
+                PLAYER_IMG_PATH,
+                PLAYER_MATCHES,
+                PLAYER_RUNS,
+                PLAYER_NOTOUTS,
+                PLAYER_BEST_SCORE,
+                PLAYER_SR,
+                PLAYER_AVERAGE,
+                PLAYER_FOURS,
+                PLAYER_SIXES,
+                PLAYER_THIRTIES,
+                PLAYER_FIFTIES,
+                PLAYER_HUNDREDS,
+                PLAYER_OVERS,
+                PLAYER_WICKETS,
+                PLAYER_RUNS_BOWL,
+                PLAYER_FWICKETS,
+                PLAYER_FIFWICKETS
+        };
+
+        String selection = PLAYER_NAME + "=?";
+        String[] selectionArgs = {playerName};
+
+        Cursor cursor = db.query(TABLE_NAME_PLAYER, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            player = new PlayerNames();
+            player.setPlayerId(cursor.getInt(cursor.getColumnIndex(PLAYER_ID)));
+            player.setTeamId(cursor.getInt(cursor.getColumnIndex(TEAM_ID_PLAYER)));
+            player.setPlayerName(cursor.getString(cursor.getColumnIndex(PLAYER_NAME)));
+            player.setPlayerImgPath(cursor.getString(cursor.getColumnIndex(PLAYER_IMG_PATH)));
+            player.setPlayerMatches(cursor.getInt(cursor.getColumnIndex(PLAYER_MATCHES)));
+            player.setPlayerRuns(cursor.getInt(cursor.getColumnIndex(PLAYER_RUNS)));
+            player.setPlayerNotOuts(cursor.getInt(cursor.getColumnIndex(PLAYER_NOTOUTS)));
+            player.setPlayerBestScore(cursor.getInt(cursor.getColumnIndex(PLAYER_BEST_SCORE)));
+            player.setPlayerSR(cursor.getDouble(cursor.getColumnIndex(PLAYER_SR)));
+            player.setPlayerAverage(cursor.getDouble(cursor.getColumnIndex(PLAYER_AVERAGE)));
+            player.setPlayerFours(cursor.getInt(cursor.getColumnIndex(PLAYER_FOURS)));
+            player.setPlayerSixes(cursor.getInt(cursor.getColumnIndex(PLAYER_SIXES)));
+            player.setPlayerThirties(cursor.getInt(cursor.getColumnIndex(PLAYER_THIRTIES)));
+            player.setPlayerFifties(cursor.getInt(cursor.getColumnIndex(PLAYER_FIFTIES)));
+            player.setPlayerHundreds(cursor.getInt(cursor.getColumnIndex(PLAYER_HUNDREDS)));
+            player.setPlayerOvers(cursor.getDouble(cursor.getColumnIndex(PLAYER_OVERS)));
+            player.setPlayerWickets(cursor.getInt(cursor.getColumnIndex(PLAYER_WICKETS)));
+            player.setPlayerRunsBowl(cursor.getInt(cursor.getColumnIndex(PLAYER_RUNS_BOWL)));
+            player.setPlayerFoursWickets(cursor.getInt(cursor.getColumnIndex(PLAYER_FWICKETS)));
+            player.setPlayerFiveWickets(cursor.getInt(cursor.getColumnIndex(PLAYER_FIFWICKETS)));
+        }
+
+        cursor.close();
+        db.close();
+        return player;
+    }
+
 }

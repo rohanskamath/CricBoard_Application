@@ -19,11 +19,6 @@
             android:theme="@style/Theme.CricBoard_Application2"
             android:exported="false" />
         <activity
-            android:name=".ScoreSummaryActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.CricBoard_Application2" />
-        <activity
             android:name=".PlayerStatActivity"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -62,7 +57,7 @@
             android:name=".CongratulationActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.CricBoard_Application2" />
+            android:theme="@style/Theme.CricBoard_Application" />
         <activity
             android:name=".UpdatePlayerActivity"
             android:exported="false"
