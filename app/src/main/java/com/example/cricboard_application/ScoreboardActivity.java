@@ -544,7 +544,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                 sharedPreferences.setIsTargetActivityDone(true);
                 startActivity(targetIntent);
             }
-
         }
         Button btnDone;
         btnDone = wicketView.findViewById(R.id.btnDone);
