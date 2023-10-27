@@ -80,9 +80,10 @@ public class BattingFragment extends Fragment {
         tvPFifties = battingView.findViewById(R.id.tvPFifties);
         tvPHundreds = battingView.findViewById(R.id.tvPHundreds);
 
+        CricBoardSharedPreferences sharedPreferences=new CricBoardSharedPreferences(getContext());
 
-        tvPMatches.setText(String.valueOf(playerNames.getPlayerMatches()+1));
-        tvPInings.setText(String.valueOf(playerNames.getPlayerMatches()*2));
+        tvPMatches.setText(String.valueOf(sharedPreferences.getNoMatches()));
+        tvPInings.setText(String.valueOf(sharedPreferences.getNoMatches()*2));
         tvPRuns.setText(String.valueOf(playerNames.getPlayerRuns()));
         tvPNotOuts.setText(String.valueOf(playerNames.getPlayerNotOuts()));
         tvPBestScore.setText(String.valueOf(playerNames.getPlayerBestScore()));

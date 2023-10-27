@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -23,6 +24,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
     final FragmentManager fragmentManager;
     Context teamContext;
     ArrayList<Teams> teamsArrayList;
+    TeamStats teamStats;
     private final TeamsInterfaceRV teamsInterfaceRV;
 
     public TeamAdapter(Context teamContext, ArrayList<Teams> teamsArrayList, FragmentManager fragmentManager, TeamsInterfaceRV teamsInterfaceRV) {
@@ -48,7 +50,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         DataBaseHandler dataBaseHandler = new DataBaseHandler(teamContext);
 
         ArrayList<History> histories = dataBaseHandler.getAllHistory();
-        TeamStats teamStats = new History().getTeamStats(histories, teamDetails.teamName);
+        teamStats = new History().getTeamStats(histories, teamDetails.teamName);
 
         holder.tvMatches.setText(String.valueOf(teamStats.getNoOfMatches()));
         holder.tvWins.setText(String.valueOf(teamStats.getNoOfWins()));
@@ -117,7 +119,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         return teamsArrayList.size();
     }
 
-    public static class TeamViewHolder extends RecyclerView.ViewHolder {
+    public class TeamViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvTeamName, tvMatches, tvWins, tvLost, txtImageView;
         ImageView imgDelete, imgEdit;
@@ -140,6 +142,8 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    CricBoardSharedPreferences sharedPreferences=new CricBoardSharedPreferences(teamContext);
+                    sharedPreferences.setNoMatches(Integer.valueOf(tvMatches.getText().toString()));
                     if (teamsInterfaceRV != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {

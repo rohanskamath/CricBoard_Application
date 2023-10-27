@@ -41,6 +41,8 @@ public class CricBoardSharedPreferences {
     private static final String BATSMAN_KEY = "batsmanList";
     private static final String BOWLER_KEY = "bowlerList";
 
+    private static final String NO_MATCHES= "noOfMatches";
+
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -136,6 +138,15 @@ public class CricBoardSharedPreferences {
 
     public void setTotalTeamRuns(int totalTeamRuns) {
         editor.putInt(KEY_TOTAL_TEAM_RUNS, totalTeamRuns);
+        editor.apply();
+    }
+
+    public int getNoMatches() {
+        return sharedPreferences.getInt(NO_MATCHES, 0);
+    }
+
+    public void setNoMatches(int noMatches) {
+        editor.putInt(NO_MATCHES, noMatches);
         editor.apply();
     }
 
