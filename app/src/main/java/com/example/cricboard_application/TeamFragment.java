@@ -106,7 +106,7 @@ public class TeamFragment extends Fragment implements TeamsInterfaceRV {
             public void onClick(View view) {
                 //createTeamPopUp();
                 CreateTeamDialog createTeamDialog = new CreateTeamDialog(teamAdapter, teamsArrayList, dataBaseHandler);
-                createTeamDialog.show(getActivity().getSupportFragmentManager(), "Create Team Dailog Box");
+                createTeamDialog.show(getActivity().getSupportFragmentManager(), "Create Team Dialog Box");
             }
         });
     }
