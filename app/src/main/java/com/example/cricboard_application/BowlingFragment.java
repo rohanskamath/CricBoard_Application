@@ -82,8 +82,8 @@ public class BowlingFragment extends Fragment {
         tvPFourWickets = bowlingView.findViewById(R.id.tvPFourWickets);
         tvPFiveWicket = bowlingView.findViewById(R.id.tvPFiveWicket);
 
-        tvPMatches.setText(String.valueOf(playerNames.getPlayerMatches()));
-        tvPInings.setText(String.valueOf(playerNames.getPlayerMatches()));
+        tvPMatches.setText(String.valueOf(playerNames.getPlayerMatches()+1));
+        tvPInings.setText(String.valueOf(playerNames.getPlayerMatches()*2));
         tvPOvers.setText(String.valueOf(playerNames.getPlayerOvers()).substring(0,3));
         tvPMaidens.setText("0");
         tvPWickets.setText(String.valueOf(playerNames.getPlayerWickets()));

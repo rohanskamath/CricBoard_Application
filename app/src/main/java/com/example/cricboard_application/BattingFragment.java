@@ -81,8 +81,8 @@ public class BattingFragment extends Fragment {
         tvPHundreds = battingView.findViewById(R.id.tvPHundreds);
 
 
-        tvPMatches.setText(String.valueOf(playerNames.getPlayerMatches()));
-        tvPInings.setText(String.valueOf(playerNames.getPlayerMatches()));
+        tvPMatches.setText(String.valueOf(playerNames.getPlayerMatches()+1));
+        tvPInings.setText(String.valueOf(playerNames.getPlayerMatches()*2));
         tvPRuns.setText(String.valueOf(playerNames.getPlayerRuns()));
         tvPNotOuts.setText(String.valueOf(playerNames.getPlayerNotOuts()));
         tvPBestScore.setText(String.valueOf(playerNames.getPlayerBestScore()));
