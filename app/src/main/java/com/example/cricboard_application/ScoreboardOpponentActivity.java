@@ -146,6 +146,7 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
                 if (bowler.getOvers() == 0.6) {
                     bowler.setOvers(1.0);
                     sharedPreferences.setTotalOvers(Float.parseFloat(String.format("%.1f", bowler.getOvers())));
+                    showWiningTeamActivity(sharedPreferences.getWinningTeamName());
                 }
                 if (isWicket()) {
                     setOverRuns("W", true);
@@ -631,7 +632,9 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
     }
 
     public void showWiningTeamActivity(String winingTeam) {
+
         dataBaseHandler.updatePlayerRecords(sharedPreferences.getBatsmanList(),sharedPreferences.getBowlerList());
+
         disableTextViews();
         Handler targetHandler = new Handler();
         targetHandler.postDelayed(new Runnable() {
