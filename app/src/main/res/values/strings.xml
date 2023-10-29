@@ -25,7 +25,7 @@
     <string name="bowler_2">Bowler-2</string>
     <string name="addplayer">addPlayer</string>
     <string name="addplayerdp">addPlayerDP</string>
-    <string name="confrim">Confrim</string>
+    <string name="confirm">Confirm</string>
 
     <!-- Sample data -->
     <string name="Team_1">India</string>
