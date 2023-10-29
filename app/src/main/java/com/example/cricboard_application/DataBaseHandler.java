@@ -510,12 +510,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
             Log.d("ufff batsman", batsman.getName());
             // Update Batsman data in the Player table
             values.clear();
-            values.put(PLAYER_RUNS, batsman.getRuns() + oldStat.getPlayerRuns());
-            values.put(PLAYER_BEST_SCORE, batsman.getRuns() + oldStat.getPlayerRuns());
+            values.put(PLAYER_RUNS, batsman.getRuns());
+            values.put(PLAYER_BEST_SCORE, batsman.getRuns());
             values.put(PLAYER_SR, batsman.getStrikeRate());
-            values.put(PLAYER_FOURS, batsman.getNoFours() + oldStat.getPlayerFours());
-            values.put(PLAYER_SIXES, batsman.getNoSix() + oldStat.getPlayerSixes());
-            values.put(PLAYER_MATCHES, batsman.getNoSix() + oldStat.getPlayerMatches());
+            values.put(PLAYER_FOURS, batsman.getNoFours());
+            values.put(PLAYER_SIXES, batsman.getNoSix() );
+            values.put(PLAYER_MATCHES, batsman.getNoSix());
 
             // Assuming 'player_name' is the unique identifier for the player
             String whereClause = PLAYER_NAME + " = ?";
@@ -542,9 +542,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
             // Update Bowler data in the Player table
             values.clear();
-            values.put(PLAYER_WICKETS, bowler.getWickets() + oldStat.getPlayerWickets());
-            values.put(PLAYER_OVERS, bowler.getOvers() + oldStat.getPlayerOvers());
-            values.put(PLAYER_RUNS_BOWL, bowler.getRuns() + oldStat.getPlayerRunsBowl());
+            values.put(PLAYER_WICKETS, bowler.getWickets());
+            values.put(PLAYER_OVERS, bowler.getOvers());
+            values.put(PLAYER_RUNS_BOWL, bowler.getRuns());
 
             // Assuming 'player_name' is the unique identifier for the player
             String whereClause = PLAYER_NAME + " = ?";

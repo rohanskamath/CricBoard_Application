@@ -278,7 +278,6 @@ public class CricBoardSharedPreferences {
             }
         }
         return new ArrayList<>();
-
     }
 
     public void saveBowlerList(ArrayList<Bowler> bowlerList) {
