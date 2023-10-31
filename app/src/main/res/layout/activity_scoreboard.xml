@@ -604,64 +604,48 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:orientation="horizontal">
 
-                    <CheckBox
-                        android:id="@+id/chkBoxWide"
+                    <Button
+                        android:id="@+id/btnWide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/main_color"
                         android:layout_weight="1"
-                        android:fontFamily="@font/oswaldbold"
-                        android:text="Wide"
-                        android:textColor="@color/black"
-                        app:buttonTint="@color/main_color" />
+                        android:text="Wide Ball" />
 
-                    <CheckBox
-                        android:id="@+id/chkBoxNoBall"
+                    <Button
+                        android:id="@+id/btnNoBall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="20dp"
+                        android:backgroundTint="@color/main_color"
                         android:layout_weight="1"
-                        android:fontFamily="@font/oswaldbold"
-                        android:text="No Ball"
-                        android:textColor="@color/black"
-                        app:buttonTint="@color/main_color" />
-
-                    <CheckBox
-                        android:id="@+id/chkBoxByes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/oswaldbold"
-                        android:text="Byes"
-                        android:textColor="@color/black"
-                        app:buttonTint="@color/main_color" />
-
-                    <CheckBox
-                        android:id="@+id/chkBoxLByes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/oswaldbold"
-                        android:text="Leg Byes"
-                        android:textColor="@color/black"
-                        app:buttonTint="@color/main_color" />
+                        android:text="No Ball" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:orientation="horizontal">
+
 
                     <CheckBox
                         android:id="@+id/chkBoxWicket"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="30dp"
+                        android:textSize="20sp"
                         android:fontFamily="@font/oswaldbold"
                         android:text="Wicket"
                         android:textColor="@color/black"
@@ -672,7 +656,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="20dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/main_color"
                         android:text="Retire" />
