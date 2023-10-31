@@ -24,7 +24,7 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
 
     /* UI Objects */
     Button btnRetire;
-    TextView tvTeamRuns, tvTeamWickets, tvTeamOvers, tvTeamCRR;
+    TextView tvTeamRuns, tvTeamWickets, tvTeamOvers, tvTeamCRR,tvTarget;
     TextView tvBattingTeamName, tvPlayerStrike, tvPlayerNonStrike, tvBowlerName;
     TextView btnZeroRuns, btnOneRuns, btnTwoRuns, btnThreeRuns, btnFourRuns, btnFiveRuns, btnSixRuns;
     TextView tvBallOne, tvBallTwo, tvBallThree, tvBallFour, tvBallFive, tvBallSix;
@@ -119,6 +119,7 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
         tvTeamWickets = findViewById(R.id.tvTeamWickets);
         tvTeamOvers = findViewById(R.id.tvTeamOvers);
         tvTeamCRR = findViewById(R.id.tvTeamCRR);
+        tvTarget=findViewById(R.id.tvTarget);
 
         /* Creating Objects of current players */
         bowler = new Bowler(sharedPreferences.getBowlerName());
@@ -131,6 +132,8 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
         } else if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
             tvBattingTeamName.setText(sharedPreferences.getHostTeamName());
         }
+
+        tvTarget.setText(String.valueOf(targetRuns)+" ("+String.valueOf(sharedPreferences.getTotalFirstTeamOvers())+")");
 
         /* Setting player in textview */
         tvPlayerStrike.setText(striker.getName());
