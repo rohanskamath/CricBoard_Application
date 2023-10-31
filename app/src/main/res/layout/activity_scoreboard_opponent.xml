@@ -54,13 +54,31 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
                         android:fontFamily="@font/oswaldsemibold"
-                        android:text=",2nd Innings"
+                        android:text=", 2nd Innings"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/tvTargetHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:fontFamily="@font/oswaldsemibold"
+                        android:text="Target:"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/tvTarget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:fontFamily="@font/oswaldsemibold"
+                        android:text="18 (1.0)"
                         android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="190dp"
+                        android:layout_marginStart="80dp"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="CRR"
                         android:textColor="@color/black" />
@@ -127,7 +145,7 @@
                         android:id="@+id/tvTeamCRR"
                         android:layout_width="30dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="200dp"
+                        android:layout_marginStart="210dp"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="0.00"
                         android:textColor="@color/black" />
@@ -604,57 +622,38 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:orientation="horizontal">
 
-                    <CheckBox
-                        android:id="@+id/chkBoxWide"
+                    <Button
+                        android:id="@+id/btnWide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/main_color"
                         android:layout_weight="1"
-                        android:fontFamily="@font/oswaldbold"
-                        android:text="Wide"
-                        android:textColor="@color/black"
-                        app:buttonTint="@color/main_color" />
+                        android:text="Wide Ball" />
 
-                    <CheckBox
-                        android:id="@+id/chkBoxNoBall"
+                    <Button
+                        android:id="@+id/btnNoBall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="20dp"
+                        app:backgroundTint="@color/main_color"
                         android:layout_weight="1"
-                        android:fontFamily="@font/oswaldbold"
-                        android:text="No Ball"
-                        android:textColor="@color/black"
-                        app:buttonTint="@color/main_color" />
-
-                    <CheckBox
-                        android:id="@+id/chkBoxByes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/oswaldbold"
-                        android:text="Byes"
-                        android:textColor="@color/black"
-                        app:buttonTint="@color/main_color" />
-
-                    <CheckBox
-                        android:id="@+id/chkBoxLByes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/oswaldbold"
-                        android:text="Leg Byes"
-                        android:textColor="@color/black"
-                        app:buttonTint="@color/main_color" />
+                        android:text="No Ball" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:orientation="horizontal">
 
                     <CheckBox
@@ -662,6 +661,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="20sp"
+                        android:layout_marginStart="30dp"
                         android:fontFamily="@font/oswaldbold"
                         android:text="Wicket"
                         android:textColor="@color/black"
@@ -672,7 +673,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="20dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/main_color"
                         android:text="Retire" />
