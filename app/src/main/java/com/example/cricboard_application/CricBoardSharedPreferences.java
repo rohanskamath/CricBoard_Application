@@ -297,6 +297,5 @@ public class CricBoardSharedPreferences {
             }
         }
         return new ArrayList<>();
-
     }
 }

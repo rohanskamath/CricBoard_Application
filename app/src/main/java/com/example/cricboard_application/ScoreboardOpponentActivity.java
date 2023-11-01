@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class ScoreboardOpponentActivity extends AppCompatActivity {
 
     /* UI Objects */
-    Button btnRetire;
+    Button btnRetire,btnWide,btnNoBall;
     TextView tvTeamRuns, tvTeamWickets, tvTeamOvers, tvTeamCRR,tvTarget;
     TextView tvBattingTeamName, tvPlayerStrike, tvPlayerNonStrike, tvBowlerName;
     TextView btnZeroRuns, btnOneRuns, btnTwoRuns, btnThreeRuns, btnFourRuns, btnFiveRuns, btnSixRuns;
@@ -79,6 +79,8 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
         tvBowlerName = findViewById(R.id.tvBowlerName);
 
         btnRetire = findViewById(R.id.btnRetire);
+        btnWide=findViewById(R.id.btnWide);
+        btnNoBall=findViewById(R.id.btnNoBall);
 
         btnZeroRuns = findViewById(R.id.btnZeroRuns);
         btnOneRuns = findViewById(R.id.btnOneRuns);
@@ -139,6 +141,22 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
         tvPlayerStrike.setText(striker.getName());
         tvPlayerNonStrike.setText(nonStriker.getName());
         tvBowlerName.setText(bowler.getName());
+
+        btnWide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bowler.setRuns(bowler.getRuns()+1);
+                updateBowler(bowler);
+                updateTeamStat(1,0,0.0f);
+            }
+        });
+
+        btnNoBall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         btnZeroRuns.setOnClickListener(new View.OnClickListener() {
             @Override

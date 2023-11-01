@@ -6,8 +6,9 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="8dp"
     android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
     android:layout_marginTop="20dp"
+    android:layout_marginEnd="10dp"
+    android:background="@color/bgScreenColor"
     android:elevation="6dp"
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
@@ -23,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/oswaldbold"
-            android:text="Create Team"
+            android:text="Select no ball runs"
             android:textColor="@color/black"
             android:textSize="30sp" />
 
@@ -31,19 +32,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/oswaldregular"
-            android:text="To create your own teams!"
-            android:textColor="@color/grey" />
-
-        <EditText
-            android:id="@+id/txtNewTeam"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/oswaldregular"
-            android:hint="Enter your Team Name"
-            android:inputType="text"
+            android:text="Update team runs on no balls"
             android:textColor="@color/black" />
+
+        <Spinner
+            android:id="@+id/spinnerNoBall"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/spinner_style" />
+
+        <Button
+            android:id="@+id/btnDone"
+            android:layout_width="250dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/main_color"
+            android:text="Done"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
