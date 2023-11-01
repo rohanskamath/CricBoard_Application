@@ -179,7 +179,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                 btnDone.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //TODO:DO DHIT
                         if(spinnerNoBall.getSelectedItem().toString().equalsIgnoreCase("---- Select Runs ----")){
                             Toast.makeText(ScoreboardActivity.this, "Select Runs!", Toast.LENGTH_SHORT).show();
                         }else{

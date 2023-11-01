@@ -155,6 +155,47 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                /* Create AlertDialog Builder*/
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScoreboardOpponentActivity.this);
+
+                /* Inflate custom layout for the dialog */
+                LayoutInflater inflater = LayoutInflater.from(ScoreboardOpponentActivity.this);
+                View noBallView = inflater.inflate(R.layout.no_ball_layout, null);
+                alertDialogBuilder.setView(noBallView);
+                alertDialogBuilder.setCancelable(false);
+
+                /* To Show the Dialog Box */
+                final AlertDialog dialog = alertDialogBuilder.create();
+                dialog.show();
+                Button btnDone=noBallView.findViewById(R.id.btnDone);
+                Spinner spinnerNoBall=noBallView.findViewById(R.id.spinnerNoBall);
+
+                ArrayList<String> noBallArrayList=new ArrayList<>();
+                noBallArrayList.add("---- Select Runs ----");
+                noBallArrayList.add("0");
+                noBallArrayList.add("1");
+                noBallArrayList.add("2");
+                noBallArrayList.add("3");
+                noBallArrayList.add("4");
+                noBallArrayList.add("5");
+                noBallArrayList.add("6");
+                ArrayAdapter<String> noBallAdapter=new ArrayAdapter<>(ScoreboardOpponentActivity.this,R.layout.spinner_item_layout,noBallArrayList);
+                spinnerNoBall.setAdapter(noBallAdapter);
+
+                btnDone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(spinnerNoBall.getSelectedItem().toString().equalsIgnoreCase("---- Select Runs ----")){
+                            Toast.makeText(ScoreboardOpponentActivity.this, "Select Runs!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            int runs=Integer.parseInt(spinnerNoBall.getSelectedItem().toString())+1;
+                            bowler.setRuns(bowler.getRuns()+runs);
+                            updateBowler(bowler);
+                            updateTeamStat(runs,0,0.0f);
+                            dialog.dismiss();
+                        }
+                    }
+                });
             }
         });
 
