@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class ScoreboardActivity extends AppCompatActivity {
 
     /* UI Objects */
-    Button btnRetire;
+    Button btnRetire,btnWide,btnNoBall;
     TextView tvTeamRuns, tvTeamWickets, tvTeamOvers, tvTeamCRR;
     TextView tvBattingTeamName, tvPlayerStrike, tvPlayerNonStrike, tvBowlerName;
     TextView btnZeroRuns, btnOneRuns, btnTwoRuns, btnThreeRuns, btnFourRuns, btnFiveRuns, btnSixRuns;
@@ -76,6 +76,8 @@ public class ScoreboardActivity extends AppCompatActivity {
         tvBowlerName = findViewById(R.id.tvBowlerName);
 
         btnRetire = findViewById(R.id.btnRetire);
+        btnWide=findViewById(R.id.btnWide);
+        btnNoBall=findViewById(R.id.btnNoBall);
 
         btnZeroRuns = findViewById(R.id.btnZeroRuns);
         btnOneRuns = findViewById(R.id.btnOneRuns);
@@ -133,6 +135,64 @@ public class ScoreboardActivity extends AppCompatActivity {
         tvPlayerStrike.setText(striker.getName());
         tvPlayerNonStrike.setText(nonStriker.getName());
         tvBowlerName.setText(bowler.getName());
+
+        btnWide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bowler.setRuns(bowler.getRuns()+1);
+                updateBowler(bowler);
+                updateTeamStat(1,0,0.0f);
+            }
+        });
+
+        btnNoBall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                /* Create AlertDialog Builder*/
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScoreboardActivity.this);
+
+                /* Inflate custom layout for the dialog */
+                LayoutInflater inflater = LayoutInflater.from(ScoreboardActivity.this);
+                View noBallView = inflater.inflate(R.layout.no_ball_layout, null);
+                alertDialogBuilder.setView(noBallView);
+                alertDialogBuilder.setCancelable(false);
+
+                /* To Show the Dialog Box */
+                final AlertDialog dialog = alertDialogBuilder.create();
+                dialog.show();
+                Button btnDone=noBallView.findViewById(R.id.btnDone);
+                Spinner spinnerNoBall=noBallView.findViewById(R.id.spinnerNoBall);
+
+                ArrayList<String> noBallArrayList=new ArrayList<>();
+                noBallArrayList.add("---- Select Runs ----");
+                noBallArrayList.add("0");
+                noBallArrayList.add("1");
+                noBallArrayList.add("2");
+                noBallArrayList.add("3");
+                noBallArrayList.add("4");
+                noBallArrayList.add("5");
+                noBallArrayList.add("6");
+                ArrayAdapter<String> noBallAdapter=new ArrayAdapter<>(ScoreboardActivity.this,R.layout.spinner_item_layout,noBallArrayList);
+                spinnerNoBall.setAdapter(noBallAdapter);
+
+                btnDone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO:DO DHIT
+                        if(spinnerNoBall.getSelectedItem().toString().equalsIgnoreCase("---- Select Runs ----")){
+                            Toast.makeText(ScoreboardActivity.this, "Select Runs!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            int runs=Integer.parseInt(spinnerNoBall.getSelectedItem().toString())+1;
+                            bowler.setRuns(bowler.getRuns()+runs);
+                            updateBowler(bowler);
+                            updateTeamStat(runs,0,0.0f);
+                            dialog.dismiss();
+                        }
+                    }
+                });
+            }
+        });
 
         btnZeroRuns.setOnClickListener(new View.OnClickListener() {
             @Override
