@@ -43,6 +43,8 @@ public class CricBoardSharedPreferences {
 
     private static final String NO_MATCHES= "noOfMatches";
 
+    private static final String RETIRE_PLAYER= "retirePlayer";
+
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -120,6 +122,15 @@ public class CricBoardSharedPreferences {
 
     public void setBowlerName(String bowlerName) {
         editor.putString(KEY_BOWLER_NAME, bowlerName);
+        editor.apply();
+    }
+
+    public String getRetirePlayerName() {
+        return sharedPreferences.getString(RETIRE_PLAYER, "");
+    }
+
+    public void setRetirePlayerName(String playerName) {
+        editor.putString(RETIRE_PLAYER, playerName);
         editor.apply();
     }
 

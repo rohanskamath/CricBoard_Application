@@ -60,7 +60,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="190dp"
+                        android:layout_marginStart="180dp"
                         android:fontFamily="@font/oswaldsemibold"
                         android:text="CRR"
                         android:textColor="@color/black" />

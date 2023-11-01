@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -444,10 +446,48 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
         btnRetire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent retireIntent = new Intent(ScoreboardOpponentActivity.this, RetireActivity.class);
-                startActivity(retireIntent);
+
+                /* Create AlertDialog Builder*/
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScoreboardOpponentActivity.this);
+
+                /* Inflate custom layout for the dialog */
+                LayoutInflater inflater = LayoutInflater.from(ScoreboardOpponentActivity.this);
+                View retireView = inflater.inflate(R.layout.retire_layout, null);
+                alertDialogBuilder.setView(retireView);
+                alertDialogBuilder.setCancelable(false);
+
+                RadioButton rdPlayer1=retireView.findViewById(R.id.rdPlayer1);
+                RadioButton rdPlayer2=retireView.findViewById(R.id.rdPlayer2);
+                EditText txtNewPlayer=retireView.findViewById(R.id.txtNewPlayer);
+                Button btnDone=retireView.findViewById(R.id.btnDone);
+
+                rdPlayer1.setText(sharedPreferences.getStrikerName());
+                rdPlayer2.setText(sharedPreferences.getNonStrikerName());
+
+                /* To Show the Dialog Box */
+                final AlertDialog dialog = alertDialogBuilder.create();
+                dialog.show();
+
+                btnDone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(!txtNewPlayer.getText().toString().equals("")){
+                            if(rdPlayer1.isChecked()){
+                                tvPlayerStrike.setText(txtNewPlayer.getText().toString());
+                                dialog.dismiss();
+                            }else if(rdPlayer2.isChecked()){
+                                tvPlayerNonStrike.setText(txtNewPlayer.getText().toString());
+                                dialog.dismiss();
+                            } else{
+                                Toast.makeText(ScoreboardOpponentActivity.this, "Select the radio button to replace!", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(ScoreboardOpponentActivity.this, "Enter Player Name!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
-        });//Not required
+        });
     }
 
     @Override
@@ -487,17 +527,35 @@ public class ScoreboardOpponentActivity extends AppCompatActivity {
         } else {
             if (bowler.getBalls() == 1) {
                 tvBallOne.setText(run);
+                if(run.equals("4") || run.equals("6")){
+                    tvBallOne.setBackground(getResources().getDrawable(R.drawable.round_textview_default));
+                }
             } else if (bowler.getBalls() == 2) {
                 tvBallTwo.setText(run);
+                if(run.equals("4") || run.equals("6")){
+                    tvBallTwo.setBackground(getResources().getDrawable(R.drawable.round_textview_default));
+                }
             } else if (bowler.getBalls() == 3) {
                 tvBallThree.setText(run);
+                if(run.equals("4") || run.equals("6")){
+                    tvBallThree.setBackground(getResources().getDrawable(R.drawable.round_textview_default));
+                }
             } else if (bowler.getBalls() == 4) {
                 tvBallFour.setText(run);
+                if(run.equals("4") || run.equals("6")){
+                    tvBallFour.setBackground(getResources().getDrawable(R.drawable.round_textview_default));
+                }
             } else if (bowler.getBalls() == 5) {
                 tvBallFive.setText(run);
+                if(run.equals("4") || run.equals("6")){
+                    tvBallFive.setBackground(getResources().getDrawable(R.drawable.round_textview_default));
+                }
             } else if (bowler.getBalls() == 6) {
                 if (tvBallSix.getText().toString().equalsIgnoreCase("-1")) {
                     tvBallSix.setText(run);
+                    if(run.equals("4") || run.equals("6")){
+                        tvBallSix.setBackground(getResources().getDrawable(R.drawable.round_textview_default));
+                    }
                 }
                 databaseBowlerList.add(bowler);
                 databaseBatsmanList.add(striker);

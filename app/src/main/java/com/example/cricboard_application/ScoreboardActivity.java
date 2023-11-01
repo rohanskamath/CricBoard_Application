@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -187,6 +189,52 @@ public class ScoreboardActivity extends AppCompatActivity {
                             updateBowler(bowler);
                             updateTeamStat(runs,0,0.0f);
                             dialog.dismiss();
+                        }
+                    }
+                });
+            }
+        });
+
+        btnRetire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                /* Create AlertDialog Builder*/
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScoreboardActivity.this);
+
+                /* Inflate custom layout for the dialog */
+                LayoutInflater inflater = LayoutInflater.from(ScoreboardActivity.this);
+                View retireView = inflater.inflate(R.layout.retire_layout, null);
+                alertDialogBuilder.setView(retireView);
+                alertDialogBuilder.setCancelable(false);
+
+                RadioButton rdPlayer1=retireView.findViewById(R.id.rdPlayer1);
+                RadioButton rdPlayer2=retireView.findViewById(R.id.rdPlayer2);
+                EditText txtNewPlayer=retireView.findViewById(R.id.txtNewPlayer);
+                Button btnDone=retireView.findViewById(R.id.btnDone);
+
+                rdPlayer1.setText(sharedPreferences.getStrikerName());
+                rdPlayer2.setText(sharedPreferences.getNonStrikerName());
+
+                /* To Show the Dialog Box */
+                final AlertDialog dialog = alertDialogBuilder.create();
+                dialog.show();
+
+                btnDone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(!txtNewPlayer.getText().toString().equals("")){
+                            if(rdPlayer1.isChecked()){
+                                tvPlayerStrike.setText(txtNewPlayer.getText().toString());
+                                dialog.dismiss();
+                            }else if(rdPlayer2.isChecked()){
+                                tvPlayerNonStrike.setText(txtNewPlayer.getText().toString());
+                                dialog.dismiss();
+                            } else{
+                                Toast.makeText(ScoreboardActivity.this, "Select the radio button to replace!", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(ScoreboardActivity.this, "Enter Player Name!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -437,17 +485,6 @@ public class ScoreboardActivity extends AppCompatActivity {
             }
         });
 
-        btnRetire.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent retireIntent = new Intent(ScoreboardActivity.this, RetireActivity.class);
-                retireIntent.putExtra("Host Team Name",sharedPreferences.getHostTeamName());
-                retireIntent.putExtra("Visitor Team Name",sharedPreferences.getVisitorTeamName());
-                retireIntent.putExtra("Striker Name",sharedPreferences.getStrikerName());
-                retireIntent.putExtra("Non-Striker Name",sharedPreferences.getNonStrikerName());
-                startActivity(retireIntent);
-            }
-        });
     }
 
     @Override
@@ -487,17 +524,35 @@ public class ScoreboardActivity extends AppCompatActivity {
         } else {
             if (bowler.getBalls() == 1) {
                 tvBallOne.setText(run);
+                if(run.equals("4") || run.equals("6")){
+                    tvBallOne.setBackground(getResources().getDrawable(R.drawable.round_textview_default));
+                }
             } else if (bowler.getBalls() == 2) {
                 tvBallTwo.setText(run);
+                if(run.equals("4") || run.equals("6")){
+                    tvBallTwo.setBackground(getResources().getDrawable(R.drawable.round_textview_default));
+                }
             } else if (bowler.getBalls() == 3) {
                 tvBallThree.setText(run);
+                if(run.equals("4") || run.equals("6")){
+                    tvBallThree.setBackground(getResources().getDrawable(R.drawable.round_textview_default));
+                }
             } else if (bowler.getBalls() == 4) {
                 tvBallFour.setText(run);
+                if(run.equals("4") || run.equals("6")){
+                    tvBallFour.setBackground(getResources().getDrawable(R.drawable.round_textview_default));
+                }
             } else if (bowler.getBalls() == 5) {
                 tvBallFive.setText(run);
+                if(run.equals("4") || run.equals("6")){
+                    tvBallFive.setBackground(getResources().getDrawable(R.drawable.round_textview_default));
+                }
             } else if (bowler.getBalls() == 6) {
                 if (tvBallSix.getText().toString().equalsIgnoreCase("-1")) {
                     tvBallSix.setText(run);
+                    if(run.equals("4") || run.equals("6")){
+                        tvBallSix.setBackground(getResources().getDrawable(R.drawable.round_textview_default));
+                    }
                 }
                 databaseBowlerList.add(bowler);
                 databaseBatsmanList.add(striker);
@@ -654,7 +709,6 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     /* Function to update Total Team Runs,Wickets,Overs,CRR */
     public void updateTeamStat(int runs, int wicket, float overs) {
-
         sharedPreferences.setTotalTeamRuns(sharedPreferences.getTotalTeamRuns() + runs);
         int playerCount = 0;
         if ((sharedPreferences.getTossWonBy().equals(sharedPreferences.getHostTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Batting") || (sharedPreferences.getTossWonBy().equals(sharedPreferences.getVisitorTeamName()) && sharedPreferences.getOptedTo().equalsIgnoreCase("Bowling")))) {
@@ -668,8 +722,6 @@ public class ScoreboardActivity extends AppCompatActivity {
 
         if (sharedPreferences.getTotalOvers() == 0.6f) {
             sharedPreferences.setTotalOvers(1.0f);
-            Toast.makeText(this, "Target", Toast.LENGTH_SHORT).show();
-
         } else if (sharedPreferences.getTotalOvers() < 0.6f) {
             sharedPreferences.setTotalOvers(sharedPreferences.getTotalOvers() + overs);
         }
